@@ -1,4 +1,4 @@
-export interface Corporation {
+export interface ICorporation {
   id: number;
   name: string;
   ticker: string;

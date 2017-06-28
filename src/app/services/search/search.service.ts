@@ -5,23 +5,22 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Character } from './character.interface';
-import { ApiService } from './api.service';
-import { Corporation } from './corporation.interface';
-import { Alliance } from './alliance.interface';
+import { ICharacter } from '../character/character.interface';
+import { ApiService } from '../api.service';
+import { ICorporation } from '../corporation/corporation.interface';
+import { IAlliance } from '../alliance/alliance.interface';
 
 @Injectable()
 export class SearchService extends ApiService {
-  private uri = 'search';  // URL to web API
+
+  private uri = 'search';
 
   search(query: string): Observable<{
-    characters: Character[],
-    corporations: Corporation[],
-    alliances: Alliance[]
+    characters: ICharacter[],
+    corporations: ICorporation[],
+    alliances: IAlliance[]
   }> {
     return this.request(this.uri, { params: { query } })
-    .map(this.extractData)
-    .catch(this.handleError);
   }
 
 }

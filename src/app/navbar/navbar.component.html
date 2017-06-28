@@ -1,5 +1,11 @@
-<md-toolbar>
+<md-toolbar color="primary">
   <div class="button-row">
-    <a routerLink="" routerLinkActive="active" md-button>EVE Book</a>
+    <div>
+      <a routerLink="" routerLinkActive="active" md-button>EVE Book</a>
+    </div>
+    <div>
+      <a *ngIf="!authenticated" href="http://localhost:3000/authentication/sso" md-button>Authenticate</a>
+      <a *ngIf="authenticated" routerLink="/welcome" routerLinkActive="active" md-button>Profile</a>
+    </div>
   </div>
 </md-toolbar>

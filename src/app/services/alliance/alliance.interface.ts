@@ -1,4 +1,4 @@
-export interface Alliance {
+export interface IAlliance {
   id: number;
   name: string;
   ticker: string;

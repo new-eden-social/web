@@ -1,24 +1,54 @@
-import { Http, RequestOptionsArgs, Response } from '@angular/http';
+import { Http, RequestOptionsArgs, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { select, NgRedux } from '@angular-redux/store';
+import { IAppState } from '../store/store.interface';
 
 @Injectable()
 export abstract class ApiService {
+
+  @select(['authentication', 'token'])
+  token$: Observable<string>;
+
   private apiUrl = 'http://localhost:3000/';
 
-  constructor(private http: Http) {
+  constructor(protected http: Http,
+              protected ngRedux: NgRedux<IAppState>) {
   }
 
-  protected request(url: string, config?: RequestOptionsArgs): Observable<Response> {
+  protected createAuthorizationHeader(token: string, headers: Headers = new Headers()): Headers {
+    headers.set('Authorization', 'Bearer ' + token);
+    return headers
+  }
+
+  protected request<T>(url: string, config: RequestOptionsArgs = {}): Observable<T> {
     url = this.apiUrl + url;
+
+    // TODO: provide real token
+    if (!config.headers || !config.headers.has('Authorization')) {
+      config.headers = this.createAuthorizationHeader('', config.headers);
+    }
+
     return this.http.request(url, config)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
-  protected extractData(res: Response) {
+  /**
+   * Extract data from response
+   * @param res
+   * @return {any}
+   */
+  private extractData(res: Response) {
     return res.json();
   }
 
-  protected handleError(error: Response | any) {
+  /**
+   * Handle API Error
+   * @param error
+   * @return {any}
+   */
+  private handleError(error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {

@@ -6,7 +6,7 @@ import {
   MdInputModule, MdListModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchService } from '../services/search.service';
+import { SearchService } from '../services/search/search.service';
 import { HttpModule } from '@angular/http';
 
 @NgModule({

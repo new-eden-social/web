@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { CharacterService } from '../services/character.service';
-import { Character } from '../services/character.interface';
+import { CharacterService } from '../services/character/character.service';
+import { ICharacter } from '../services/character/character.interface';
 
 @Component({
   selector: 'app-character',
@@ -10,7 +10,7 @@ import { Character } from '../services/character.interface';
 })
 export class CharacterComponent implements OnInit {
 
-  character: Character;
+  character: ICharacter;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -21,7 +21,7 @@ export class CharacterComponent implements OnInit {
     let id = +this.route.snapshot.params['id'];
 
     this.service.get(id)
-    .subscribe((character: Character) => this.character = character);
+    .subscribe((character: ICharacter) => this.character = character);
   }
 
 }

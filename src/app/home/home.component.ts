@@ -5,10 +5,10 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime'
 
-import { SearchService } from '../services/search.service';
-import { Character } from '../services/character.interface';
-import { Alliance } from '../services/alliance.interface';
-import { Corporation } from '../services/corporation.interface';
+import { SearchService } from '../services/search/search.service';
+import { ICharacter } from '../services/character/character.interface';
+import { IAlliance } from '../services/alliance/alliance.interface';
+import { ICorporation } from '../services/corporation/corporation.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,9 +19,9 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   searchCtrl: FormControl;
-  characters: Character[];
-  alliances: Alliance[];
-  corporations: Corporation[];
+  characters: ICharacter[];
+  alliances: IAlliance[];
+  corporations: ICorporation[];
 
   constructor(private searchService: SearchService,
               private router: Router) {
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  openCharacter(character: Character) {
+  openCharacter(character: ICharacter) {
     this.router.navigate(['/character', character.id])
   }
 
