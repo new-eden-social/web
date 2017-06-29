@@ -18,6 +18,7 @@ import { HomeModule } from './home/home.module';
 import { CharacterModule } from './character/character.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import { SidenavModule } from './sidenav/sidenav.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { WelcomeModule } from './welcome/welcome.module';
     CharacterModule,
     AuthenticationModule,
     WelcomeModule,
+    SidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

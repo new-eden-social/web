@@ -1,4 +1,22 @@
+@import '~@angular/material/theming';
+@import '../variables';
+
 #content {
   margin: 20px 70px 50px 70px;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+md-sidenav-container {
+  background: transparent;
+}
+
+md-sidenav {
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+  min-width: 250px;
+ height: calc(100vh - 64px); // 100% view port height - 64px navbar height
 }

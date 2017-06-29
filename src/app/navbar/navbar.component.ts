@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IAppState } from 'app/store/store.interface';
 import { Router } from '@angular/router';
 import { AuthenticationTypes } from '../services/authentication/authentication.types';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
@@ -12,12 +13,13 @@ import { AuthenticationTypes } from '../services/authentication/authentication.t
 })
 export class NavbarComponent implements OnInit {
 
+  searchCtrl: FormControl;
+
   @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
   authenticated: boolean;
 
   constructor(private ngRedux: NgRedux<IAppState>, private router: Router) {
-    // When authenticated, redirect to welcome
     this.authenticated$
     .subscribe(authenticated => this.authenticated = authenticated)
   }

@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$app-primary: $mat-teal;
+$app-accent: $mat-amber;
+
+// The warn palette is optional (defaults to red).
+$app-warn: $mat-red;
+
+// Create the theme object (a Sass map containing all of the palettes).
+$app-theme: mat-light-theme(
+    mat-palette($app-primary),
+    mat-palette($app-accent, A200, A100, A400),
+    mat-palette($app-warn));
