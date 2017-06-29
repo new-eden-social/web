@@ -17,7 +17,6 @@
 ## Wiki
 Read more on idea, arhitecture, road map on our wiki [here](https://github.com/evebook/web/wiki/Idea).
 
-
 ## Contributing
 Frontend is based on Angular with Redux. 
 
