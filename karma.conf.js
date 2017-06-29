@@ -8,6 +8,7 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma'),
@@ -32,7 +33,7 @@ module.exports = function (config) {
   };
 
   // If inside TRAVIS, use firefox
-  if(process.env.TRAVIS){
+  if (process.env.TRAVIS) {
     configuration.browsers = ['Firefox'];
   }
 
