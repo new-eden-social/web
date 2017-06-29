@@ -6,6 +6,14 @@
     <div>
       <a *ngIf="!authenticated" href="http://localhost:3000/authentication/sso" md-button>Authenticate</a>
       <a *ngIf="authenticated" routerLink="/welcome" routerLinkActive="active" md-button>Profile</a>
+      <button *ngIf="authenticated" md-icon-button [mdMenuTriggerFor]="menu">
+        <md-icon>more_vert</md-icon>
+      </button>
+      <md-menu #menu="mdMenu">
+        <button (click)="logout()" md-menu-item>
+          <span>Logout</span>
+        </button>
+      </md-menu>
     </div>
   </div>
 </md-toolbar>

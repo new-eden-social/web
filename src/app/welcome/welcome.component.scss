@@ -1,0 +1,30 @@
+.align-center {
+  display: flex;
+  flex-direction: column;
+
+  * {
+    align-self: center;
+  }
+}
+
+.thin {
+  font-weight: 300;
+}
+
+.card-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 70%;
+  justify-content: space-around;
+
+  .mat-card {
+    width: 40%;
+    margin-bottom: 10px;
+  }
+}
+
+.character-img {
+  height: 8em;
+  border-radius: 50%;
+}

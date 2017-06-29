@@ -4,6 +4,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from '../store/store.interface';
 import { AuthenticationService } from 'app/services/authentication/authentication.service';
 import { Observable } from 'rxjs';
+import { AuthenticationTypes } from '../services/authentication/authentication.types';
 
 @Component({
   selector: 'app-authentication',
@@ -55,7 +56,7 @@ export class AuthenticationComponent implements OnInit {
       const tokenType = params['token_type'];
 
       this.ngRedux.dispatch({
-        type: AuthenticationService.REDIRECTED, payload: {
+        type: AuthenticationTypes.REDIRECTED, payload: {
           accessToken,
           refreshToken,
           expiresIn,

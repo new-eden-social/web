@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { select } from '@angular-redux/store';
+import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
+import { IAppState } from 'app/store/store.interface';
+import { Router } from '@angular/router';
+import { AuthenticationTypes } from '../services/authentication/authentication.types';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
 
@@ -13,13 +16,18 @@ export class NavbarComponent implements OnInit {
   authenticated$: Observable<boolean>;
   authenticated: boolean;
 
-  constructor() {
+  constructor(private ngRedux: NgRedux<IAppState>, private router: Router) {
     // When authenticated, redirect to welcome
     this.authenticated$
     .subscribe(authenticated => this.authenticated = authenticated)
   }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.ngRedux.dispatch({ type: AuthenticationTypes.UN_AUTHENTICATE });
+    this.router.navigate(['']);
   }
 
 }

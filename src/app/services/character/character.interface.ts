@@ -15,4 +15,10 @@ export interface ICharacter {
   shipsLost: number;
   soloKills: number;
   soloLosses: number;
+  portrait: {
+    px64x64: string;
+    px128x128: string;
+    px256x256: string;
+    px512x512: string;
+  };
 }

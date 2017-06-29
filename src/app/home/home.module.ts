@@ -8,6 +8,7 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchService } from '../services/search/search.service';
 import { HttpModule } from '@angular/http';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { HttpModule } from '@angular/http';
     HttpModule,
     MdListModule,
   ],
-  providers: [SearchService],
+  providers: [SearchService, AuthenticationService],
   declarations: [HomeComponent],
   exports: [HomeComponent],
 })

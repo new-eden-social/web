@@ -1,0 +1,18 @@
+<div class="align-center">
+  <img class="character-img" [src]="character.portrait.px512x512">
+  <h1 class="thin">Welcome back {{character.name}}</h1>
+  <h3 class="thin">Here are some things you missed</h3>
+
+  <div class="card-grid">
+    <md-card *ngFor="let item of missed">
+      <md-card-title>{{item.title}}</md-card-title>
+      <md-card-content>
+        <p>{{item.description}}</p>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button>LIKE</button>
+        <button md-button>SHARE</button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</div>

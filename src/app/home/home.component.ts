@@ -10,6 +10,7 @@ import { ICharacter } from '../services/character/character.interface';
 import { IAlliance } from '../services/alliance/alliance.interface';
 import { ICorporation } from '../services/corporation/corporation.interface';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
   corporations: ICorporation[];
 
   constructor(private searchService: SearchService,
-              private router: Router) {
+              private router: Router,
+              private authenticationService: AuthenticationService) {
     this.searchCtrl = new FormControl();
     this.searchCtrl.valueChanges
     .debounceTime(200)
@@ -52,6 +54,11 @@ export class HomeComponent implements OnInit {
 
   openCharacter(character: ICharacter) {
     this.router.navigate(['/character', character.id])
+  }
+
+
+  testApi() {
+    this.authenticationService.initialCheck('asd')
   }
 
 }

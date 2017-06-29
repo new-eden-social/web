@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar.component';
-import { MdButtonModule, MdIconModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdIconModule, MdMenuModule, MdToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
     MdButtonModule,
     MdIconModule,
     RouterModule,
+    MdMenuModule,
   ],
   declarations: [NavbarComponent],
   exports: [NavbarComponent],
