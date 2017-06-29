@@ -1,5 +1,7 @@
 # Eve Book WEB
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/evebook/web.svg)](https://greenkeeper.io/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
