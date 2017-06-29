@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { AuthenticationTypes } from './authentication.types';
 import { IAuthenticationState } from './authentication.interface';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: IAuthenticationState = {
   authenticated: false,
 };
 

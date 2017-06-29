@@ -31,24 +31,13 @@ export class DebugComponent implements OnInit {
     .debounceTime(200)
     .subscribe(name => {
       if (name.length > 4) {
-        return this.search(name)
+        console.log('Search would happen')
       }
     })
   }
 
   ngOnInit() {
 
-  }
-
-  search(val: string) {
-    return this.searchService.search(val)
-    .subscribe(
-      data => {
-        this.characters = data.characters.slice(0, 10);
-        this.alliances = data.alliances.slice(0, 10);
-        this.corporations = data.corporations.slice(0, 10);
-      },
-    );
   }
 
   openCharacter(character: ICharacter) {

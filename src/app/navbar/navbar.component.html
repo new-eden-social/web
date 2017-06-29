@@ -3,9 +3,7 @@
     <div class="nav-container">
       <button md-icon-button><md-icon>menu</md-icon></button>
       <a routerLink="" routerLinkActive="active" md-button>EVE Book</a>
-      <div class="search">
-        <input placeholder="Search" [formControl]="searchCtrl">
-      </div>
+      <app-navbar-search></app-navbar-search>
     </div>
     <div class="nav-container">
       <a *ngIf="!authenticated" href="http://localhost:3000/authentication/sso" md-button>Authenticate</a>

@@ -22,3 +22,7 @@ export interface ICharacter {
     px512x512: string;
   };
 }
+
+export interface ICharacterState {
+  data?: ICharacter;
+}

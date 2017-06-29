@@ -2,6 +2,8 @@ import { combineReducers } from 'redux';
 import { composeReducers, defaultFormReducer } from '@angular-redux/form';
 import { routerReducer } from '@angular-redux/router';
 import { authenticationReducer } from '../services/authentication/authentication.reducer';
+import { searchReducer } from '../services/search/search.reducer';
+import { characterReducer } from '../services/character/character.reducer';
 
 
 // Define the global store shape by combining our application's
@@ -9,7 +11,8 @@ import { authenticationReducer } from '../services/authentication/authentication
 export const rootReducer = composeReducers(
   defaultFormReducer(),
   combineReducers({
-    // TODO: add reducers from components here
     authentication: authenticationReducer,
     router: routerReducer,
+    search: searchReducer,
+    character: characterReducer,
   }));

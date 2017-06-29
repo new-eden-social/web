@@ -1,9 +1,10 @@
-<div>
-  character works!
-  <h1>{{character.name}}</h1>
-  <p [innerHTML]="character.description"></p>
-  <br/>
-  <br/>
-  <br/>
-  {{character | json}}
+<div class="header">
+  <h1>{{(character$| async).name}}</h1>
 </div>
+<div class="align-center character-img">
+  <img [src]="(character$ | async).portrait.px512x512">
+</div>
+
+<pre>
+  {{character$ | async | json}}
+</pre>

@@ -6,7 +6,7 @@ import {
   MdToolbarModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavbarSearchModule } from './navbar-search/navbar-search.module';
 
 @NgModule({
   imports: [
@@ -16,8 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MdIconModule,
     RouterModule,
     MdMenuModule,
-    FormsModule,
-    ReactiveFormsModule,
+    NavbarSearchModule,
   ],
   declarations: [NavbarComponent],
   exports: [NavbarComponent],

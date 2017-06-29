@@ -27,7 +27,4 @@ export class AuthenticationService extends ApiService {
     )
   }
 
-  refreshAccessToken(refreshToken: string) {
-
-  }
 }

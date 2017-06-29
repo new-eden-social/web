@@ -1,0 +1,29 @@
+@import "../../variables";
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin: -20px -70px -4em -70px;
+  height: 12em;
+  //background-color: map_get($app-accent, A200);
+
+  h1 {
+    align-self: center;
+  }
+}
+
+.character-img {
+  img {
+    height: 8em;
+    border-radius: 50%;
+    align-self: center;
+  }
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  align-content: space-around;
+
+}
