@@ -24,7 +24,7 @@
 Read more on idea, arhitecture, road map on our wiki [here](https://github.com/evebook/web/wiki/Idea).
 
 ## Contributing
-Frontend is based on Angular with Redux. 
+We would love to see you contribute. To learn how to best help project read [CONTRIBUTING](https://github.com/evebook/web/blob/master/CONTRIBUTING.md) and look in the [issues](https://github.com/evebook/web/issues) and [project](https://github.com/orgs/evebook/projects/1) section. If you have any questions you can ask us on [gitter](https://gitter.im/EVE-Book/Lobby).
 
 ### Development server
 
