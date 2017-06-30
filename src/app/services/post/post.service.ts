@@ -3,25 +3,26 @@ import { Injectable }              from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { ICharacterResponse } from './character.interface';
 import { ApiService } from '../api.service';
-import { CharacterTypes } from './character.types';
+import { PostTypes } from './post.types';
+import { IPostResponse } from './post.interface';
 
 @Injectable()
-export class CharacterService extends ApiService {
+export class PostService extends ApiService {
 
-  private uri = 'characters';
+  private uri = 'posts';
 
-  get(id: number) {
-    this.request<ICharacterResponse>(`${this.uri}/${id}`)
+  all() {
+    this.request<IPostResponse[]>(this.uri)
     .subscribe(response => this.ngRedux.dispatch({
-        type: CharacterTypes.LOAD,
+        type: PostTypes.GET_POSTS,
         payload: response,
       }),
       error => this.ngRedux.dispatch({
-        type: CharacterTypes.LOAD,
+        type: PostTypes.GET_POSTS,
         payload: error,
         error: true,
       }))
   }
+
 }

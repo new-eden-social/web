@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICharacter } from '../services/character/character.interface';
+import { ICharacterResponse } from '../services/character/character.interface';
 import { FormControl } from '@angular/forms';
 import { IAlliance } from '../services/alliance/alliance.interface';
 import { ICorporation } from '../services/corporation/corporation.interface';
@@ -19,7 +19,7 @@ import 'rxjs/add/operator/debounceTime'
 export class DebugComponent implements OnInit {
 
   searchCtrl: FormControl;
-  characters: ICharacter[];
+  characters: ICharacterResponse[];
   alliances: IAlliance[];
   corporations: ICorporation[];
 
@@ -40,7 +40,7 @@ export class DebugComponent implements OnInit {
 
   }
 
-  openCharacter(character: ICharacter) {
+  openCharacter(character: ICharacterResponse) {
     this.router.navigate(['/character', character.id])
   }
 

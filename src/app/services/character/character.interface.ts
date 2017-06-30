@@ -1,4 +1,4 @@
-export interface ICharacter {
+export interface ICharacterResponse {
   id: number;
   name: string;
   description: string;
@@ -24,5 +24,5 @@ export interface ICharacter {
 }
 
 export interface ICharacterState {
-  data?: ICharacter;
+  data?: ICharacterResponse;
 }

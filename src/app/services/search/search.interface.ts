@@ -1,9 +1,9 @@
-import { ICharacter } from '../character/character.interface';
+import { ICharacterResponse } from '../character/character.interface';
 import { ICorporation } from '../corporation/corporation.interface';
 import { IAlliance } from '../alliance/alliance.interface';
 
 export interface ISearchResponse {
-  characters: ICharacter[],
+  characters: ICharacterResponse[],
   corporations: ICorporation[],
   alliances: IAlliance[]
 }

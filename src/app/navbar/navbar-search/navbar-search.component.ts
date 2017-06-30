@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { SearchService } from '../../services/search/search.service';
-import { ICharacter } from '../../services/character/character.interface';
+import { ICharacterResponse } from '../../services/character/character.interface';
 import { ICorporation } from '../../services/corporation/corporation.interface';
 import { IAlliance } from '../../services/alliance/alliance.interface';
 
@@ -16,8 +16,8 @@ import { IAlliance } from '../../services/alliance/alliance.interface';
 export class NavbarSearchComponent implements OnInit {
 
   @select(['search', 'data', 'characters'])
-  characters$: Observable<ICharacter[]>;
-  charactersLess: Observable<ICharacter[]>;
+  characters$: Observable<ICharacterResponse[]>;
+  charactersLess: Observable<ICharacterResponse[]>;
   showCharacters: Observable<boolean>;
 
   @select(['search', 'data', 'corporations'])
@@ -65,7 +65,7 @@ export class NavbarSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  openCharacter(character: ICharacter) {
+  openCharacter(character: ICharacterResponse) {
     this.router.navigate(['/character', character.id])
   }
 

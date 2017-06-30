@@ -4,6 +4,7 @@ import { routerReducer } from '@angular-redux/router';
 import { authenticationReducer } from '../services/authentication/authentication.reducer';
 import { searchReducer } from '../services/search/search.reducer';
 import { characterReducer } from '../services/character/character.reducer';
+import { postReducer } from '../services/post/post.reducer';
 
 
 // Define the global store shape by combining our application's
@@ -15,4 +16,5 @@ export const rootReducer = composeReducers(
     router: routerReducer,
     search: searchReducer,
     character: characterReducer,
+    post: postReducer,
   }));

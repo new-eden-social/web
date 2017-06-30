@@ -1,0 +1,16 @@
+<md-card>
+  <md-card-header>
+    <img [src]="post.character.portrait.px256x256" md-card-avatar/>
+    <md-card-title class="on-hover-pointer"
+                      (click)="showCharacter()">
+      {{post.character.name}}
+    </md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <p>{{post.content}}</p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button>LIKE</button>
+    <button md-button>SHARE</button>
+  </md-card-actions>
+</md-card>

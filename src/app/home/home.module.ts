@@ -6,9 +6,9 @@ import {
   MdInputModule, MdListModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchService } from '../services/search/search.service';
 import { HttpModule } from '@angular/http';
-import { AuthenticationService } from '../services/authentication/authentication.service';
+import { PostModule } from './post/post.module';
+import { PostFormModule } from './post-form/post-form.module';
 
 @NgModule({
   imports: [
@@ -21,8 +21,10 @@ import { AuthenticationService } from '../services/authentication/authentication
     ReactiveFormsModule,
     HttpModule,
     MdListModule,
+    PostModule,
+    PostFormModule,
   ],
-  providers: [SearchService, AuthenticationService],
+  providers: [],
   declarations: [HomeComponent],
 })
 export class HomeModule {

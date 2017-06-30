@@ -1,4 +1,4 @@
-import { ICharacter } from '../character/character.interface';
+import { ICharacterResponse } from '../character/character.interface';
 
 export interface IAuthenticationResponse {
   readonly accessToken: string;
@@ -15,7 +15,7 @@ export interface IRefreshResponse {
 }
 
 export interface IAuthenticationState {
-  character?: ICharacter,
+  character?: ICharacterResponse,
   authenticated: boolean,
   data?: IAuthenticationResponse,
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CharacterService } from '../services/character/character.service';
-import { ICharacter } from '../services/character/character.interface';
+import { ICharacterResponse } from '../services/character/character.interface';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
 
@@ -13,7 +13,7 @@ import { select } from '@angular-redux/store';
 export class CharacterComponent implements OnInit {
 
   @select(['character', 'data'])
-  character$: Observable<ICharacter>;
+  character$: Observable<ICharacterResponse>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
