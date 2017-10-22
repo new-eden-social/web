@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostFormComponent } from './post-form.component';
-import { MdButtonModule, MdInputModule } from '@angular/material';
+import { MatButtonModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdInputModule,
-    MdButtonModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   exports: [PostFormComponent],
   declarations: [PostFormComponent],

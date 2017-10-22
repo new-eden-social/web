@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationComponent } from './authentication.component';
-import { MdProgressSpinnerModule } from '@angular/material';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdProgressSpinnerModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [AuthenticationComponent],
   providers: [AuthenticationService],

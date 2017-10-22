@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WelcomeComponent } from './welcome.component';
-import { MdButtonModule, MdCardModule } from '@angular/material';
+import { MatButtonModule, MatCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdCardModule,
-    MdButtonModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   declarations: [WelcomeComponent],
 })

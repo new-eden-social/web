@@ -4,7 +4,7 @@ import { NavbarSearchComponent } from './navbar-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgReduxModule } from '@angular-redux/store';
-import { MdButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { MdButtonModule } from '@angular/material';
     ReactiveFormsModule,
     RouterModule,
     NgReduxModule,
-    MdButtonModule
+    MatButtonModule
   ],
   declarations: [NavbarSearchComponent],
   exports: [NavbarSearchComponent],

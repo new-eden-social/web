@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar.component';
-import {
-  MdButtonModule, MdIconModule, MdInputModule, MdMenuModule,
-  MdToolbarModule,
-} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { NavbarSearchModule } from './navbar-search/navbar-search.module';
+import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdToolbarModule,
-    MdButtonModule,
-    MdIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
     RouterModule,
-    MdMenuModule,
+    MatMenuModule,
     NavbarSearchModule,
   ],
   declarations: [NavbarComponent],

@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { PostComponent } from './post.component';
 import { PostService } from '../../services/post/post.service';
 import { RouterModule } from '@angular/router';
-import { MdButtonModule, MdCardModule } from '@angular/material';
+import { MatButtonModule, MatCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    MdCardModule,
-    MdButtonModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [PostService],
   declarations: [PostComponent],

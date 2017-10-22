@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgReduxModule } from '@angular-redux/store';
 import { NgReduxRouterModule } from '@angular-redux/router';
-import { MaterialModule } from '@angular/material';
 
 // Top Level
 import { AppComponent } from './app.component';
@@ -33,7 +32,6 @@ import { DebugModule } from './debug/debug.module';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule,
     NgReduxModule,
     NgReduxRouterModule,
     StoreModule,
