@@ -17,14 +17,35 @@
   <a target="_blank" href="https://www.fuzzwork.co.uk/tweetfleet-slack-invites/">
     <img src="https://img.shields.io/badge/slack-%23evebook-ff69b4.svg" alt="Join Slack Chat" />
   </a>
+  <div align="center">
+    <a target="_blank" href="https://waffle.io/evebook/web">
+    <img src="https://badge.waffle.io/evebook/web.svg?columns=all" alt="Waffle.io - Columns and their card count" />
+  </a>
 </div>
 
+## What's it about
+Project was started with an idea of creating social platform for players of EVE Online. A place where players could connect and share their experiences, fan art, images, videos, thoughts, propaganda...
+
+Each "user" would be an actual EVE Online character and you could only login using game's credentials (SSO), this way characters could interact outside of eve online. Alliances and corporations could share propaganda videos/art and gather followers who could re-share and spread the word.
+
+Whole platform would heavily relay on EVE Online API, so that you could send in game emails, money, create events (calendar). It would feel as an extension of game itself.
+
+Think of it as combination of r/eve and twitter. A hub of EVE Online community.
+
+### Releases
+For branches `develop` and `master` servers are automaticly deployed and all data gets lost on each deploy.
+
+| Branch  | API                       | WEB                       |
+| ------- | ------------------------- | ------------------------- |
+| develop | api.dev.evebook.online    |web.dev.evebook.online     |
+| master  | api.staging.evebook.online|web.staging.evebook.online |
+| release | api.evebook.online        |evebook.online             |
+
+## Contributing
+We would love to see you contribute. To learn how to best help project read [CONTRIBUTING](https://github.com/evebook/web/blob/master/CONTRIBUTING.md) and look in the [issues](https://github.com/evebook/web/issues). If you have any questions you can ask us on [slack #evebook](https://www.fuzzwork.co.uk/tweetfleet-slack-invites/).
 
 ## Wiki
 Read more on idea, arhitecture, road map on our wiki [here](https://github.com/evebook/web/wiki/Idea).
-
-## Contributing
-We would love to see you contribute. To learn how to best help project read [CONTRIBUTING](https://github.com/evebook/web/blob/master/CONTRIBUTING.md) and look in the [issues](https://github.com/evebook/web/issues) and [project](https://github.com/orgs/evebook/projects/1) section. If you have any questions you can ask us on [gitter](https://gitter.im/EVE-Book/Lobby).
 
 ### Development server
 
