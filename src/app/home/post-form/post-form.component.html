@@ -1,4 +1,4 @@
-<mat-input-container class="example-full-width">
-  <textarea matInput placeholder="Share something"></textarea>
+<mat-input-container>
+  <textarea [formControl]="postContent" matInput placeholder="Share something"></textarea>
 </mat-input-container>
-<button mat-button>Share</button>
+<button mat-button (click)="submit()">Share</button>

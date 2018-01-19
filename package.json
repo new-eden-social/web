@@ -12,9 +12,9 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-redux/form": "^6.3.0",
-    "@angular-redux/router": "^6.3.0",
-    "@angular-redux/store": "^6.5.4",
+    "@angular-redux/form": "^6.7.0",
+    "@angular-redux/router": "^7.0.0",
+    "@angular-redux/store": "^7.0.0",
     "@angular/animations": "^5.0.0",
     "@angular/cdk": "^5.1.0",
     "@angular/common": "^5.0.0",

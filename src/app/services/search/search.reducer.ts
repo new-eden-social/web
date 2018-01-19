@@ -1,16 +1,20 @@
 import { Reducer } from 'redux';
-import { ISearchState } from './search.interface';
 import { SearchTypes } from './search.types';
+import { DSearch } from './search.dto';
+import { ISearchState } from './search.interface';
 
 const INITIAL_STATE: ISearchState = {
   data: {
-    characters: [],
+    characters  : [],
     corporations: [],
-    alliances: [],
+    alliances   : [],
   },
 };
 
-export const searchReducer: Reducer<ISearchState> = (state: ISearchState = INITIAL_STATE, action: any): ISearchState => {
+export const searchReducer: Reducer<ISearchState> = (
+  state: ISearchState = INITIAL_STATE,
+  action: any,
+): ISearchState => {
   switch (action.type) {
     case SearchTypes.SEARCH:
       return Object.assign({}, state, {

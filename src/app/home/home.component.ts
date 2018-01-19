@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime'
+import 'rxjs/add/operator/debounceTime';
 import { PostService } from '../services/post/post.service';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { IPostResponse } from '../services/post/post.interface';
+import { DPostList } from '../services/post/post.dto';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +15,14 @@ import { IPostResponse } from '../services/post/post.interface';
 })
 export class HomeComponent implements OnInit {
 
-  @select(['post', 'all'])
-  posts$: Observable<IPostResponse[]>;
+  @select(['post', 'all', 'data'])
+  posts$: Observable<DPostList[]>;
 
   constructor(private postService: PostService) {
   }
 
   ngOnInit() {
-    this.postService.all();
+    this.postService.latest();
   }
 
 }

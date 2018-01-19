@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { SearchService } from '../../services/search/search.service';
-import { ICharacterResponse } from '../../services/character/character.interface';
 import { ICorporation } from '../../services/corporation/corporation.interface';
 import { IAlliance } from '../../services/alliance/alliance.interface';
+import { DCharacterName } from '../../services/character/character.dto';
+import { DCorporationName } from '../../services/corporation/corporation.dto';
+import { DAllianceName } from '../../services/alliance/alliance.dto';
 
 @Component({
   selector: 'app-navbar-search',
@@ -16,18 +18,18 @@ import { IAlliance } from '../../services/alliance/alliance.interface';
 export class NavbarSearchComponent implements OnInit {
 
   @select(['search', 'data', 'characters'])
-  characters$: Observable<ICharacterResponse[]>;
-  charactersLess: Observable<ICharacterResponse[]>;
+  characters$: Observable<DCharacterName[]>;
+  charactersLess: Observable<DCharacterName[]>;
   showCharacters: Observable<boolean>;
 
   @select(['search', 'data', 'corporations'])
-  corporations$: Observable<ICorporation[]>;
-  corporationsLess: Observable<ICorporation[]>;
+  corporations$: Observable<DCorporationName[]>;
+  corporationsLess: Observable<DCorporationName[]>;
   showCorporations: Observable<boolean>;
 
   @select(['search', 'data', 'alliances'])
-  alliances$: Observable<IAlliance[]>;
-  alliancesLess: Observable<IAlliance[]>;
+  alliances$: Observable<DAllianceName[]>;
+  alliancesLess: Observable<DAllianceName[]>;
   showAlliances: Observable<boolean>;
 
   searchCtrl = new FormControl();
@@ -65,15 +67,15 @@ export class NavbarSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  openCharacter(character: ICharacterResponse) {
+  openCharacter(character: DCharacterName) {
     this.router.navigate(['/character', character.id])
   }
 
-  openCorporation(corporation: ICorporation) {
+  openCorporation(corporation: DCorporationName) {
     this.router.navigate(['/corporation', corporation.id])
   }
 
-  openAlliance(alliance: IAlliance) {
+  openAlliance(alliance: DAllianceName) {
     this.router.navigate(['/alliance', alliance.id])
   }
 

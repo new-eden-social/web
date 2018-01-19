@@ -27,19 +27,19 @@
     "@ngtools/json-schema" "^1.1.0"
     rxjs "^5.5.6"
 
-"@angular-redux/form@^6.3.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/form/-/form-6.6.0.tgz#8b958748142188342071ece7740b6ba24c5b9a5a"
+"@angular-redux/form@^6.7.0":
+  version "6.7.0-1"
+  resolved "https://registry.yarnpkg.com/@angular-redux/form/-/form-6.7.0-1.tgz#80b5b8ffcf86df5ccb969deb9970d16371da9d87"
   dependencies:
     immutable "^3.8.1"
 
-"@angular-redux/router@^6.3.0":
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-6.4.1.tgz#853a53770a63db687f770741aa7dfd920a7632e9"
+"@angular-redux/router@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-7.0.0.tgz#98266dfc27b19a2011d43ee7dda32fd104be316b"
 
-"@angular-redux/store@^6.5.4":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.6.0.tgz#02b67c091ed9c1bdae48c05a5d5d0041c87577aa"
+"@angular-redux/store@^7.0.0":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-7.0.2.tgz#cd2d7f4a2de883631a290c32ab03db931f158682"
 
 "@angular/animations@^5.0.0":
   version "5.2.1"

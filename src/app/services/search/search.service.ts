@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { ApiService } from '../api.service';
 import { SearchTypes } from './search.types';
-import { ISearchResponse } from './search.interface';
+import { DSearch } from './search.dto';
 
 @Injectable()
 export class SearchService extends ApiService {
@@ -13,7 +13,7 @@ export class SearchService extends ApiService {
   private uri = 'search';
 
   search(query: string) {
-    this.request<ISearchResponse>('GET', this.uri, { params: { query } })
+    this.request<DSearch>('GET', this.uri, { params: { query } })
     .subscribe(
       response => this.ngRedux.dispatch(
         {
