@@ -1,40 +1,37 @@
-<md-card class="example-card">
-  <md-card-title>
+<mat-card class="example-card">
+  <mat-card-title>
     Hello there!
-  </md-card-title>
-  <md-card-content>
+  </mat-card-title>
+  <mat-card-content>
 
-    <button (click)="testApi()" md-button>Test Api</button>
+    <button (click)="testApi()" mat-button>Test Api</button>
 
-    <md-input-container>
-      <input mdInput placeholder="Search" [formControl]="searchCtrl">
-    </md-input-container>
+    <input matInput placeholder="Search" [formControl]="searchCtrl">
 
+    <mat-list>
 
-    <md-list>
+      <h3 mat-subheader>Characters</h3>
+      <mat-list-item *ngFor="let character of characters">
+        <a mat-button mat-line (click)="openCharacter(character)">{{character.name}}</a>
+      </mat-list-item>
 
-      <h3 md-subheader>Characters</h3>
-      <md-list-item *ngFor="let character of characters">
-        <a md-button md-line (click)="openCharacter(character)" >{{character.name}}</a>
-      </md-list-item>
+      <mat-divider></mat-divider>
 
-      <md-divider></md-divider>
+      <h3 mat-subheader>Alliances</h3>
+      <mat-list-item *ngFor="let alliance of alliances">
+        <mat-icon mat-list-icon>people</mat-icon>
+        <h4 mat-line>{{alliance.name}}</h4>
+      </mat-list-item>
 
-      <h3 md-subheader>Alliances</h3>
-      <md-list-item *ngFor="let alliance of alliances">
-        <md-icon md-list-icon>people</md-icon>
-        <h4 md-line>{{alliance.name}}</h4>
-      </md-list-item>
+      <mat-divider></mat-divider>
 
-      <md-divider></md-divider>
+      <h3 mat-subheader>Corporations</h3>
+      <mat-list-item *ngFor="let corporation of corporations">
+        <mat-icon mat-list-icon>business_center</mat-icon>
+        <h4 mat-line>{{corporation.name}}</h4>
+      </mat-list-item>
 
-      <h3 md-subheader>Corporations</h3>
-      <md-list-item *ngFor="let corporation of corporations">
-        <md-icon md-list-icon>business_center</md-icon>
-        <h4 md-line>{{corporation.name}}</h4>
-      </md-list-item>
+    </mat-list>
 
-    </md-list>
-
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

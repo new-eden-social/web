@@ -1,22 +1,22 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template: `
     <app-navbar></app-navbar>
-    <md-sidenav-container>
+    <mat-sidenav-container>
 
       <!-- sidenav content -->
-      <md-sidenav #sidenav mode="side" opened="true">
+      <mat-sidenav #sidenav mode="side" opened="true">
         <app-sidenav></app-sidenav>
-      </md-sidenav>
+      </mat-sidenav>
 
       <!-- main content -->
       <div id="content">
         <router-outlet></router-outlet>
       </div>
 
-    </md-sidenav-container>
+    </mat-sidenav-container>
   `,
   styleUrls: ['app.component.scss'],
 })

@@ -1,4 +1,4 @@
-import { Injectable }              from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -13,16 +13,20 @@ export class SearchService extends ApiService {
   private uri = 'search';
 
   search(query: string) {
-    this.request<ISearchResponse>(this.uri, { params: { query } })
-    .subscribe(response => this.ngRedux.dispatch({
-        type: SearchTypes.SEARCH,
-        payload: response,
-      }),
-      error => this.ngRedux.dispatch({
-        type: SearchTypes.SEARCH,
-        payload: error,
-        error: true,
-      }))
+    this.request<ISearchResponse>('GET', this.uri, { params: { query } })
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type   : SearchTypes.SEARCH,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type   : SearchTypes.SEARCH,
+          payload: error,
+          error  : true,
+        }),
+    )
   }
 
   clear() {

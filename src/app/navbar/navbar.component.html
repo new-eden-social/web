@@ -1,14 +1,14 @@
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
   <div class="button-row">
     <div class="nav-container">
-      <button md-icon-button><md-icon>menu</md-icon></button>
-      <a routerLink="" routerLinkActive="active" md-button>EVE Book</a>
+      <button mat-icon-button><mat-icon>menu</mat-icon></button>
+      <a routerLink="" routerLinkActive="active" mat-button>EVE Book</a>
       <app-navbar-search></app-navbar-search>
     </div>
     <div class="nav-container">
-      <a *ngIf="!authenticated" href="http://localhost:3000/authentication/sso" md-button>Authenticate</a>
-      <a *ngIf="authenticated" routerLink="/welcome" routerLinkActive="active" md-button>Profile</a>
-      <button *ngIf="authenticated" (click)="logout()" md-button>Logout</button>
+      <a *ngIf="!authenticated" href="http://localhost:3000/authentication/sso" mat-button>Authenticate</a>
+      <a *ngIf="authenticated" routerLink="/welcome" routerLinkActive="active" mat-button>Profile</a>
+      <button *ngIf="authenticated" (click)="logout()" mat-button>Logout</button>
     </div>
   </div>
-</md-toolbar>
+</mat-toolbar>

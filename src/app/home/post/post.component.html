@@ -1,16 +1,16 @@
-<md-card>
-  <md-card-header>
-    <img [src]="post.character.portrait.px256x256" md-card-avatar/>
-    <md-card-title class="on-hover-pointer"
+<mat-card>
+  <mat-card-header>
+    <img [src]="post.character.portrait.px256x256" mat-card-avatar/>
+    <mat-card-title class="on-hover-pointer"
                       (click)="showCharacter()">
       {{post.character.name}}
-    </md-card-title>
-  </md-card-header>
-  <md-card-content>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <p>{{post.content}}</p>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button>LIKE</button>
-    <button md-button>SHARE</button>
-  </md-card-actions>
-</md-card>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
