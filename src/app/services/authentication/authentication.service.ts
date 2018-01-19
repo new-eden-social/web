@@ -13,17 +13,19 @@ export class AuthenticationService extends ApiService {
   initialCheck(accessToken: string) {
     const headers = this.createAuthorizationHeader(accessToken);
 
-    this.request(`${this.uri}/verify`, { headers })
+    this.request('GET', `${this.uri}/verify`, { headers })
     .subscribe(
-      response => this.ngRedux.dispatch({
-        type: AuthenticationTypes.AUTHENTICATED,
-        payload: response,
-      }),
-      error => this.ngRedux.dispatch({
-        type: AuthenticationTypes.AUTHENTICATED,
-        payload: error,
-        error: true,
-      }),
+      response => this.ngRedux.dispatch(
+        {
+          type   : AuthenticationTypes.AUTHENTICATED,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type   : AuthenticationTypes.AUTHENTICATED,
+          payload: error,
+          error  : true,
+        }),
     )
   }
 

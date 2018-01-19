@@ -1,4 +1,4 @@
-import { Injectable }              from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -13,16 +13,20 @@ export class PostService extends ApiService {
   private uri = 'posts';
 
   all() {
-    this.request<IPostResponse[]>(this.uri)
-    .subscribe(response => this.ngRedux.dispatch({
-        type: PostTypes.GET_POSTS,
-        payload: response,
-      }),
-      error => this.ngRedux.dispatch({
-        type: PostTypes.GET_POSTS,
-        payload: error,
-        error: true,
-      }))
+    this.request<IPostResponse[]>('GET', this.uri)
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type   : PostTypes.GET_POSTS,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type   : PostTypes.GET_POSTS,
+          payload: error,
+          error  : true,
+        }),
+    )
   }
 
 }

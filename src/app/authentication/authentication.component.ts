@@ -11,10 +11,10 @@ import { AuthenticationTypes } from '../services/authentication/authentication.t
   template: `
     <div class="align-center">
       <h1>Please wait while we are processing authentication request</h1>
-      <md-progress-spinner
+      <mat-progress-spinner
         color="primary"
         mode="indeterminate">
-      </md-progress-spinner>
+      </mat-progress-spinner>
     </div>
   `,
   styles: [`
