@@ -17,6 +17,8 @@
   <a target="_blank" href="https://www.fuzzwork.co.uk/tweetfleet-slack-invites/">
     <img src="https://img.shields.io/badge/slack-%23evebook-ff69b4.svg" alt="Join Slack Chat" />
   </a>
+</div>
+<div align="center">
   <a target="_blank" href="https://waffle.io/evebook/web">
     <img src="https://badge.waffle.io/evebook/web.svg?columns=all" alt="Waffle.io - Columns and their card count" />
   </a>
