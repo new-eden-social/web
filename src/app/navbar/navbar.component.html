@@ -6,7 +6,7 @@
     </div>
     <div class="nav-container">
       <app-navbar-search></app-navbar-search>
-      <a *ngIf="!authenticated" href="http://localhost:3000/authentication/sso" mat-button>Authenticate</a>
+      <a *ngIf="!authenticated" href="{{authenticationUrl}}authentication/sso" mat-button>Authenticate</a>
       <a *ngIf="authenticated" routerLink="/welcome" mat-button>Profile</a>
       <button *ngIf="authenticated" (click)="logout()" mat-button>Logout</button>
     </div>

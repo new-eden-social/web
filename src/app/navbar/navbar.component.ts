@@ -5,6 +5,7 @@ import { IAppState } from 'app/store/store.interface';
 import { Router } from '@angular/router';
 import { AuthenticationTypes } from '../services/authentication/authentication.types';
 import { FormControl } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -19,9 +20,11 @@ export class NavbarComponent implements OnInit {
   authenticated$: Observable<boolean>;
   authenticated: boolean;
 
+  authenticationUrl = environment.apiEndpoint;
+
   constructor(private ngRedux: NgRedux<IAppState>, private router: Router) {
     this.authenticated$
-    .subscribe(authenticated => this.authenticated = authenticated)
+    .subscribe(authenticated => this.authenticated = authenticated);
   }
 
   ngOnInit() {
