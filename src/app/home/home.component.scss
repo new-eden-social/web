@@ -1,6 +1,20 @@
-
-.posts-wrapper {
+.home-wrap {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
+  app-home-profile {
+    margin-right: 0.5em;
+  }
+
+
+  .posts {
+    margin-left: 0.5em;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+
+    > *:not(:first-child) {
+      margin-top: 0.5em;
+    }
+  }
 }

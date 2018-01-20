@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from '../store/store.interface';
 import { Observable } from 'rxjs';
-import { ICharacterResponse } from '../services/character/character.interface';
+import { DCharacterShort } from '../services/character/character.dto';
 
 @Component({
   selector: 'app-welcome',
@@ -12,8 +12,8 @@ import { ICharacterResponse } from '../services/character/character.interface';
 export class WelcomeComponent implements OnInit {
 
   @select(['authentication', 'character'])
-  character$: Observable<ICharacterResponse>;
-  character: ICharacterResponse;
+  character$: Observable<DCharacterShort>;
+  character: DCharacterShort;
 
   missed = [
     {

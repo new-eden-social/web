@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { IAppState } from '../store/store.interface';
 import { AuthenticationTypes } from './authentication/authentication.types';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {
   IAuthenticationResponse,
   IRefreshResponse,
 } from './authentication/authentication.interface';
+import { ApiExceptionResponse } from './api.interface';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/first';
-import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
-import { ApiExceptionResponse } from './api.interface';
+import 'rxjs/add/operator/filter';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export abstract class ApiService {
@@ -23,7 +25,7 @@ export abstract class ApiService {
   refreshToken$: Observable<string>;
   refreshToken: string;
 
-  private apiUrl = 'http://localhost:3000/';
+  private apiUrl = environment.apiEndpoint;
 
   constructor(
     protected http: HttpClient,
@@ -34,7 +36,7 @@ export abstract class ApiService {
 
     this.refreshToken$
     .subscribe(refreshToken => {
-      this.refreshToken = refreshToken
+      this.refreshToken = refreshToken;
     });
   }
 
@@ -67,26 +69,26 @@ export abstract class ApiService {
           (response: IRefreshResponse) => {
             // Format refresh response to authentication response
             const payload: IAuthenticationResponse = {
-              accessToken : response.access_token,
+              accessToken: response.access_token,
               refreshToken: response.refresh_token,
-              tokenType   : response.token_type,
-              expiresIn   : response.expires_in,
+              tokenType: response.token_type,
+              expiresIn: response.expires_in,
             };
             return this.ngRedux.dispatch(
               {
                 type: AuthenticationTypes.REFRESH_TOKEN,
                 payload,
-              })
+              });
           },
           error => this.ngRedux.dispatch(
             {
-              type   : AuthenticationTypes.REFRESH_TOKEN,
+              type: AuthenticationTypes.REFRESH_TOKEN,
               payload: error,
-              error  : true,
+              error: true,
             }),
-        )
+        );
         // Token is not valid anymore, try to refresh it
-      })
+      });
     })
     .catch(this.handleError);
   }

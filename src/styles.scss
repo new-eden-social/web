@@ -2,6 +2,8 @@
 @import "~normalize.css";
 // Import material design theme
 @import '~@angular/material/theming';
+// Import font
+@import "font";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -15,24 +17,20 @@
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($app-theme);
+@include angular-material-typography($app-typography);
 
 html {
   height: 100%;
 }
 
 body {
-  background: #f1f1f1;
-  font-family: Roboto, Helvetica Neue, sans-serif;
+  background: #101010;
+  font-family: Shentox, Roboto, Helvetica Neue, sans-serif;
   size: 16px;
   min-height: 100%;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 300;
+app-root {
+  display: flex;
+  flex-direction: column;
 }
-

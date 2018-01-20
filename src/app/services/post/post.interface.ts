@@ -1,17 +1,6 @@
-import { ICharacterResponse } from '../character/character.interface';
 
-export interface IPostResponse {
-  id: string,
-  title: string,
-  content: string,
-  previewUrl?: string,
-  previewImage?: string,
-  previewTitle?: string,
-  previewDescription?: string,
-
-  character?: ICharacterResponse,
-}
+import { DPostList } from './post.dto';
 
 export interface IPostState {
-  all: IPostResponse[]
+  all: DPostList | null;
 }

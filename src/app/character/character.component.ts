@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CharacterService } from '../services/character/character.service';
-import { ICharacterResponse } from '../services/character/character.interface';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
+import { DCharacter } from '../services/character/character.dto';
 
 @Component({
   selector: 'app-character',
@@ -13,7 +13,7 @@ import { select } from '@angular-redux/store';
 export class CharacterComponent implements OnInit {
 
   @select(['character', 'data'])
-  character$: Observable<ICharacterResponse>;
+  character$: Observable<DCharacter>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

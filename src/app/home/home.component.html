@@ -1,4 +1,9 @@
-<app-post-form></app-post-form>
-<div class="posts-wrapper">
-  <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post>
+<div class="home-wrap">
+  <app-home-profile *ngIf="authenticated$ | async"></app-home-profile>
+
+  <div class="posts" infiniteScroll (scrolled)="onScroll()">
+    <app-home-post-form *ngIf="authenticated$ | async"></app-home-post-form>
+    <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post>
+  </div>
+
 </div>

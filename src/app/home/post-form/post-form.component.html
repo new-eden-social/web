@@ -1,4 +1,21 @@
-<mat-input-container class="example-full-width">
-  <textarea matInput placeholder="Share something"></textarea>
-</mat-input-container>
-<button mat-button>Share</button>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Whats going on?
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="panel-content">
+    <mat-form-field>
+        <textarea [formControl]="postContent"
+                  matInput
+                  matTextareaAutosize
+                  placeholder="Share something nice"></textarea>
+    </mat-form-field>
+
+    <div class="button-wrap">
+      <button mat-button (click)="submit()">Share</button>
+    </div>
+  </div>
+</mat-expansion-panel>
+
