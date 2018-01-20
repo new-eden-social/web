@@ -2,6 +2,9 @@
   "name": "eve-book-web",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "8.x"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
