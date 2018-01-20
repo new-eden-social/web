@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Top Level
 import { AppComponent } from './app.component';
-import { appRoutes } from './app.routes';
 
 // App Modules
 import { StoreModule } from './store/store.module';
@@ -17,9 +16,8 @@ import { HomeModule } from './home/home.module';
 import { CharacterModule } from './character/character.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { WelcomeModule } from './welcome/welcome.module';
-import { SidenavModule } from './sidenav/sidenav.module';
 import { DebugModule } from './debug/debug.module';
-import { MatSidenavModule } from '@angular/material';
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -39,9 +37,7 @@ import { MatSidenavModule } from '@angular/material';
     CharacterModule,
     AuthenticationModule,
     WelcomeModule,
-    SidenavModule,
     DebugModule,
-    MatSidenavModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

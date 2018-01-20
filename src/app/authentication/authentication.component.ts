@@ -5,6 +5,7 @@ import { IAppState } from '../store/store.interface';
 import { AuthenticationService } from 'app/services/authentication/authentication.service';
 import { Observable } from 'rxjs';
 import { AuthenticationTypes } from '../services/authentication/authentication.types';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-authentication',

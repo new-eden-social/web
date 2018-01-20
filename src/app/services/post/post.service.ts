@@ -33,12 +33,14 @@ export class PostService extends ApiService {
   postAsCharacter(content: string, type: 'TEXT', options: any = {}) {
     this.request<DPost>('POST', `${this.uri}/character`, {
       body: {
-        content,
-        type,
-        locationId: options.locationId,
-        corporationId: options.corporationId,
-        allianceId: options.allianceId,
-        characterId: options.characterId,
+        post: {
+          content,
+          type,
+          locationId: options.locationId,
+          corporationId: options.corporationId,
+          allianceId: options.allianceId,
+          characterId: options.characterId,
+        },
       },
     })
     .subscribe(console.log, console.error);
