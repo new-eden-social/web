@@ -12,7 +12,7 @@
     "test": "exit 0 || ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --dev",
+    "heroku-postbuild": "npm run prebuild && ng build --dev",
     "prebuild": "eval \"echo \"$(cat src/environments/environment.ts.template)\"\" > src/environments/environment.ts"
   },
   "private": true,
