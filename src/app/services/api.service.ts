@@ -12,6 +12,7 @@ import { ApiExceptionResponse } from './api.interface';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/filter';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export abstract class ApiService {
@@ -24,7 +25,7 @@ export abstract class ApiService {
   refreshToken$: Observable<string>;
   refreshToken: string;
 
-  private apiUrl = 'http://localhost:3000/';
+  private apiUrl = environment.apiEndpoint;
 
   constructor(
     protected http: HttpClient,
