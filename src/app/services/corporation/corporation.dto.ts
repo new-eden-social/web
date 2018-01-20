@@ -1,6 +1,13 @@
 import { DAllianceShort } from '../alliance/alliance.dto';
 import { DPagination } from '../paggination.dto';
 
+export class DCorporationIcon {
+  px64x64: string;
+  px128x128: string;
+  px256x256: string;
+}
+
+
 export class DCorporationName {
   id: number;
   name: string;
@@ -12,6 +19,7 @@ export class DCorporationShort {
   ticker: string;
   description: string;
   alliance?: DAllianceShort;
+  icon: DCorporationIcon;
 }
 
 export class DCorporationShortWithoutAlliance {
@@ -19,6 +27,7 @@ export class DCorporationShortWithoutAlliance {
   name: string;
   ticker: string;
   description: string;
+  icon: DCorporationIcon;
 }
 
 export class DCorporation {
@@ -27,6 +36,7 @@ export class DCorporation {
   ticker: string;
   description: string;
   alliance?: DAllianceShort;
+  icon: DCorporationIcon;
 
   /* LIVE Data*/
   iskDestroyed: number;

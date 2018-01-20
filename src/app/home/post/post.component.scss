@@ -1,3 +1,52 @@
-.on-hover-pointer:hover {
-  cursor: pointer;
+@import "../../../variables";
+
+mat-card {
+  display: flex;
+  flex-direction: row;
+  padding: 12px;
+
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 2px;
+    margin-right: 12px;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    .card-header {
+      display: flex;
+      flex-direction: row;
+
+      a {
+        margin: 0;
+        margin-right: 0.5em;
+        font-weight: 500;
+        text-decoration: none;
+        color: #f3f3f3;
+
+        &:hover {
+          color: map-get($app-primary, 500);
+        }
+      }
+
+      small:not(:first-of-type) {
+        margin-left: 0.3em;
+
+        &:before {
+          content: '\00b7';
+        }
+      }
+    }
+
+    .card-text {
+      margin: 0;
+      margin-top: 0.25em;
+      white-space: pre-wrap;
+    }
+
+  }
 }

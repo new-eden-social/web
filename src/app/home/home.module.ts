@@ -9,6 +9,8 @@ import {
   MatListModule,
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileModule } from './profile/profile.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     PostModule,
     PostFormModule,
+    ProfileModule,
+    InfiniteScrollModule
   ],
   providers: [],
   declarations: [HomeComponent],

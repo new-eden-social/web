@@ -6,7 +6,7 @@ import { PostService } from '../../services/post/post.service';
 import { DCharacterShort } from '../../services/character/character.dto';
 
 @Component({
-  selector: 'app-post-form',
+  selector: 'app-home-post-form',
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss']
 })

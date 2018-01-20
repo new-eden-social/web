@@ -12,6 +12,7 @@ export class DPost {
   killmail?: DKillmailShort;
   hashtags: string[];
   location?: DUniverseLocation;
+  createdAt: Date;
 }
 
 export class DPostList extends DPagination<DPost> {

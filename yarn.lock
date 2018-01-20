@@ -27,7 +27,7 @@
     "@ngtools/json-schema" "^1.1.0"
     rxjs "^5.5.6"
 
-"@angular-redux/form@^6.7.0":
+"@angular-redux/form@^6.7.0-1":
   version "6.7.0-1"
   resolved "https://registry.yarnpkg.com/@angular-redux/form/-/form-6.7.0-1.tgz#80b5b8ffcf86df5ccb969deb9970d16371da9d87"
   dependencies:
@@ -321,6 +321,12 @@ alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angular2-moment@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/angular2-moment/-/angular2-moment-1.7.1.tgz#bab14d21d35322bacab8ee7548b36dd587abf7d1"
+  dependencies:
+    moment "^2.16.0"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -3964,6 +3970,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
+moment@^2.16.0, moment@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -4027,6 +4037,10 @@ ncname@1.0.x:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+ngx-infinite-scroll@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.8.2.tgz#9cc615c01fbb6307599453c9d9cfb5c1db4fd3e8"
 
 no-case@^2.2.0:
   version "2.3.2"

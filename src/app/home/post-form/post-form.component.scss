@@ -1,0 +1,14 @@
+.panel-content {
+  display: flex;
+  flex-direction: row;
+
+  > mat-form-field {
+    flex: 1 1 auto;
+  }
+
+  > .button-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

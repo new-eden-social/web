@@ -18,11 +18,22 @@ export class HomeComponent implements OnInit {
   @select(['post', 'all', 'data'])
   posts$: Observable<DPostList[]>;
 
+  @select(['authentication', 'authenticated'])
+  authenticated$: Observable<boolean>;
+
+  page: number;
+
   constructor(private postService: PostService) {
   }
 
   ngOnInit() {
-    this.postService.latest();
+    this.page = 0;
+    this.postService.latest(this.page);
+  }
+
+  onScroll() {
+    this.page++;
+    this.postService.latest(this.page)
   }
 
 }

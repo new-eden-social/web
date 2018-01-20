@@ -46,7 +46,7 @@ export class AuthenticationComponent implements OnInit {
     // When authenticated, redirect to welcome
     this.authenticated$
     .filter(authenticated => authenticated)
-    .subscribe(() => this.router.navigate(['welcome']))
+    .subscribe(() => this.router.navigate(['']))
   }
 
   ngOnInit() {

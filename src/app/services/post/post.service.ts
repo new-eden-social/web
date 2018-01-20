@@ -12,8 +12,8 @@ export class PostService extends ApiService {
 
   private uri = 'posts';
 
-  latest() {
-    this.request<DPostList[]>('GET', `${this.uri}/latest`)
+  latest(page = 0, limit = 20) {
+    this.request<DPostList[]>('GET', `${this.uri}/latest?page=${page}&limit=${limit}`)
     .subscribe(
       response => this.ngRedux.dispatch(
         {
