@@ -1,11 +1,12 @@
 dist: trusty
 language: node_js
 node_js:
-  - 'stable'
+  - '8.9.4'
 
 branches:
   only:
   - master
+  - develop
   - /^greenkeeper/.*$/
 
 cache:
