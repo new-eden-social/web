@@ -1,8 +1,49 @@
-<div class="header">
-  <h1>{{(character$| async).name}}</h1>
-</div>
-<div class="align-center character-img">
-  <img [src]="(character$ | async).portrait.px512x512">
+<div class="profile">
+
+  <div class="header">
+    <div class="header-wrap">
+      <img src="{{character.portrait.px256x256}}">
+      <div class="info">
+        <h2>
+          {{ character.name }}
+          <small>{{ character.corporation.name }}</small>
+        </h2>
+        <p>@{{ character.name.replace(' ', '_') }}</p>
+      </div>
+      <div class="actions">
+        <button mat-raised-button color="primary">Follow</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content">
+    <div class="narrow">
+
+      <mat-card>
+        <mat-list dense>
+          <mat-list-item>Race <small>Caldari</small></mat-list-item>
+          <mat-list-item>Bloodline</mat-list-item>
+          <mat-list-item>Ancestry</mat-list-item>
+        </mat-list>
+      </mat-card>
+
+      <mat-card>
+
+      </mat-card>
+    </div>
+
+    <div class="wide">
+      <mat-card>
+        <div class="description" [innerHtml]="character.description"></div>
+      </mat-card>
+
+      <app-post-form></app-post-form>
+    </div>
+
+  </div>
+
+
 </div>
 
 <pre>

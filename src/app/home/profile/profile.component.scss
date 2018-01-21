@@ -2,34 +2,13 @@
 
 .profile-card {
   width: 250px;
-
-  .profile-cover {
-    background: url("https://dummyimage.com/600x400/03a9f4/ffffff&text=cover+image");
-    height: 125px;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-
-    > a {
-      align-self: flex-end;
-      margin-top: 0.25em;
-      margin-right: 0.25em;
-
-      > img {
-        height: 24px;
-        width: 24px;
-        background: #3f3f3f;
-        border: 1px solid #3f3f3f;
-        border-radius: 50%;
-      }
-    }
-  }
+  margin-top: 25px;
 
   .profile-info {
     display: flex;
     flex-direction: row;
     margin-top: -50px;
+    margin-left: -4px; // Border fix
 
     .profile-image {
       left: 0;
@@ -37,6 +16,7 @@
       width: 80px;
       border-radius: 2px;
       border: 4px solid #3f3f3f;
+      // border-radius: 50%;
     }
 
     .profile-name {

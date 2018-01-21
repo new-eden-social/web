@@ -1,15 +1,4 @@
 <mat-card class="profile-card">
-  <div mat-card-image class="profile-cover">
-    <a href="">
-      <img class="alliance-image"
-           *ngIf="(character | async).corporation.alliance"
-           src="{{ (character | async).corporation.alliance.icon.px64x64 }}">
-    </a>
-    <a href="">
-      <img class="corporation-image"
-           src="{{ (character | async).corporation.icon.px64x64 }}">
-    </a>
-  </div>
 
   <div class="profile-info">
     <img src="{{ (character | async).portrait.px128x128 }}" class="profile-image">

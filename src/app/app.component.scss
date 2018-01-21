@@ -10,9 +10,7 @@
 }
 
 #content {
-  margin-top: calc(#{$app-navbar-height} + #{$app-content-top-margin});
   display: flex;
   flex-direction: column;
-  width: 80%;
-  align-self: center;
+  width: 100%;
 }

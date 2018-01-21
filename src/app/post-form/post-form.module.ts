@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomePostFormComponent } from './post-form.component';
+import { PostFormComponent } from './post-form.component';
 import { MatButtonModule, MatExpansionModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PostService } from '../../services/post/post.service';
+import { PostService } from '../services/post/post.service';
 
 @NgModule({
   imports: [
@@ -14,9 +14,9 @@ import { PostService } from '../../services/post/post.service';
     MatButtonModule,
     MatExpansionModule
   ],
-  exports: [HomePostFormComponent],
-  declarations: [HomePostFormComponent],
+  exports: [PostFormComponent],
+  declarations: [PostFormComponent],
   providers: [PostService],
 })
-export class HomePostFormModule {
+export class PostFormModule {
 }

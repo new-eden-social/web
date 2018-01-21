@@ -2,8 +2,8 @@
 <div class="home-wrap" *ngIf="authenticated$ | async">
   <app-home-profile></app-home-profile>
 
-  <div class="posts" infiniteScroll (scrolled)="onScroll()">
-    <app-home-post-form></app-home-post-form>
+  <div class="wide" infiniteScroll (scrolled)="onScroll()">
+    <app-post-form></app-post-form>
     <app-post *ngFor="let post of latest$ | async" [post]="post"></app-post>
   </div>
 </div>

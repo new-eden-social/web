@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CharacterService } from '../services/character/character.service';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
@@ -15,16 +15,21 @@ export class CharacterComponent implements OnInit {
   @select(['character', 'data'])
   character$: Observable<DCharacter>;
 
+  character: DCharacter;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private service: CharacterService) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        let id = +this.route.snapshot.params['id'];
+        this.service.get(id)
+      }
+    });
   }
 
   ngOnInit() {
-    // TODO: Doesn't trigger when loading same view with different id
-    let id = +this.route.snapshot.params['id'];
-
-    this.service.get(id)
+    this.character$.subscribe(character => this.character = character);
   }
 
 }

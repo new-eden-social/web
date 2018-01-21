@@ -1,13 +1,18 @@
+@import "../../variables";
+
 .home-wrap {
+  width: 80%; // TODO Responsive
   display: flex;
   flex-direction: row;
+  margin: auto;
+  margin-top: calc(#{$app-navbar-height} + #{$app-content-top-margin});
 
   app-home-profile {
     margin-right: 0.5em;
   }
 
 
-  .posts {
+  .wide {
     margin-left: 0.5em;
     flex: 1 1 auto;
     display: flex;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DPost } from '../../services/post/post.dto';
+import { DPost } from '../services/post/post.dto';
 
 @Component({
   selector: 'app-post',
