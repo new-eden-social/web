@@ -1,3 +1,4 @@
-export class PostTypes {
-  static readonly GET_POSTS = 'GET_POSTS';
+export enum PostTypes {
+  GET_LATEST = 'GET_LATEST',
+  SUBMIT_POST = 'SUBMIT_POST'
 }

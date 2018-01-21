@@ -1,3 +1,3 @@
-export class CharacterTypes {
-  static readonly LOAD = 'CHARACTER_LOAD';
+export enum CharacterTypes {
+  LOAD = 'CHARACTER_LOAD',
 }

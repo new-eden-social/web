@@ -15,8 +15,8 @@ import { DPostList } from '../services/post/post.dto';
 })
 export class HomeComponent implements OnInit {
 
-  @select(['post', 'all', 'data'])
-  posts$: Observable<DPostList[]>;
+  @select(['post', 'latest', 'data'])
+  latest$: Observable<DPostList[]>;
 
   @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;

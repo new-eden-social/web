@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './profile.component';
+import { HomeProfileComponent } from './profile.component';
 import { MatButtonModule, MatCardModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -11,9 +11,9 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     RouterModule,
   ],
-  exports: [ProfileComponent],
-  declarations: [ProfileComponent],
+  exports: [HomeProfileComponent],
+  declarations: [HomeProfileComponent],
   providers: [],
 })
-export class ProfileModule {
+export class HomeProfileModule {
 }

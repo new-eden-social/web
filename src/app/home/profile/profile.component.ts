@@ -8,7 +8,7 @@ import { DCharacterShort } from '../../services/character/character.dto';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class HomeProfileComponent implements OnInit {
 
   @select(['authentication', 'character'])
   character: Observable<DCharacterShort>;

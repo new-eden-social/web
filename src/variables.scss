@@ -1,5 +1,10 @@
 @import '~@angular/material/theming';
 
+$app-navbar-height: 64px;
+$app-content-top-margin: 20px;
+
+$app-background-dark: #101010;
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.

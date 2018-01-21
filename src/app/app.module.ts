@@ -15,7 +15,6 @@ import { NavbarModule } from './navbar/navbar.module';
 import { HomeModule } from './home/home.module';
 import { CharacterModule } from './character/character.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { WelcomeModule } from './welcome/welcome.module';
 import { DebugModule } from './debug/debug.module';
 import { appRoutes } from './app.routes';
 
@@ -36,7 +35,6 @@ import { appRoutes } from './app.routes';
     HomeModule,
     CharacterModule,
     AuthenticationModule,
-    WelcomeModule,
     DebugModule,
     ],
   providers: [],

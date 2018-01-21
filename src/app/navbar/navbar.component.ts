@@ -14,8 +14,6 @@ import { environment } from '../../environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
-  searchCtrl: FormControl;
-
   @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
   authenticated: boolean;

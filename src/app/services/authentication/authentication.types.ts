@@ -1,6 +1,6 @@
-export class AuthenticationTypes {
-  static readonly AUTHENTICATED = 'AUTHENTICATED';
-  static readonly REDIRECTED = 'REDIRECTED';
-  static readonly UN_AUTHENTICATE = 'UN_AUTHENTICATE';
-  static readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
+export enum AuthenticationTypes {
+  AUTHENTICATED = 'AUTHENTICATED',
+  REDIRECTED = 'REDIRECTED',
+  UN_AUTHENTICATE = 'UN_AUTHENTICATE',
+  REFRESH_TOKEN = 'REFRESH_TOKEN',
 }

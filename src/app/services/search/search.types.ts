@@ -1,4 +1,4 @@
-export class SearchTypes {
-  static readonly SEARCH = 'SEARCH';
-  static readonly CLEAR = 'CLEAR_SEARCH';
+export enum SearchTypes {
+  SEARCH = 'SEARCH',
+  CLEAR = 'CLEAR_SEARCH',
 }

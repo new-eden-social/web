@@ -24,10 +24,17 @@ html {
 }
 
 body {
-  background: #101010;
+  background-image: url("https://login.eveonline.com/src/img/site-bg-v2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #101010;
   font-family: Shentox, Roboto, Helvetica Neue, sans-serif;
-  size: 16px;
+  font-size: 16px;
   min-height: 100%;
+  color: #f3f3f3;
+  letter-spacing: .05em;
 }
 
 app-root {

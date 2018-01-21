@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WelcomeComponent } from './welcome.component';
+import { HomeWelcomeComponent } from './welcome.component';
 import { MatButtonModule, MatCardModule } from '@angular/material';
 
 @NgModule({
@@ -9,7 +9,8 @@ import { MatButtonModule, MatCardModule } from '@angular/material';
     MatCardModule,
     MatButtonModule,
   ],
-  declarations: [WelcomeComponent],
+  exports: [HomeWelcomeComponent],
+  declarations: [HomeWelcomeComponent],
 })
-export class WelcomeModule {
+export class HomeWelcomeModule {
 }

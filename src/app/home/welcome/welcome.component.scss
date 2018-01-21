@@ -1,0 +1,59 @@
+@import "../../../variables";
+
+.home-welcome {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - #{$app-navbar-height} - #{$app-content-top-margin});
+
+  .jumbotron {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+
+    h1 {
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-size: 3em;
+      margin: 0;
+    }
+
+    h3 {
+      font-weight: 300;
+      font-size: 1.5em;
+      margin: 0;
+    }
+
+    h5 {
+      font-weight: 300;
+      font-size: 2.5em;
+      letter-spacing: .07em;
+      margin: 0 0 1em 0;
+      text-transform: uppercase;
+    }
+
+    .seperator {
+      display: flex;
+      height: 1px;
+      width: 30%;
+      background: #f3f3f3;
+      margin: 2em 0;
+    }
+
+    .button-wrap {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 5em;
+
+      .mat-raised-button {
+        font-size: 1.5em;
+        line-height: 1.5em;
+        padding: 0.5em 1.5em;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

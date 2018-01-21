@@ -10,7 +10,7 @@ import { DCharacterShort } from '../../services/character/character.dto';
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss']
 })
-export class PostFormComponent implements OnInit {
+export class HomePostFormComponent implements OnInit {
 
   @select(['authentication', 'character'])
   character$: Observable<DCharacterShort>;
@@ -25,5 +25,7 @@ export class PostFormComponent implements OnInit {
 
   submit() {
     this.postService.postAsCharacter(this.postContent.value, 'TEXT');
+    // TODO: We could weit for feedback, if error do not reset
+    this.postContent.reset();
   }
 }

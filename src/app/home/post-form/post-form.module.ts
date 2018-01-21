@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostFormComponent } from './post-form.component';
+import { HomePostFormComponent } from './post-form.component';
 import { MatButtonModule, MatExpansionModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../../services/post/post.service';
@@ -14,9 +14,9 @@ import { PostService } from '../../services/post/post.service';
     MatButtonModule,
     MatExpansionModule
   ],
-  exports: [PostFormComponent],
-  declarations: [PostFormComponent],
+  exports: [HomePostFormComponent],
+  declarations: [HomePostFormComponent],
   providers: [PostService],
 })
-export class PostFormModule {
+export class HomePostFormModule {
 }
