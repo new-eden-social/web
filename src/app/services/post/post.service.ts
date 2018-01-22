@@ -30,6 +30,25 @@ export class PostService extends ApiService {
     );
   }
 
+  characterWall(characterId: number, page = 0, limit = 20) {
+    return this.request<DPostList[]>(
+      'GET',
+      `${this.uri}/character/${characterId}?page=${page}&limit=${limit}`)
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_CHARACTER_WALL,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_CHARACTER_WALL,
+          payload: error,
+          error: true,
+        }),
+    );
+  }
+
 
   postAsCharacter(content: string, type: 'TEXT', options: any = {}) {
     return this.request<DPost>('POST', `${this.uri}/character`, {

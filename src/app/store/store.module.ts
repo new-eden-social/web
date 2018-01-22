@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { NgReduxRouterModule, NgReduxRouter } from '@angular-redux/router';
 import { provideReduxForms } from '@angular-redux/form';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from '../app.routes';
 import storage from 'redux-persist/lib/storage';
 
 // Redux ecosystem
@@ -19,6 +17,7 @@ import { IAppState } from './store.interface';
 const persistConfig = {
   key: 'root',
   storage: storage,
+  whitelist: ['authentication', 'router']
 };
 
 @NgModule({

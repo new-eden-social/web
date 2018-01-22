@@ -4,7 +4,7 @@ import { PostTypes } from './post.types';
 import { DPostList } from './post.dto';
 
 const INITIAL_STATE: IPostState = {
-  latest: null,
+  list: null,
 };
 
 export const postReducer: Reducer<IPostState> = (
@@ -16,14 +16,15 @@ export const postReducer: Reducer<IPostState> = (
      * Add posts to the end (if page same as before or less, replace)
      */
     case PostTypes.GET_LATEST:
-      const oldData = state.latest ? state.latest.data : [];
-      let data = [];
-      if (!state.latest || state.latest.page >= action.payload.page) data = action.payload.data;
-      else data = [...oldData, ...action.payload.data];
+    case PostTypes.GET_CHARACTER_WALL:
+      const oldPosts = state.list ? state.list.data : [];
+      let posts = [];
+      if (!state.list || state.list.page >= action.payload.page) posts = action.payload.data;
+      else posts = [...oldPosts, ...action.payload.data];
 
       return Object.assign({}, state, {
-        latest: <DPostList>{
-          data,
+        list: <DPostList>{
+          data: posts,
           page: action.payload.page,
           pages: action.payload.pages,
           perPage: action.payload.perPage,
@@ -34,10 +35,9 @@ export const postReducer: Reducer<IPostState> = (
      * Add submitted post to the top
      */
     case PostTypes.SUBMIT_POST:
-      console.log('should submit')
       return Object.assign({}, state, {
-        latest: <DPostList> Object.assign({}, state.latest, {
-          data: [action.payload, ...state.latest.data],
+        list: <DPostList> Object.assign({}, state.list, {
+          data: [action.payload, ...state.list.data],
         }),
       });
 

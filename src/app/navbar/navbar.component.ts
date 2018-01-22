@@ -18,6 +18,9 @@ export class NavbarComponent implements OnInit {
   authenticated$: Observable<boolean>;
   authenticated: boolean;
 
+  @select(['authentication', 'character'])
+  character$: Observable<boolean>;
+
   authenticationUrl = environment.apiEndpoint;
 
   constructor(private ngRedux: NgRedux<IAppState>, private router: Router) {

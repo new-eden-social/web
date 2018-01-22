@@ -7,7 +7,9 @@
     <div class="nav-container">
       <app-navbar-search></app-navbar-search>
       <a *ngIf="!authenticated" href="{{authenticationUrl}}authentication/sso" mat-button>LOG IN</a>
-      <a *ngIf="authenticated" routerLink="/welcome" mat-button>PROFILE</a>
+      <a *ngIf="authenticated"
+         [routerLink]="['character', (character$|async).id]"
+         mat-button>PROFILE</a>
       <button *ngIf="authenticated" (click)="logout()" mat-button>LOGOUT</button>
     </div>
   </div>

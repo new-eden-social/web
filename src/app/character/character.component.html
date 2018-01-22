@@ -20,32 +20,73 @@
   <div class="content">
     <div class="narrow">
 
-      <mat-card>
+      <div class="stats">
+        <div class="stats-item">
+          <span>Posts</span>
+          <span class="number">113</span>
+        </div>
+        <div class="stats-item">
+          <span>Following</span>
+          <span class="number">20</span>
+        </div>
+        <div class="stats-item">
+          <span>Followers</span>
+          <span class="number">13</span>
+        </div>
+      </div>
+
+      <mat-card class="about">
         <mat-list dense>
-          <mat-list-item>Race <small>Caldari</small></mat-list-item>
-          <mat-list-item>Bloodline</mat-list-item>
-          <mat-list-item>Ancestry</mat-list-item>
+          <mat-list-item *ngIf="character.corporation.alliance">
+            <div class="about-item-content">
+              <p>Alliance</p>
+              <a href="">{{ character.corporation.alliance.name }}</a>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item>
+            <div class="about-item-content">
+              <p>Corporation</p>
+              <a href="">{{ character.corporation.name }}</a>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="character.corporation.alliance">
+            <div class="about-item-content">
+              <p>Race</p>
+              <a href="">Ammar</a>
+            </div>
+          </mat-list-item>
+
+          <mat-list-item *ngIf="character.corporation.alliance">
+            <div class="about-item-content">
+              <p>Bloodline</p>
+              <a href="">Civire</a>
+            </div>
+          </mat-list-item>
         </mat-list>
-      </mat-card>
-
-      <mat-card>
-
       </mat-card>
     </div>
 
-    <div class="wide">
-      <mat-card>
-        <div class="description" [innerHtml]="character.description"></div>
+    <div class="wide" infiniteScroll (scrolled)="onScroll()">
+      <app-post-form *ngIf="authenticated$ | async" [characterWall]="character"></app-post-form>
+
+      <app-post *ngFor="let post of wall.data" [post]="post"></app-post>
+
+      <mat-card class="start" *ngIf="wall.data.length !== 0">
+        <mat-card-content>
+          <p>Start of everything</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="empty" *ngIf="wall.data.length === 0">
+        <mat-card-content>
+          <p>looks like there is nothing here :/</p>
+        </mat-card-content>
       </mat-card>
 
-      <app-post-form></app-post-form>
     </div>
 
   </div>
 
 
 </div>
-
-<pre>
-  {{character$ | async | json}}
-</pre>

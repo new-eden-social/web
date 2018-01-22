@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 4em;
 
   .header {
     display: flex;
@@ -81,26 +82,73 @@
           margin-top: 1em;
         }
       }
+
+      .stats {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        font-size: 1em;
+
+        .stats-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-transform: uppercase;
+
+          .number {
+            font-weight: 500;
+            font-size: 1.2em;
+            color: map-get($app-primary, 500);
+          }
+        }
+      }
+
+      .about {
+        .about-item-content {
+          display: flex;
+          flex-direction: column;
+          text-transform: uppercase;
+
+          p {
+            margin: 0;
+          }
+
+          a {
+            font-weight: 700;
+            text-decoration: none;
+            color: #f3f3f3;
+
+            &:hover{
+              color: map-get($app-primary, 500);
+              transition: color 100ms ease;
+            }
+          }
+        }
+      }
     }
 
     .wide {
       display: flex;
       flex-direction: column;
-      flex: 1 1 auto;
+      flex: 0.5 0.5 auto;
 
       > * {
-        padding: 0;
         &:not(:first-child) {
           margin-top: 1em;
         }
+        &:last-child {
+          margin-bottom: 1em;
+        }
       }
 
-      .description {
-        font-size: 1em !important;
-        font {
-          font-size: 1em;
-          color: #f3f3f3;
-          background: red;
+      .start,
+      .empty {
+        align-self: center;
+        padding: 0.8em;
+        margin-top: 2em;
+        p  {
+          text-align: center;
+          text-transform: lowercase;
         }
       }
     }
