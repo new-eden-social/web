@@ -7,6 +7,7 @@ import { PostFormModule } from '../post-form/post-form.module';
 import { PostModule } from '../post/post.module';
 import { PostService } from '../services/post/post.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FooterModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PostFormModule,
     PostModule,
     InfiniteScrollModule,
+    FooterModule,
   ],
   providers: [CharacterService, PostService],
   declarations: [CharacterComponent],

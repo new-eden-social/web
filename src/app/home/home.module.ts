@@ -13,6 +13,7 @@ import { HomeWelcomeModule } from './welcome/welcome.module';
 import { PostModule } from '../post/post.module';
 import { PostFormModule } from '../post-form/post-form.module';
 import { RouterModule } from '@angular/router';
+import { FooterModule } from '../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { RouterModule } from '@angular/router';
     HomeProfileModule,
     HomeWelcomeModule,
     RouterModule,
+    FooterModule,
   ],
   providers: [],
   declarations: [HomeComponent],

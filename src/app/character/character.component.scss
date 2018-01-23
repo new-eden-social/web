@@ -78,6 +78,9 @@
 
       > mat-card {
         padding: 0;
+      }
+
+      > * {
         &:not(:first-child) {
           margin-top: 1em;
         }
@@ -118,7 +121,7 @@
             text-decoration: none;
             color: #f3f3f3;
 
-            &:hover{
+            &:hover {
               color: map-get($app-primary, 500);
               transition: color 100ms ease;
             }
@@ -145,7 +148,7 @@
         align-self: center;
         padding: 0.8em;
         margin-top: 2em;
-        p  {
+        p {
           text-align: center;
           text-transform: lowercase;
         }

@@ -17,6 +17,8 @@ import { CharacterModule } from './character/character.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { DebugModule } from './debug/debug.module';
 import { appRoutes } from './app.routes';
+import { FooterComponent } from './footer/footer.component';
+import { FooterModule } from './footer/footer.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,7 @@ import { appRoutes } from './app.routes';
     CharacterModule,
     AuthenticationModule,
     DebugModule,
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
