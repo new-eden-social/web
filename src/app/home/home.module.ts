@@ -12,6 +12,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HomeWelcomeModule } from './welcome/welcome.module';
 import { PostModule } from '../post/post.module';
 import { PostFormModule } from '../post-form/post-form.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { PostFormModule } from '../post-form/post-form.module';
     PostFormModule,
     HomeProfileModule,
     HomeWelcomeModule,
+    RouterModule,
   ],
   providers: [],
   declarations: [HomeComponent],

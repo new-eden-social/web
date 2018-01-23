@@ -30,11 +30,14 @@ body {
   background-size: cover;
   background-attachment: fixed;
   background-color: #101010;
-  font-family: Shentox, Roboto, Helvetica Neue, sans-serif;
   font-size: 16px;
   min-height: 100%;
   color: #f3f3f3;
   letter-spacing: .05em;
+}
+
+button, input, optgroup, select, textarea, body {
+  font-family: Shentox, Roboto, Helvetica Neue, sans-serif;
 }
 
 app-root {

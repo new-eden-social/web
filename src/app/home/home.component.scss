@@ -7,16 +7,58 @@
   margin: auto;
   margin-top: calc(#{$app-navbar-height} + #{$app-content-top-margin});
 
-  app-home-profile {
+  .narrow {
     margin-right: 0.5em;
-  }
+    min-width: 300px;
 
+    > :not(:first-child) {
+      margin-top: 1em;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.8em;
+      font-weight: 300;
+
+      .footer-block {
+        margin-top: 1em;
+        display: flex;
+        flex-direction: column;
+
+        a,
+        p {
+          margin: 0;
+        }
+        .footer-item {
+          margin-bottom: 0.1em;
+        }
+
+        a {
+          font-weight: 500;
+          text-decoration: none;
+          color: #f3f3f3;
+
+          &:hover {
+            color: map-get($app-primary, 500);
+          }
+        }
+
+        .footer-separator {
+          margin-bottom: 0.5em;
+          text-transform: uppercase;
+          border-bottom: 2px solid map-get($app-primary, 500);
+          font-weight: 600;
+        }
+      }
+    }
+  }
 
   .wide {
     margin-left: 0.5em;
-    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    margin-top: 25px; // to be inline with profile-card
 
     > *:not(:first-child) {
       margin-top: 0.5em;
