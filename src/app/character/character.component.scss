@@ -74,7 +74,7 @@
       display: flex;
       flex-direction: column;
       margin-right: 2em;
-      min-width: 300px;
+      min-width: $app-narrow-column-width;
 
       > mat-card {
         padding: 0;
@@ -133,6 +133,7 @@
     .wide {
       display: flex;
       flex-direction: column;
+      width: 100%;
 
       > * {
         &:not(:first-child) {
