@@ -23,6 +23,33 @@ export class HomeComponent implements OnInit {
 
   page: number;
 
+  hashtags = [
+    {
+      name: 'eve',
+      posts: 3415,
+    },
+    {
+      name: 'mining',
+      posts: 1482,
+    },
+    {
+      name: 'isk',
+      posts: 1023,
+    },
+    {
+      name: 'test',
+      posts: 939,
+    },
+    {
+      name: 'bees',
+      posts: 712,
+    },
+    {
+      name: 'killmail',
+      posts: 452,
+    },
+  ];
+
   constructor(private postService: PostService) {
   }
 

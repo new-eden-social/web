@@ -10,6 +10,10 @@ mat-card {
     height: 48px;
     margin-right: 12px;
     border-radius: 50%;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .card-content {
