@@ -73,13 +73,18 @@ export class PostFormComponent implements OnInit {
       this.options.characterId = null;
     }
 
-    if (this.corporationWall && this.corporationWall.id) {
+    // If we try to post as corporation to own corporation wall, we shouldn't post on a wall
+    if (this.corporationWall && this.postAs !== 'corporation' || this.character.corporation.id !== this.corporationWall.id) {
       this.options.corporationId = this.corporationWall.id;
     } else {
       this.options.corporationId = null;
     }
 
-    if (this.allianceWall && this.allianceWall.id) {
+    // If we try to post as alliance and we are in alliance, on the alliance wall that is our alliance
+    //  we shouldn't post on a wall
+    if (this.allianceWall && this.postAs !== 'alliance' ||
+      ( !this.character.corporation.alliance || this.character.corporation.alliance.id !== this.allianceWall.id)
+    ) {
       this.options.allianceId = this.allianceWall.id;
     } else {
       this.options.allianceId = null;
