@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { DPost } from '../services/post/post.dto';
 
@@ -6,6 +6,7 @@ import { DPost } from '../services/post/post.dto';
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PostComponent implements OnInit {
 
@@ -16,6 +17,7 @@ export class PostComponent implements OnInit {
   link: any[];
   tag: string;
   image: string;
+  content: string;
 
   constructor(private router: Router) {
   }
@@ -39,6 +41,10 @@ export class PostComponent implements OnInit {
       this.link = ['/alliance', this.post.alliance.id];
       this.image = this.post.alliance.icon.px64x64;
     }
+
+    this.content = this.post.content.replace(
+      /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
+      (hashtag) => `<a href="" class="text-link">${hashtag}</a>`);
   }
 
   openItem() {

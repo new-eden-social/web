@@ -25,12 +25,16 @@
       <img src="{{ postAsImage }}">
     </button>
 
-    <mat-form-field>
-        <textarea [formControl]="postContent"
-                  matInput
-                  matTextareaAutosize
-                  placeholder="Share something nice"></textarea>
-    </mat-form-field>
+    <div class="post-input-wrap">
+      <div class="post-input-field"
+           contenteditable="true"
+           role="textbox"
+           aria-multiline="true"
+           appContentEditable
+           [contentValue]="postHtml"
+           (contentValueUpdate)="writing($event)">
+      </div>
+    </div>
 
     <div class="button-wrap">
       <button mat-button (click)="submit()">Share</button>

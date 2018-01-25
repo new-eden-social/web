@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .panel-content {
   display: flex;
   flex-direction: row;
@@ -39,4 +41,28 @@
     }
   }
 
+}
+
+.post-input-wrap {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1;
+  margin-top: 1.25em;
+  align-items: flex-start;
+
+  .post-input-field {
+    border-bottom: 1px solid #f3f3f3;
+    display: block;
+    flex: 1 1;
+
+    &:focus {
+      border-bottom: 1px solid map-get($app-primary, 500);
+      outline: 0;
+    }
+
+    .input-field-link {
+      color: map-get($app-primary, 500);
+      text-decoration: none;
+    }
+  }
 }
