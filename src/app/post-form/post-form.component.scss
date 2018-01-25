@@ -11,4 +11,32 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  .select-post-method {
+    height: 48px;
+    width: 48px;
+    margin-right: 1em;
+
+    img {
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.select-post-method-menu {
+
+  .select-post-method-menu-item {
+    display: flex;
+
+    img {
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      padding: 0;
+      margin: 0 16px 0 0;
+    }
+  }
+
 }

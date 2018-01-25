@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostFormComponent } from './post-form.component';
-import { MatButtonModule, MatExpansionModule, MatInputModule } from '@angular/material';
+import {
+  MatButtonModule, MatExpansionModule, MatIconModule, MatInputModule,
+  MatMenuModule,
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../services/post/post.service';
 
@@ -12,7 +15,9 @@ import { PostService } from '../services/post/post.service';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   exports: [PostFormComponent],
   declarations: [PostFormComponent],

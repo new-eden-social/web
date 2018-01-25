@@ -1,10 +1,10 @@
 <mat-card>
-  <img [src]="post.character.portrait.px128x128" (click)="showCharacter()"/>
+  <img [src]="image" (click)="openItem()"/>
 
   <div class="card-content">
     <div class="card-header">
-      <a [routerLink]="['/character', post.character.id]">{{post.character.name}}</a>
-      <small class="mat-caption">@{{ post.character.name.replace(' ', '_') }}</small>
+      <a [routerLink]="link">{{ name }}</a>
+      <small class="mat-caption">@{{ tag }}</small>
       <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
     </div>
     <p class="card-text">{{ post.content}}</p>

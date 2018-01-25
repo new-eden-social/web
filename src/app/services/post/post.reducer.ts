@@ -36,7 +36,9 @@ export const postReducer: Reducer<IPostState> = (
     /**
      * Add submitted post to the top
      */
-    case PostTypes.SUBMIT_POST:
+    case PostTypes.POST_AS_CHARACTER:
+    case PostTypes.POST_AS_CORPORATION:
+    case PostTypes.POST_AS_ALLIANCE:
       return Object.assign({}, state, {
         list: <DPostList> Object.assign({}, state.list, {
           data: [action.payload, ...state.list.data],

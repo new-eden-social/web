@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -11,6 +11,7 @@ import { DAlliance } from '../services/alliance/alliance.dto';
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PostFormComponent implements OnInit {
 
@@ -36,13 +37,33 @@ export class PostFormComponent implements OnInit {
     allianceId: null,
   };
 
+  postAs: 'character' | 'corporation' | 'alliance';
+  postAsImage: string;
+
   constructor(private postService: PostService) {
   }
 
   ngOnInit() {
-    this.character$.subscribe(character => this.character = character);
+    this.character$.subscribe(character => {
+      this.character = character;
+      this.setCharacter();
+    });
   }
 
+  setCharacter() {
+    this.postAs = 'character';
+    this.postAsImage = this.character.portrait.px64x64;
+  }
+
+  setCorporation() {
+    this.postAs = 'corporation';
+    this.postAsImage = this.character.corporation.icon.px64x64;
+  }
+
+  setAlliance() {
+    this.postAs = 'alliance';
+    this.postAsImage = this.character.corporation.alliance.icon.px64x64;
+  }
 
   submit() {
     // If we try to post to character wall that isn't us, we should post on a wall
@@ -64,7 +85,17 @@ export class PostFormComponent implements OnInit {
       this.options.allianceId = null;
     }
 
-    this.postService.postAsCharacter(this.postContent.value, 'TEXT', this.options);
+    switch (this.postAs) {
+      case 'character':
+        this.postService.postAsCharacter(this.postContent.value, 'TEXT', this.options);
+        break;
+      case 'corporation':
+        this.postService.postAsCorporation(this.postContent.value, 'TEXT', this.options);
+        break;
+      case 'alliance':
+        this.postService.postAsAlliance(this.postContent.value, 'TEXT', this.options);
+        break;
+    }
     // TODO: We could wait for feedback, if error do not reset
     this.postContent.reset();
   }

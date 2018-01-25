@@ -86,12 +86,12 @@ export class PostService extends ApiService {
     .subscribe(
       response => this.ngRedux.dispatch(
         {
-          type: PostTypes.SUBMIT_POST,
+          type: PostTypes.POST_AS_CHARACTER,
           payload: response,
         }),
       error => this.ngRedux.dispatch(
         {
-          type: PostTypes.SUBMIT_POST,
+          type: PostTypes.POST_AS_CHARACTER,
           payload: error,
           error: true,
         }),);
@@ -124,6 +124,40 @@ export class PostService extends ApiService {
   }
 
   /**
+   * Post as corporation
+   * @param {string} content
+   * @param {"TEXT"} type
+   * @param options
+   * @returns {Subscription}
+   */
+  postAsCorporation(content: string, type: 'TEXT', options: any = {}) {
+    return this.request<DPost>('POST', `${this.uri}/corporation`, {
+      body: {
+        post: {
+          content,
+          type,
+          locationId: options.locationId,
+          corporationId: options.corporationId,
+          allianceId: options.allianceId,
+          characterId: options.characterId,
+        },
+      },
+    })
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type: PostTypes.POST_AS_CORPORATION,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type: PostTypes.POST_AS_CORPORATION,
+          payload: error,
+          error: true,
+        }),);
+  }
+
+  /**
    * Get alliance wall
    * @param {number} allianceId
    * @param {number} page
@@ -147,6 +181,40 @@ export class PostService extends ApiService {
           error: true,
         }),
     );
+  }
+
+  /**
+   * Post as alliance
+   * @param {string} content
+   * @param {"TEXT"} type
+   * @param options
+   * @returns {Subscription}
+   */
+  postAsAlliance(content: string, type: 'TEXT', options: any = {}) {
+    return this.request<DPost>('POST', `${this.uri}/alliance`, {
+      body: {
+        post: {
+          content,
+          type,
+          locationId: options.locationId,
+          corporationId: options.corporationId,
+          allianceId: options.allianceId,
+          characterId: options.characterId,
+        },
+      },
+    })
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type: PostTypes.POST_AS_ALLIANCE,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type: PostTypes.POST_AS_ALLIANCE,
+          payload: error,
+          error: true,
+        }),);
   }
 
 }
