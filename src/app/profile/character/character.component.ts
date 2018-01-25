@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { CharacterService } from '../services/character/character.service';
+import { CharacterService } from '../../services/character/character.service';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
-import { DCharacter } from '../services/character/character.dto';
-import { PostService } from '../services/post/post.service';
-import { DPostList } from '../services/post/post.dto';
+import { DCharacter } from '../../services/character/character.dto';
+import { PostService } from '../../services/post/post.service';
+import { DPostList } from '../../services/post/post.dto';
 
 @Component({
   selector: 'app-character',
@@ -28,6 +28,9 @@ export class CharacterComponent implements OnInit {
 
   page: number;
 
+  loadingProfile: boolean = true;
+  loadingWall: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -36,6 +39,8 @@ export class CharacterComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.loadingProfile = true;
+        this.loadingWall = true;
         this.page = 0;
         let id = +this.route.snapshot.params['id'];
         this.characterService.get(id);
@@ -45,8 +50,14 @@ export class CharacterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.character$.subscribe(character => this.character = character);
-    this.wall$.subscribe(wall => this.wall = wall);
+    this.character$.subscribe(character => {
+      this.character = character;
+      if (this.character) this.loadingProfile = false;
+    });
+    this.wall$.subscribe(wall => {
+      this.wall = wall;
+      if (this.wall) this.loadingWall = false;
+    });
   }
 
   onScroll() {

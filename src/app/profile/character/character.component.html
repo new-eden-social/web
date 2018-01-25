@@ -1,21 +1,14 @@
-<div class="profile">
+<app-loading *ngIf="loadingProfile"></app-loading>
 
-  <div class="header">
-    <div class="header-wrap">
-      <img src="{{character.portrait.px256x256}}">
-      <div class="info">
-        <h2>
-          {{ character.name }}
-          <small>{{ character.corporation.name }}</small>
-        </h2>
-        <p>@{{ character.name.replace(' ', '_') }}</p>
-      </div>
-      <div class="actions">
-        <button mat-raised-button color="primary">Follow</button>
-      </div>
-    </div>
-  </div>
+<div class="profile" *ngIf="!loadingProfile">
 
+  <app-profile-header [image]="character.portrait.px256x256"
+                      [title]="character.name"
+                      [subheader]="{ text: character.corporation.name, link: ['/corporation', character.corporation.id]  }"
+                      [tag]="character.name.replace(' ', '_')"
+                      [type]="'character'">
+  <button mat-raised-button color="primary">Follow</button>
+  </app-profile-header>
 
   <div class="content">
     <div class="narrow">
@@ -40,25 +33,29 @@
           <mat-list-item *ngIf="character.corporation.alliance">
             <div class="about-item-content">
               <p>Alliance</p>
-              <a href="">{{ character.corporation.alliance.name }}</a>
+              <a [routerLink]="['/alliance', character.corporation.alliance.id]">
+                {{ character.corporation.alliance.name }}
+              </a>
             </div>
           </mat-list-item>
 
           <mat-list-item>
             <div class="about-item-content">
               <p>Corporation</p>
-              <a href="">{{ character.corporation.name }}</a>
+              <a [routerLink]="['/corporation', character.corporation.id]">
+                {{ character.corporation.name }}
+              </a>
             </div>
           </mat-list-item>
 
-          <mat-list-item *ngIf="character.corporation.alliance">
+          <mat-list-item>
             <div class="about-item-content">
               <p>Race</p>
               <a href="">Ammar</a>
             </div>
           </mat-list-item>
 
-          <mat-list-item *ngIf="character.corporation.alliance">
+          <mat-list-item>
             <div class="about-item-content">
               <p>Bloodline</p>
               <a href="">Civire</a>
@@ -70,7 +67,9 @@
       <app-footer></app-footer>
     </div>
 
-    <div class="wide" infiniteScroll (scrolled)="onScroll()">
+    <app-loading class="wide" *ngIf="loadingWall"></app-loading>
+
+    <div *ngIf="!loadingWall" class="wide" infiniteScroll (scrolled)="onScroll()">
       <app-post-form *ngIf="authenticated$ | async" [characterWall]="character"></app-post-form>
 
       <app-post *ngFor="let post of wall.data" [post]="post"></app-post>

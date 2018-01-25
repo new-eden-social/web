@@ -13,6 +13,12 @@ export class PostService extends ApiService {
 
   private uri = 'posts';
 
+  /**
+   * Latest posts
+   * @param {number} page
+   * @param {number} limit
+   * @returns {Subscription}
+   */
   latest(page = 0, limit = 20) {
     return this.request<DPostList[]>('GET', `${this.uri}/latest?page=${page}&limit=${limit}`)
     .subscribe(
@@ -30,6 +36,13 @@ export class PostService extends ApiService {
     );
   }
 
+  /**
+   * Character wall
+   * @param {number} characterId
+   * @param {number} page
+   * @param {number} limit
+   * @returns {Subscription}
+   */
   characterWall(characterId: number, page = 0, limit = 20) {
     return this.request<DPostList[]>(
       'GET',
@@ -50,6 +63,13 @@ export class PostService extends ApiService {
   }
 
 
+  /**
+   * Post as character
+   * @param {string} content
+   * @param {"TEXT"} type
+   * @param options
+   * @returns {Subscription}
+   */
   postAsCharacter(content: string, type: 'TEXT', options: any = {}) {
     return this.request<DPost>('POST', `${this.uri}/character`, {
       body: {
@@ -75,6 +95,58 @@ export class PostService extends ApiService {
           payload: error,
           error: true,
         }),);
+  }
+
+  /**
+   * Get corporation wall
+   * @param {number} corporationId
+   * @param {number} page
+   * @param {number} limit
+   * @returns {Subscription}
+   */
+  corporationWall(corporationId: number, page = 0, limit = 20) {
+    return this.request<DPostList[]>(
+      'GET',
+      `${this.uri}/corporation/${corporationId}?page=${page}&limit=${limit}`)
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_CORPORATION_WALL,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_CORPORATION_WALL,
+          payload: error,
+          error: true,
+        }),
+    );
+  }
+
+  /**
+   * Get alliance wall
+   * @param {number} allianceId
+   * @param {number} page
+   * @param {number} limit
+   * @returns {Subscription}
+   */
+  allianceWall(allianceId: number, page = 0, limit = 20) {
+    return this.request<DPostList[]>(
+      'GET',
+      `${this.uri}/alliance/${allianceId}?page=${page}&limit=${limit}`)
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_ALLIANCE_WALL,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_ALLIANCE_WALL,
+          payload: error,
+          error: true,
+        }),
+    );
   }
 
 }

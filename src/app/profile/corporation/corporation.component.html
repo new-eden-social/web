@@ -1,0 +1,76 @@
+<app-loading *ngIf="loadingProfile"></app-loading>
+
+<div class="profile" *ngIf="!loadingProfile">
+
+  <app-profile-header [image]="corporation.icon.px256x256"
+                      [title]="corporation.name"
+                      [subheader]="{ text: allianceName, link: ['/alliance', allianceId]  }"
+                      [tag]="corporation.name.replace(' ', '_')"
+                      [type]="'corporation'">
+    <button mat-raised-button color="primary">Follow</button>
+  </app-profile-header>
+
+  <div class="content">
+    <div class="narrow">
+
+      <div class="stats">
+        <div class="stats-item">
+          <span>Posts</span>
+          <span class="number">113</span>
+        </div>
+        <div class="stats-item">
+          <span>Following</span>
+          <span class="number">20</span>
+        </div>
+        <div class="stats-item">
+          <span>Followers</span>
+          <span class="number">13</span>
+        </div>
+      </div>
+
+      <mat-card class="about">
+        <mat-list dense>
+          <mat-list-item *ngIf="corporation.alliance">
+            <div class="about-item-content">
+              <p>Alliance</p>
+              <a [routerLink]="['/alliance', corporation.alliance.id]">
+                {{ corporation.alliance.name}}
+              </a>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="about-item-content">
+              <p>Ticker</p>
+              <p class="about-item-content-bold">
+                {{ corporation.ticker }}
+              </p>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+
+      <app-footer></app-footer>
+    </div>
+
+    <app-loading class="wide" *ngIf="loadingWall"></app-loading>
+
+    <div *ngIf="!loadingWall" class="wide" infiniteScroll (scrolled)="onScroll()">
+
+      <app-post-form *ngIf="authenticated$ | async" [corporationWall]="corporation"></app-post-form>
+
+      <app-post *ngFor="let post of wall.data" [post]="post"></app-post>
+
+      <mat-card class="start" *ngIf="wall.data.length !== 0">
+        <mat-card-content>
+          <p>Start of everything</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="empty" *ngIf="wall.data.length === 0">
+        <mat-card-content>
+          <p>looks like there is nothing here :/</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<app-loading *ngIf="loadingProfile"></app-loading>
+
+<div class="profile" *ngIf="!loadingProfile">
+
+  <app-profile-header [image]="alliance.icon.px128x128"
+                      [title]="alliance.name"
+                      [tag]="alliance.name.replace(' ', '_')"
+                      [type]="'alliance'">
+
+    <button mat-raised-button color="primary">Follow</button>
+  </app-profile-header>
+
+  <div class="content">
+    <div class="narrow">
+
+      <div class="stats">
+        <div class="stats-item">
+          <span>Posts</span>
+          <span class="number">113</span>
+        </div>
+        <div class="stats-item">
+          <span>Following</span>
+          <span class="number">20</span>
+        </div>
+        <div class="stats-item">
+          <span>Followers</span>
+          <span class="number">13</span>
+        </div>
+      </div>
+
+      <mat-card class="about">
+        <mat-list dense>
+          <mat-list-item>
+            <div class="about-item-content">
+              <p>Members</p>
+              <p class="about-item-content-bold">{{alliance.memberCount}}</p>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="about-item-content">
+              <p>Corporations</p>
+              <p class="about-item-content-bold">{{alliance.corpCount}}</p>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+
+      <app-footer></app-footer>
+    </div>
+
+    <app-loading class="wide" *ngIf="loadingWall"></app-loading>
+
+    <div *ngIf="!loadingWall" class="wide" infiniteScroll (scrolled)="onScroll()">
+
+      <app-post-form *ngIf="authenticated$ | async" [allianceWall]="alliance"></app-post-form>
+
+      <app-post *ngFor="let post of wall.data" [post]="post"></app-post>
+
+      <mat-card class="start" *ngIf="wall.data.length !== 0">
+        <mat-card-content>
+          <p>Start of everything</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="empty" *ngIf="wall.data.length === 0">
+        <mat-card-content>
+          <p>looks like there is nothing here :/</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

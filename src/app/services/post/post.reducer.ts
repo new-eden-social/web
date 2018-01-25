@@ -17,6 +17,8 @@ export const postReducer: Reducer<IPostState> = (
      */
     case PostTypes.GET_LATEST:
     case PostTypes.GET_CHARACTER_WALL:
+    case PostTypes.GET_CORPORATION_WALL:
+    case PostTypes.GET_ALLIANCE_WALL:
       const oldPosts = state.list ? state.list.data : [];
       let posts = [];
       if (!state.list || state.list.page >= action.payload.page) posts = action.payload.data;
