@@ -11,6 +11,7 @@ import { CorporationService } from '../../services/corporation/corporation.servi
 import { LoadingModule } from '../../loading/loading.module';
 import { ProfileHeaderModule } from '../header/header.module';
 import { RouterModule } from '@angular/router';
+import { PostListModule } from '../../post-list/post-list.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
     LoadingModule,
     ProfileHeaderModule,
     RouterModule,
+    PostListModule,
   ],
   providers: [CorporationService, PostService],
   declarations: [CorporationComponent],

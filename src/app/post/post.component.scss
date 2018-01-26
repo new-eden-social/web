@@ -1,18 +1,19 @@
 @import "../../variables";
 
-.post-item {
+mat-card.post-item {
   display: flex;
   flex-direction: row;
   padding: 12px;
 
-  img {
+  .mat-icon-button {
     width: 48px;
     height: 48px;
     margin-right: 12px;
-    border-radius: 50%;
 
-    &:hover {
-      cursor: pointer;
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
     }
   }
 

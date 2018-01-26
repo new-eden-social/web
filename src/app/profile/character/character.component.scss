@@ -1,4 +1,5 @@
 @import "../../../variables";
+@import '~@angular/material/theming';
 
 .profile {
   width: 100%;
@@ -55,10 +56,15 @@
       }
 
       .about {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.75em;
+
         .about-item-content {
           display: flex;
           flex-direction: column;
           text-transform: uppercase;
+          margin-top: 1em;
 
           p {
             margin: 0;
@@ -82,27 +88,6 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-
-      > * {
-        &:not(:first-child) {
-          margin-top: 1em;
-        }
-        &:last-child {
-          margin-bottom: 1em;
-        }
-      }
-
-      .start,
-      .empty {
-        align-self: center;
-        padding: 0.8em;
-        margin-top: 2em;
-        p {
-          text-align: center;
-          text-transform: lowercase;
-        }
-      }
     }
   }
-
 }

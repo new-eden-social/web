@@ -11,6 +11,7 @@ import { FooterModule } from '../../footer/footer.module';
 import { RouterModule } from '@angular/router';
 import { ProfileHeaderModule } from '../header/header.module';
 import { LoadingModule } from '../../loading/loading.module';
+import { PostListModule } from '../../post-list/post-list.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { LoadingModule } from '../../loading/loading.module';
     RouterModule,
     LoadingModule,
     ProfileHeaderModule,
+    PostListModule,
   ],
   providers: [CharacterService, PostService],
   declarations: [CharacterComponent],

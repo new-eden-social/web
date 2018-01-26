@@ -15,13 +15,16 @@ import { DPostList } from '../services/post/post.dto';
 })
 export class HomeComponent implements OnInit {
 
-  @select(['post', 'list', 'data'])
-  latest$: Observable<DPostList[]>;
+  @select(['post', 'list'])
+  postList$: Observable<DPostList>;
+  postList: DPostList;
 
   @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
 
   page: number;
+
+  loadingPosts: boolean = true;
 
   hashtags = [
     {
@@ -51,6 +54,10 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor(private postService: PostService) {
+    this.postList$.subscribe(postList => {
+      this.postList = postList;
+      if (this.postList) this.loadingPosts = false;
+    });
   }
 
   ngOnInit() {
@@ -60,7 +67,7 @@ export class HomeComponent implements OnInit {
 
   onScroll() {
     this.page++;
-    this.postService.latest(this.page)
+    this.postService.latest(this.page);
   }
 
 }

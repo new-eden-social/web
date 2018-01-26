@@ -16,9 +16,10 @@
     <app-footer></app-footer>
   </div>
 
-  <div class="wide" infiniteScroll (scrolled)="onScroll()">
-    <app-post-form></app-post-form>
-    <app-post *ngFor="let post of latest$ | async" [post]="post"></app-post>
+  <app-loading class="wide" *ngIf="loadingPosts"></app-loading>
+
+  <div class="wide" *ngIf="!loadingPosts" infiniteScroll (scrolled)="onScroll()">
+    <app-post-list [postList]="postList"></app-post-list>
   </div>
 </div>
 

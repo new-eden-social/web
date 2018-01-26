@@ -14,6 +14,8 @@ import { PostModule } from '../post/post.module';
 import { PostFormModule } from '../post-form/post-form.module';
 import { RouterModule } from '@angular/router';
 import { FooterModule } from '../footer/footer.module';
+import { PostListModule } from '../post-list/post-list.module';
+import { LoadingModule } from '../loading/loading.module';
 
 @NgModule({
   imports: [
@@ -33,6 +35,8 @@ import { FooterModule } from '../footer/footer.module';
     HomeWelcomeModule,
     RouterModule,
     FooterModule,
+    PostListModule,
+    LoadingModule,
   ],
   providers: [],
   declarations: [HomeComponent],

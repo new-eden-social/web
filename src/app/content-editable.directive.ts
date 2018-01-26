@@ -24,7 +24,6 @@ export class ContentEditableDirective implements OnChanges {
 
   ngOnChanges(change) {
     const changeText = <SimpleChange>change.textValue;
-    console.log(changeText.currentValue, this.oldValue);
     if (changeText.currentValue !== this.oldValue) {
       this.refreshView();
     }

@@ -4,13 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: repeating-linear-gradient(
-      45deg,
-      #3f3f3f,
-      #3f3f3f 10px,
-      #393939 10px,
-      #393939 20px
-  );
+  background: $app-background-color;
   width: 100%;
   padding: 1em;
 
@@ -22,7 +16,6 @@
     img {
       height: 128px;
       width: 128px;
-      border-radius: 4px;
     }
 
     .info {

@@ -65,8 +65,13 @@
     width: 100%;
     margin-top: 25px; // to be inline with profile-card
 
-    > *:not(:first-child) {
-      margin-top: 0.5em;
+    > * {
+      &:not(:first-child) {
+        margin-top: 1em;
+      }
+      &:last-child {
+        margin-bottom: 1em;
+      }
     }
   }
 }

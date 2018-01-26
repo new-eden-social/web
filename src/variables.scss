@@ -3,26 +3,57 @@
 $app-navbar-height: 64px;
 $app-content-top-margin: 20px;
 
-$app-background-dark: #101010;
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue.
 $app-primary: $mat-light-blue;
 $app-accent: $mat-light-blue;
-
-// The warn palette is optional (defaults to red).
 $app-warn: $mat-red;
+$app-foreground: (
+  base:              white,
+  divider:           $light-dividers,
+  dividers:          $light-dividers,
+  disabled:          $light-disabled-text,
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     $light-disabled-text,
+  hint-text:         $light-disabled-text,
+  secondary-text:    $light-secondary-text,
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+$app-background-color: #1e2c37;
+$app-background-color-darker: #05131E;
+$app-background: (
+  status-bar: black,
+  app-bar:    $app-background-color, // 900
+  background: $app-background-color,
+  hover:      rgba(white, 0.04),
+  card:       $app-background-color, // 800
+  dialog:     $app-background-color, // 800
+  disabled-button: rgba(white, 0.12),
+  raised-button: $app-background-color, // 800
+  focused-button: $light-focused,
+  selected-button: $app-background-color-darker, // 900
+  selected-disabled-button: $app-background-color, // 800
+  disabled-button-toggle: black,
+  unselected-chip: $app-background-color, // 700
+  disabled-list-option: black,
+);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-dark-theme(
-    mat-palette($app-primary),
-    mat-palette($app-accent, A200, A100, A400),
-    mat-palette($app-warn));
+$app-theme: (
+  primary: mat-palette($app-primary),
+  accent: mat-palette($app-accent, A200, A100, A400),
+  warn: mat-palette($mat-red),
+  is-dark: true,
+  foreground: $app-foreground,
+  background: $app-background,
+);
 
 $app-typography: mat-typography-config(
   $font-family: 'Shentox, Roboto, "Helvetica Neue", sans-serif'
 );
-
 
 $app-narrow-column-width: 320px;

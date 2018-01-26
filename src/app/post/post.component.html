@@ -1,5 +1,8 @@
-<mat-card class="post-item">
-  <img [src]="image" (click)="openItem()"/>
+<mat-card class="post-item mat-elevation-z0">
+
+  <button mat-icon-button>
+    <img aria-label="Profile" [src]="image" (click)="openItem()"/>
+  </button>
 
   <div class="card-content">
     <div class="card-header">

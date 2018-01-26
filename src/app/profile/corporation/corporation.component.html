@@ -55,21 +55,7 @@
     <app-loading class="wide" *ngIf="loadingWall"></app-loading>
 
     <div *ngIf="!loadingWall" class="wide" infiniteScroll (scrolled)="onScroll()">
-
-      <app-post-form *ngIf="authenticated$ | async" [corporationWall]="corporation"></app-post-form>
-
-      <app-post *ngFor="let post of wall.data" [post]="post"></app-post>
-
-      <mat-card class="start" *ngIf="wall.data.length !== 0">
-        <mat-card-content>
-          <p>Start of everything</p>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="empty" *ngIf="wall.data.length === 0">
-        <mat-card-content>
-          <p>looks like there is nothing here :/</p>
-        </mat-card-content>
-      </mat-card>
+      <app-post-list [corporationWall]="corporation" [postList]="wall"></app-post-list>
     </div>
 
   </div>

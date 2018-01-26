@@ -40,6 +40,13 @@ button, input, optgroup, select, textarea, body {
   font-family: Shentox, Roboto, Helvetica Neue, sans-serif;
 }
 
+// Remove border radius from material design elements
+.mat-button,
+.mat-raised-button,
+mat-card {
+  border-radius: 0 !important;
+}
+
 app-root {
   display: flex;
   flex-direction: column;
