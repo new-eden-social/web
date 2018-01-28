@@ -34,13 +34,12 @@ Whole platform would heavily relay on EVE Online API, so that you could send in 
 Think of it as combination of r/eve and twitter. A hub of EVE Online community.
 
 ### Releases
-For branches `develop` and `master` servers are automaticly deployed and all data gets lost on each deploy.
+Branch `develop` is automatically deployed on each commit/merge.
 
-| Branch  | API                       | WEB                       |
-| ------- | ------------------------- | ------------------------- |
-| develop | api.dev.evebook.online    |web.dev.evebook.online     |
-| master  | api.staging.evebook.online|web.staging.evebook.online |
-| release | api.evebook.online        |evebook.online             |
+| Branch  | API                            | WEB                       |
+| ------- | ------------------------------ | ------------------------- |
+| develop | api.development.evebook.online |development.evebook.online |
+| master  | api.evebook.online             |evebook.online             |
 
 ## Contributing
 We would love to see you contribute. To learn how to best help project read [CONTRIBUTING](https://github.com/evebook/web/blob/master/CONTRIBUTING.md) and look in the [issues](https://github.com/evebook/web/issues). If you have any questions you can ask us on [slack #evebook](https://www.fuzzwork.co.uk/tweetfleet-slack-invites/).
