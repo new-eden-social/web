@@ -5,7 +5,7 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <div class="panel-content">
+  <div class="panel-content" *ngIf="authenticated$ | async">
     <mat-menu #selectPostMethod="matMenu" class="select-post-method-menu">
       <button mat-menu-item class="select-post-method-menu-item" (click)="setCharacter()">
         <img src="{{ character.portrait.px64x64}}">
@@ -40,5 +40,10 @@
       <button mat-button (click)="submit()">Share</button>
     </div>
   </div>
+
+  <div class="panel-content" *ngIf="(authenticated$ | async) == false">
+    <p class="unauthenticated">You have to be logged in to post content</p>
+  </div>
+
 </mat-expansion-panel>
 

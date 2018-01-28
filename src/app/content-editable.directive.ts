@@ -10,16 +10,22 @@ import {
   },
 })
 export class ContentEditableDirective implements OnChanges {
-  @Input('contentValue') textValue: String;
-  @Output('contentValueUpdate') update = new EventEmitter<String>();
 
-  private oldValue: String = '';
+  @Input('contentValue')
+  textValue: string;
+
+  @Output('contentValueUpdate')
+  update = new EventEmitter<string>();
+
+  private oldValue: string = '';
   private selection: {
     start: number,
     end: number,
   };
 
-  constructor(private elRef: ElementRef) {
+  constructor(
+    private elRef: ElementRef,
+  ) {
   }
 
   ngOnChanges(change) {
@@ -86,9 +92,7 @@ export class ContentEditableDirective implements OnChanges {
   private refreshView() {
 
     this.saveSelection();
-
     this.elRef.nativeElement.innerHTML = this.textValue;
-
     this.restoreSelection();
   }
 }

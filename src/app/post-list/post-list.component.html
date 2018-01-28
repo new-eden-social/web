@@ -1,6 +1,5 @@
 <div class="post-list">
-  <app-post-form *ngIf="authenticated$ | async"
-                 [characterWall]="characterWall"
+  <app-post-form [characterWall]="characterWall"
                  [corporationWall]="corporationWall"
                  [allianceWall]="allianceWall">
   </app-post-form>

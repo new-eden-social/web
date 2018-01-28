@@ -1,7 +1,9 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component, Input, OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import { DCharacter, DCharacterShort } from '../services/character/character.dto';
 import { PostService } from '../services/post/post.service';
 import { DCorporation } from '../services/corporation/corporation.dto';
@@ -25,6 +27,9 @@ export class PostFormComponent implements OnInit {
   @Input()
   allianceWall?: DAlliance;
 
+  @select(['authentication', 'authenticated'])
+  authenticated$: Observable<boolean>;
+
   @select(['authentication', 'character'])
   character$: Observable<DCharacterShort>;
   character: DCharacterShort;
@@ -42,7 +47,9 @@ export class PostFormComponent implements OnInit {
   postHtml: string = '';
   private writingSubject = new BehaviorSubject<string>('');
 
-  constructor(private postService: PostService) {
+  constructor(
+    private postService: PostService,
+  ) {
   }
 
   ngOnInit() {
@@ -53,10 +60,12 @@ export class PostFormComponent implements OnInit {
 
     this.writingSubject.subscribe(value => {
       this.postValue = value;
-      value = value.replace(
+
+      const hashtagHtml = value.replace(
         /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
         (hashtag) => `<a href="" class="input-field-link">${hashtag}</a>`);
-      this.postHtml = value;
+
+      this.postHtml = hashtagHtml;
     });
   }
 
