@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 import { ApiService } from '../api.service';
 import { PostTypes } from './post.types';
 import { DPost, DPostList } from './post.dto';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class PostService extends ApiService {
@@ -30,6 +29,24 @@ export class PostService extends ApiService {
       error => this.ngRedux.dispatch(
         {
           type: PostTypes.GET_LATEST,
+          payload: error,
+          error: true,
+        }),
+    );
+  }
+
+
+  hashtag(hashtag: string, page = 0, limit = 20) {
+    return this.request<DPostList[]>('GET', `${this.uri}/hashtag/${hashtag}?page=${page}&limit=${limit}`)
+    .subscribe(
+      response => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_HASHTAG,
+          payload: response,
+        }),
+      error => this.ngRedux.dispatch(
+        {
+          type: PostTypes.GET_HASHTAG,
           payload: error,
           error: true,
         }),

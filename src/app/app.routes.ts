@@ -4,9 +4,11 @@ import { CorporationComponent } from './profile/corporation/corporation.componen
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { DebugComponent } from './debug/debug.component';
 import { AllianceComponent } from './profile/alliance/alliance.component';
+import { HashtagComponent } from './hashtag/hashtag.component';
 
 export const appRoutes = [
   { path: '', component: HomeComponent },
+  { path: 'hashtag/:hashtag', component: HashtagComponent },
   { path: 'character/:id', component: CharacterComponent },
   { path: 'corporation/:id', component: CorporationComponent },
   { path: 'alliance/:id', component: AllianceComponent },

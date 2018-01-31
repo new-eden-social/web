@@ -16,6 +16,7 @@ export const postReducer: Reducer<IPostState> = (
      * Add posts to the end (if page same as before or less, replace)
      */
     case PostTypes.GET_LATEST:
+    case PostTypes.GET_HASHTAG:
     case PostTypes.GET_CHARACTER_WALL:
     case PostTypes.GET_CORPORATION_WALL:
     case PostTypes.GET_ALLIANCE_WALL:

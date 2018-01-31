@@ -20,6 +20,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { DebugModule } from './debug/debug.module';
 import { CorporationModule } from './profile/corporation/corporation.module';
 import { AllianceModule } from './profile/alliance/alliance.module';
+import { HashtagModule } from './hashtag/hashtag.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AllianceModule } from './profile/alliance/alliance.module';
     BrowserAnimationsModule,
     NgReduxModule,
     NgReduxRouterModule,
+    MatProgressSpinnerModule,
     StoreModule,
     NavbarModule,
     HomeModule,
@@ -41,7 +43,7 @@ import { AllianceModule } from './profile/alliance/alliance.module';
     AllianceModule,
     AuthenticationModule,
     DebugModule,
-    MatProgressSpinnerModule,
+    HashtagModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

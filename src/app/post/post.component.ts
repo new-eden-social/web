@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { DPost } from '../services/post/post.dto';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -17,9 +18,9 @@ export class PostComponent implements OnInit {
   link: any[];
   tag: string;
   image: string;
-  content: string;
+  content: string | SafeHtml;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -42,9 +43,12 @@ export class PostComponent implements OnInit {
       this.image = this.post.alliance.icon.px64x64;
     }
 
-    this.content = this.post.content.replace(
+    const html = this.post.content.replace(
       /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
-      (hashtag) => `<a href="" class="text-link">${hashtag}</a>`);
+      (hashtag) =>
+        `<a href="/hashtag/${hashtag.replace('#', '')}" class="text-link">${hashtag}</a>`);
+
+    this.content = this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   openItem() {

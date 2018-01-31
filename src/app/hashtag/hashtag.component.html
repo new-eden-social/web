@@ -1,0 +1,18 @@
+<div class="hashtags">
+
+  <div class="header">
+    <h2>{{ hashtag }}</h2>
+  </div>
+
+  <div class="content">
+    <div class="narrow">
+      <app-footer></app-footer>
+    </div>
+
+    <app-loading class="wide" *ngIf="loadingWall"></app-loading>
+
+    <div *ngIf="!loadingWall" class="wide" infiniteScroll (scrolled)="onScroll()">
+      <app-post-list [postList]="wall"></app-post-list>
+    </div>
+  </div>
+</div>
