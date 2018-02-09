@@ -34,7 +34,7 @@
     "eve-singlesignon": "0.0.5",
     "flux-standard-action": "^1.2.0",
     "hammerjs": "^2.0.8",
-    "normalize.css": "^7.0.0",
+    "normalize.css": "^8.0.0",
     "redux": "^3.7.1",
     "redux-logger": "^3.0.6",
     "redux-observable": "^0.16.0",
