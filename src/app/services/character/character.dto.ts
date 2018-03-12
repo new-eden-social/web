@@ -16,6 +16,7 @@ export class DCharacterName {
 
 export class DCharacterShort {
   id: number;
+  handle: string;
   name: string;
   description: string;
   gender: string;
@@ -29,6 +30,7 @@ export class DCharacterShort {
 
 export class DCharacter {
   id: number;
+  handle: string;
   name: string;
   description: string;
   gender: string;

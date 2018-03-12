@@ -5,7 +5,7 @@
   <app-profile-header [image]="character.portrait.px256x256"
                       [title]="character.name"
                       [subheader]="{ text: character.corporation.name, link: ['/corporation', character.corporation.id]  }"
-                      [tag]="character.name.replace(' ', '_')"
+                      [handle]="character.handle"
                       [type]="'character'">
     <button mat-raised-button color="primary">Follow</button>
   </app-profile-header>

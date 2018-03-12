@@ -14,8 +14,8 @@ export class HeaderComponent {
   @Input('title')
   title?: string;
 
-  @Input('tag')
-  tag?: string;
+  @Input('handle')
+  handle?: string;
 
   @Input('type')
   type?: string;

@@ -15,6 +15,7 @@ export class DCorporationName {
 
 export class DCorporationShort {
   id: number;
+  handle: string;
   name: string;
   ticker: string;
   description: string;
@@ -24,6 +25,7 @@ export class DCorporationShort {
 
 export class DCorporationShortWithoutAlliance {
   id: number;
+  handle: string;
   name: string;
   ticker: string;
   description: string;
@@ -32,6 +34,7 @@ export class DCorporationShortWithoutAlliance {
 
 export class DCorporation {
   id: number;
+  handle: string;
   name: string;
   ticker: string;
   description: string;

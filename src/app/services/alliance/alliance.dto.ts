@@ -14,6 +14,7 @@ export class DAllianceName {
 
 export class DAllianceShort {
   id: number;
+  handle: string;
   name: string;
   ticker: string;
   dateFounded: Date;
@@ -22,6 +23,7 @@ export class DAllianceShort {
 
 export class DAlliance {
   id: number;
+  handle: string;
   name: string;
   ticker: string;
   dateFounded: Date;

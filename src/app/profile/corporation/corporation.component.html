@@ -5,7 +5,7 @@
   <app-profile-header [image]="corporation.icon.px256x256"
                       [title]="corporation.name"
                       [subheader]="{ text: allianceName, link: ['/alliance', allianceId]  }"
-                      [tag]="corporation.name.replace(' ', '_')"
+                      [handle]="corporation.handle"
                       [type]="'corporation'">
     <button mat-raised-button color="primary">Follow</button>
   </app-profile-header>

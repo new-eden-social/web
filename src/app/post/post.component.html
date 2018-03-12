@@ -7,7 +7,7 @@
   <div class="card-content">
     <div class="card-header">
       <a [routerLink]="link">{{ name }}</a>
-      <small class="mat-caption">@{{ tag }}</small>
+      <small class="mat-caption">@{{ handle }}</small>
       <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
     </div>
     <p class="card-text" [innerHtml]="content"></p>
