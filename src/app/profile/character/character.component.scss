@@ -1,9 +1,13 @@
 @import "../../../variables";
-@import '~@angular/material/theming';
+
+app-loading {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
 
 .profile {
   width: 100%;
-  margin-top: $app-navbar-height;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,8 +65,6 @@
         font-size: 0.75em;
 
         .about-item-content {
-          display: flex;
-          flex-direction: column;
           text-transform: uppercase;
           margin-top: 1em;
 
@@ -70,12 +72,12 @@
             margin: 0;
           }
 
-          a {
+          .about-data {
             font-weight: 700;
             text-decoration: none;
             color: #f3f3f3;
 
-            &:hover {
+            & a:hover {
               color: map-get($app-primary, 500);
               transition: color 100ms ease;
             }
@@ -88,6 +90,27 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+
+      > * {
+        &:not(:first-child) {
+          margin-top: 1em;
+        }
+        &:last-child {
+          margin-bottom: 1em;
+        }
+      }
+
+      .start,
+      .empty {
+        align-self: center;
+        padding: 0.8em;
+        margin-top: 2em;
+        p {
+          text-align: center;
+          text-transform: lowercase;
+        }
+      }
     }
   }
+
 }

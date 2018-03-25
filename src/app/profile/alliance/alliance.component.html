@@ -28,22 +28,18 @@
         </div>
       </div>
 
-      <mat-card class="about">
-        <mat-list dense>
-          <mat-list-item>
-            <div class="about-item-content">
-              <p>Members</p>
-              <p class="about-item-content-bold">{{alliance.memberCount}}</p>
-            </div>
-          </mat-list-item>
-          <mat-list-item>
-            <div class="about-item-content">
-              <p>Corporations</p>
-              <p class="about-item-content-bold">{{alliance.corpCount}}</p>
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </mat-card>
+
+      <div class="about">
+        <div class="about-item-content">
+          <p>Members</p>
+          <p class="about-data">{{alliance.memberCount}}</p>
+        </div>
+
+        <div class="about-item-content">
+          <p>Corporations</p>
+          <p class="about-data">{{alliance.corpCount}}</p>
+        </div>
+      </div>
 
       <app-footer></app-footer>
     </div>

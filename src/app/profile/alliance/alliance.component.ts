@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
 import { PostService } from '../../services/post/post.service';
 import { DPostList } from '../../services/post/post.dto';
-import { DCorporation } from '../../services/corporation/corporation.dto';
-import { CorporationService } from '../../services/corporation/corporation.service';
 import { DAlliance } from '../../services/alliance/alliance.dto';
 import { AllianceService } from '../../services/alliance/alliance.service';
 
@@ -41,9 +39,8 @@ export class AllianceComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.loadingProfile = true;
-        this.loadingWall = true;
-        this.page = 0;
+        this.setInitValues();
+
         let id = +this.route.snapshot.params['id'];
         this.allianceService.get(id);
         this.postService.allianceWall(id);
@@ -67,4 +64,9 @@ export class AllianceComponent implements OnInit {
     this.postService.allianceWall(this.alliance.id, this.page);
   }
 
+  private setInitValues(): void {
+    this.loadingProfile = true;
+    this.loadingWall = true;
+    this.page = 0;
+  }
 }

@@ -31,26 +31,26 @@
       <div class="about">
         <div class="about-item-content" *ngIf="character.corporation.alliance">
           <p>Alliance</p>
-          <a [routerLink]="['/alliance', character.corporation.alliance.id]">
+          <a class="about-data" [routerLink]="['/alliance', character.corporation.alliance.id]">
             {{ character.corporation.alliance.name }}
           </a>
         </div>
 
         <div class="about-item-content">
           <p>Corporation</p>
-          <a [routerLink]="['/corporation', character.corporation.id]">
+          <a class="about-data" [routerLink]="['/corporation', character.corporation.id]">
             {{ character.corporation.name }}
           </a>
         </div>
 
         <div class="about-item-content">
           <p>Race</p>
-          <a href="">Ammar</a>
+          <a class="about-data" href="">Ammar</a>
         </div>
 
         <div class="about-item-content">
           <p>Bloodline</p>
-          <a href="">Civire</a>
+          <a class="about-data" href="">Civire</a>
         </div>
       </div>
 

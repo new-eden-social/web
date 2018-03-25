@@ -13,4 +13,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1 1 auto;
+  margin-top: 64px; // Header Margin
+
+  > *:not(router-outlet) {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
 }

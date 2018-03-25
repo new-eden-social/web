@@ -8,7 +8,7 @@ import { DCorporation } from '../../services/corporation/corporation.dto';
 import { CorporationService } from '../../services/corporation/corporation.service';
 
 @Component({
-  selector: 'app-alliance',
+  selector: 'app-corporation',
   templateUrl: './corporation.component.html',
   styleUrls: ['./corporation.component.scss'],
 })
@@ -42,9 +42,8 @@ export class CorporationComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.loadingProfile = true;
-        this.loadingWall = true;
-        this.page = 0;
+        this.setInitValues();
+
         let id = +this.route.snapshot.params['id'];
         this.corporationService.get(id);
         this.postService.corporationWall(id);
@@ -70,6 +69,12 @@ export class CorporationComponent implements OnInit {
   onScroll() {
     this.page++;
     this.postService.corporationWall(this.corporation.id, this.page);
+  }
+
+  private setInitValues(): void {
+    this.loadingProfile = true;
+    this.loadingWall = true;
+    this.page = 0;
   }
 
 }

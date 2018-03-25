@@ -39,9 +39,8 @@ export class CharacterComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.loadingProfile = true;
-        this.loadingWall = true;
-        this.page = 0;
+        this.setInitValues();
+
         let id = +this.route.snapshot.params['id'];
         this.characterService.get(id);
         this.postService.characterWall(id);
@@ -63,6 +62,12 @@ export class CharacterComponent implements OnInit {
   onScroll() {
     this.page++;
     this.postService.characterWall(this.character.id, this.page);
+  }
+
+  private setInitValues(): void {
+    this.loadingProfile = true;
+    this.loadingWall = true;
+    this.page = 0;
   }
 
 }

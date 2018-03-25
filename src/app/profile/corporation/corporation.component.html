@@ -28,26 +28,21 @@
         </div>
       </div>
 
-      <mat-card class="about">
-        <mat-list dense>
-          <mat-list-item *ngIf="corporation.alliance">
-            <div class="about-item-content">
-              <p>Alliance</p>
-              <a [routerLink]="['/alliance', corporation.alliance.id]">
-                {{ corporation.alliance.name}}
-              </a>
-            </div>
-          </mat-list-item>
-          <mat-list-item>
-            <div class="about-item-content">
-              <p>Ticker</p>
-              <p class="about-item-content-bold">
-                {{ corporation.ticker }}
-              </p>
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </mat-card>
+      <div class="about">
+        <div *ngIf="corporation.alliance" class="about-item-content">
+          <p>Alliance</p>
+          <a class="about-data" [routerLink]="['/alliance', corporation.alliance.id]">
+            {{ corporation.alliance.name}}
+          </a>
+        </div>
+
+        <div class="about-item-content">
+          <p>Ticker</p>
+          <p class="about-data">
+            {{ corporation.ticker }}
+          </p>
+        </div>
+      </div>
 
       <app-footer></app-footer>
     </div>

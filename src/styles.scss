@@ -34,6 +34,8 @@ body {
   min-height: 100%;
   color: #f3f3f3;
   letter-spacing: .05em;
+  display: flex;
+  flex-direction: column;
 }
 
 button, input, optgroup, select, textarea, body {
@@ -50,6 +52,7 @@ mat-card {
 app-root {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
 }
 
 * {
