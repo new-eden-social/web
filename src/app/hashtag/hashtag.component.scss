@@ -3,7 +3,6 @@
 
 .hashtags {
   width: 100%;
-  margin-top: $app-navbar-height;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,19 +14,18 @@
     flex-direction: column;
     align-items: center;
     background: $app-background-color;
-    padding: 2em 0;
+    padding: 1em 0;
 
     h2 {
       display: flex;
       font-weight: 400;
       letter-spacing: 0.075em;
-      padding: 0;
+      padding: 1em 0;
       margin: 0;
       text-transform: uppercase;
 
-      &:before {
-        content: '#';
-        font-weight: 300;
+      strong {
+        margin-left: 0.25em;
       }
     }
   }
@@ -35,8 +33,8 @@
   .content {
     display: flex;
     flex-direction: row;
+    margin-top: $app-content-top-margin;
     width: 80%; // TODO: Responsive
-    margin-top: 2em;
 
     .narrow {
       display: flex;

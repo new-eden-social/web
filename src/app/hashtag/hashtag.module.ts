@@ -5,6 +5,7 @@ import { LoadingModule } from '../loading/loading.module';
 import { PostListModule } from '../post-list/post-list.module';
 import { FooterModule } from '../footer/footer.module';
 import { PostService } from 'app/services/post/post.service';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { PostService } from 'app/services/post/post.service';
     LoadingModule,
     PostListModule,
     FooterModule,
+    MatButtonModule,
   ],
   providers: [PostService],
   declarations: [HashtagComponent],
