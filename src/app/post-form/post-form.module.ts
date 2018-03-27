@@ -7,7 +7,8 @@ import {
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../services/post/post.service';
-import { ContentEditableDirective } from '../content-editable.directive';
+import { ContentEditableDirective } from '../content-editable/content-editable.directive';
+import { ContentEditableModule } from '../content-editable/content-editable.module';
 
 @NgModule({
   imports: [
@@ -19,9 +20,10 @@ import { ContentEditableDirective } from '../content-editable.directive';
     MatExpansionModule,
     MatMenuModule,
     MatIconModule,
+    ContentEditableModule,
   ],
   exports: [PostFormComponent],
-  declarations: [PostFormComponent, ContentEditableDirective],
+  declarations: [PostFormComponent],
   providers: [PostService],
 })
 export class PostFormModule {

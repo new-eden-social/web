@@ -22,7 +22,6 @@
     .select-post-method {
       height: 48px;
       width: 48px;
-      margin-right: 1em;
 
       img {
         height: 48px;
@@ -58,7 +57,7 @@
   display: flex;
   flex-direction: row;
   flex: 1 1;
-  margin-top: 1.25em;
+  margin: 1.25em 1em 0;
   align-items: flex-start;
 
   .post-input-field {

@@ -1,19 +1,21 @@
-<mat-card class="post-item mat-elevation-z0">
-
-  <button mat-icon-button>
-    <img aria-label="Profile" [src]="image" (click)="openItem()"/>
-  </button>
+<mat-card class="post-item">
 
   <div class="card-content">
-    <div class="card-header">
-      <a [routerLink]="link">{{ name }}</a>
-      <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
+    <button mat-icon-button>
+      <img aria-label="Profile" [src]="image" (click)="openItem()"/>
+    </button>
+
+    <div class="card-main">
+      <div class="card-header">
+        <a [routerLink]="link">{{ name }}</a>
+        <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
+      </div>
+      <p class="card-text" [innerHtml]="content"></p>
     </div>
-    <p class="card-text" [innerHtml]="content"></p>
   </div>
 
-  <!--<mat-card-actions>-->
-  <!--<button mat-button>LIKE</button>-->
-  <!--<button mat-button>SHARE</button>-->
-  <!--</mat-card-actions>-->
+  <div class="card-footer">
+    <app-comment-form></app-comment-form>
+  </div>
+
 </mat-card>

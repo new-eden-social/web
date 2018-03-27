@@ -1,0 +1,79 @@
+@import "../../../variables";
+
+$image-size: 32px;
+
+.comment-form {
+  display: flex;
+  flex-direction: row;
+  margin: 6px 12px;
+
+  > mat-form-field {
+    flex: 1 1 auto;
+  }
+
+  > .button-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .select-post-method {
+    height: $image-size;
+    padding: 0 7px; // Make it same width size as post column
+
+    img {
+      height: $image-size;
+      width: $image-size;
+      border-radius: 50%;
+      vertical-align: baseline;
+    }
+  }
+
+  .unauthenticated {
+    flex: 1 1;
+    text-align: center;
+  }
+}
+
+.select-post-method-menu {
+
+  .select-post-method-menu-item {
+    display: flex;
+
+    img {
+      height: $image-size;
+      width: $image-size;
+      border-radius: 50%;
+      padding: 0;
+      margin: 0 16px 0 0;
+    }
+  }
+
+}
+
+.post-input-wrap {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1;
+  align-items: flex-start;
+  margin: 0 1em;
+
+  .post-input-field {
+    border-bottom: 1px solid #f3f3f3;
+    display: block;
+    flex: 1 1;
+    transition: border-bottom 280ms cubic-bezier(.4, 0, .2, 1);
+    font-size: 0.8em;
+    align-self: center;
+
+    &:focus {
+      border-bottom: 1px solid map-get($app-primary, 500);
+      outline: 0;
+    }
+
+    .input-field-link {
+      color: map-get($app-primary, 500);
+      text-decoration: none;
+    }
+  }
+}

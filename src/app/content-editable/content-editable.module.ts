@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ContentEditableDirective } from './content-editable.directive';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
-  declarations: []
+  declarations: [ContentEditableDirective],
+  exports: [ContentEditableDirective],
 })
-export class ContentEditableModule { }
+export class ContentEditableModule {
+}

@@ -4,8 +4,10 @@ import { CommentComponent } from './comment.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
-  declarations: [CommentComponent]
+  declarations: [CommentComponent],
+  exports: [CommentComponent],
 })
-export class CommentModule { }
+export class CommentModule {
+}
