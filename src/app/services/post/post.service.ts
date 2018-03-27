@@ -37,7 +37,9 @@ export class PostService extends ApiService {
 
 
   hashtag(hashtag: string, page = 0, limit = 20) {
-    return this.request<DPostList[]>('GET', `${this.uri}/hashtag/${hashtag}?page=${page}&limit=${limit}`)
+    return this.request<DPostList[]>(
+      'GET',
+      `${this.uri}/hashtag/${hashtag}?page=${page}&limit=${limit}`)
     .subscribe(
       response => this.ngRedux.dispatch(
         {
@@ -90,14 +92,12 @@ export class PostService extends ApiService {
   postAsCharacter(content: string, type: 'TEXT', options: any = {}) {
     return this.request<DPost>('POST', `${this.uri}/character`, {
       body: {
-        post: {
-          content,
-          type,
-          locationId: options.locationId,
-          corporationId: options.corporationId,
-          allianceId: options.allianceId,
-          characterId: options.characterId,
-        },
+        content,
+        type,
+        locationId: options.locationId,
+        corporationId: options.corporationId,
+        allianceId: options.allianceId,
+        characterId: options.characterId,
       },
     })
     .subscribe(
@@ -150,14 +150,12 @@ export class PostService extends ApiService {
   postAsCorporation(content: string, type: 'TEXT', options: any = {}) {
     return this.request<DPost>('POST', `${this.uri}/corporation`, {
       body: {
-        post: {
-          content,
-          type,
-          locationId: options.locationId,
-          corporationId: options.corporationId,
-          allianceId: options.allianceId,
-          characterId: options.characterId,
-        },
+        content,
+        type,
+        locationId: options.locationId,
+        corporationId: options.corporationId,
+        allianceId: options.allianceId,
+        characterId: options.characterId,
       },
     })
     .subscribe(
@@ -210,14 +208,12 @@ export class PostService extends ApiService {
   postAsAlliance(content: string, type: 'TEXT', options: any = {}) {
     return this.request<DPost>('POST', `${this.uri}/alliance`, {
       body: {
-        post: {
-          content,
-          type,
-          locationId: options.locationId,
-          corporationId: options.corporationId,
-          allianceId: options.allianceId,
-          characterId: options.characterId,
-        },
+        content,
+        type,
+        locationId: options.locationId,
+        corporationId: options.corporationId,
+        allianceId: options.allianceId,
+        characterId: options.characterId,
       },
     })
     .subscribe(
