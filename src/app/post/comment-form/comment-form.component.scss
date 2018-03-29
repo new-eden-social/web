@@ -19,7 +19,8 @@ $image-size: 32px;
 
   .select-post-method {
     height: $image-size;
-    padding: 0 7px; // Make it same width size as post column
+    width: $image-size;
+    margin: 0 10px 0 16px;
 
     img {
       height: $image-size;
@@ -56,7 +57,7 @@ $image-size: 32px;
   flex-direction: row;
   flex: 1 1;
   align-items: flex-start;
-  margin: 0 1em;
+  margin: 0 1em 0 0;
 
   .post-input-field {
     border-bottom: 1px solid #f3f3f3;
