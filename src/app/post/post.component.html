@@ -12,11 +12,14 @@
       </div>
       <p class="card-text" [innerHtml]="content"></p>
     </div>
+
   </div>
 
   <div class="card-footer">
+    <div class="load-comments-wrap">
+      <button mat-button *ngIf="moreComments" (click)="loadMoreComments()">Load older comments</button>
+    </div>
     <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     <app-comment-form [postId]="post.id"></app-comment-form>
   </div>
-
 </mat-card>

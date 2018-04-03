@@ -6,7 +6,7 @@ import { CommentService } from '../services/comment/comment.service';
 import { Observable } from 'rxjs/Rx';
 import { select } from '@angular-redux/store';
 import { ICommentState } from '../services/comment/comment.interface';
-import { DCommentList } from '../services/comment/comment.dto';
+import { DComment, DCommentList } from '../services/comment/comment.dto';
 
 @Component({
   selector: 'app-post',
@@ -22,7 +22,10 @@ export class PostComponent implements OnInit {
   @select(['comment', 'list'])
   allComments$: Observable<{}>;
 
-  comments: DCommentList;
+  comments: DComment[] = [];
+  moreComments = false;
+  commentsPage = 0;
+  commentsPerPage = 3;
 
   name: string;
   link: any[];
@@ -38,12 +41,16 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    // load comments
-    this.commentService.latest(this.post.id);
+    // get initial comments
+    this.commentService.latest(this.post.id, 0, this.commentsPerPage);
     // subscribe on comments
     this.allComments$.subscribe((allComments) => {
-      this.comments = allComments[this.post.id] ? allComments[this.post.id].data : [];
-      console.log(this.comments, allComments)
+      const postCommentData: DCommentList = allComments[this.post.id];
+      if (!postCommentData) return;
+
+      this.comments = postCommentData.data;
+      console.log(postCommentData.page, postCommentData.pages, postCommentData.page != postCommentData.pages);
+      this.moreComments = postCommentData.page != (postCommentData.pages - 1);
     });
 
     if (this.post.character) {
@@ -75,6 +82,12 @@ export class PostComponent implements OnInit {
 
   openItem() {
     this.router.navigate(this.link);
+  }
+
+  loadMoreComments() {
+    // load comments
+    this.commentsPage++;
+    this.commentService.latest(this.post.id, this.commentsPage, this.commentsPerPage);
   }
 
 }

@@ -20,8 +20,10 @@ export const commentReducer: Reducer<ICommentState> = (
 
       const oldComments = postComments ? postComments.data : [];
       let comments = [];
+      // We reverse comments, so that newest are on the bottom
+      action.payload.data.reverse();
       if (!postComments || postComments.page >= action.payload.page) comments = action.payload.data;
-      else comments = [...oldComments, ...action.payload.data];
+      else comments = [...action.payload.data, ...oldComments];
 
       return Object.assign({}, state, {
         list: Object.assign({}, state.list, {
@@ -44,9 +46,9 @@ export const commentReducer: Reducer<ICommentState> = (
 
       return Object.assign({}, state, {
         list: Object.assign({}, state.list, {
-          [action.postId]: {
+          [action.postId]: Object.assign({}, state.list[action.postId], {
             data: [...currentPostComments, action.payload],
-          },
+          }),
         }),
       });
 
