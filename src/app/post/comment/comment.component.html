@@ -1,15 +1,15 @@
 <section class="comment">
 
   <button mat-icon-button>
-    <img aria-label="Profile" src="https://imageserver.eveonline.com/Character/780686303_64.jpg"/>
+    <img aria-label="Profile" [src]="image" (click)="openItem()"/>
   </button>
 
   <div class="comment-content">
     <div class="comment-header">
-      <a href="#">Mentier TheGreat</a>
-      <small class="mat-caption">1 min ago</small>
+      <a [routerLink]="link">{{ name }}</a>
+      <small class="mat-caption">{{ comment.createdAt | amTimeAgo }}</small>
     </div>
-    <p class="comment-text">Hello world, this is nice!</p>
+    <p class="comment-text" [innerHtml]="content"></p>
   </div>
 
 </section>

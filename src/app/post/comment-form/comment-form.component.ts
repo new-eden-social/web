@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { select } from '@angular-redux/store';
 import { DCharacterShort } from '../../services/character/character.dto';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { CommentService } from '../../services/comment/comment.service';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
-  styleUrls: ['./comment-form.component.scss']
+  styleUrls: ['./comment-form.component.scss'],
 })
 export class CommentFormComponent implements OnInit {
+
+  @Input('postId')
+  postId: string;
 
   @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
@@ -25,7 +29,10 @@ export class CommentFormComponent implements OnInit {
 
   private writingSubject = new BehaviorSubject<string>('');
 
-  constructor() { }
+  constructor(
+    private commentService: CommentService,
+  ) {
+  }
 
   ngOnInit() {
     this.character$.subscribe(character => {
@@ -61,5 +68,21 @@ export class CommentFormComponent implements OnInit {
   setAlliance() {
     this.postAs = 'alliance';
     this.postAsImage = this.character.corporation.alliance.icon.px64x64;
+  }
+
+  submit() {
+    switch (this.postAs) {
+      case 'character':
+        this.commentService.postAsCharacter(this.postId, this.postValue);
+        break;
+      case 'corporation':
+        //this.commentService.postAsCorporation(this.postId, this.postValue);
+        break;
+      case 'alliance':
+        //this.commentService.postAsAlliance(this.postId, this.postValue);
+        break;
+    }
+    // TODO: We could wait for feedback, if error do not reset
+    this.writing('');
   }
 }

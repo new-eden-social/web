@@ -28,12 +28,14 @@ export class CommentService extends ApiService {
         {
           type: CommentTypes.GET_LATEST,
           payload: response,
+          postId: postId,
         }),
       error => this.ngRedux.dispatch(
         {
           type: CommentTypes.GET_LATEST,
           payload: error,
           error: true,
+          postId: postId,
         }),
     );
   }
@@ -55,12 +57,14 @@ export class CommentService extends ApiService {
         {
           type: CommentTypes.POST_AS_CHARACTER,
           payload: response,
+          postId: postId,
         }),
       error => this.ngRedux.dispatch(
         {
           type: CommentTypes.POST_AS_CHARACTER,
           payload: error,
           error: true,
+          postId: postId,
         }),);
   }
 

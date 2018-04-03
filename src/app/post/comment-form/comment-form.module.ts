@@ -6,8 +6,8 @@ import {
   MatMenuModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContentEditableDirective } from '../../content-editable/content-editable.directive';
 import { ContentEditableModule } from '../../content-editable/content-editable.module';
+import { CommentService } from '../../services/comment/comment.service';
 
 @NgModule({
   imports: [
@@ -23,5 +23,6 @@ import { ContentEditableModule } from '../../content-editable/content-editable.m
   ],
   declarations: [CommentFormComponent],
   exports: [CommentFormComponent],
+  providers: [CommentService],
 })
 export class CommentFormModule { }

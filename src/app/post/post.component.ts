@@ -2,6 +2,11 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { DPost } from '../services/post/post.dto';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { CommentService } from '../services/comment/comment.service';
+import { Observable } from 'rxjs/Rx';
+import { select } from '@angular-redux/store';
+import { ICommentState } from '../services/comment/comment.interface';
+import { DCommentList } from '../services/comment/comment.dto';
 
 @Component({
   selector: 'app-post',
@@ -14,16 +19,33 @@ export class PostComponent implements OnInit {
   @Input()
   post: DPost;
 
+  @select(['comment', 'list'])
+  allComments$: Observable<{}>;
+
+  comments: DCommentList;
+
   name: string;
   link: any[];
   handle: string;
   image: string;
   content: string | SafeHtml;
 
-  constructor(private router: Router, private sanitizer: DomSanitizer) {
+  constructor(
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private commentService: CommentService,
+  ) {
   }
 
   ngOnInit() {
+    // load comments
+    this.commentService.latest(this.post.id);
+    // subscribe on comments
+    this.allComments$.subscribe((allComments) => {
+      this.comments = allComments[this.post.id] ? allComments[this.post.id].data : [];
+      console.log(this.comments, allComments)
+    });
+
     if (this.post.character) {
       this.name = this.post.character.name;
       this.handle = this.post.character.handle;

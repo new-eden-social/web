@@ -7,6 +7,7 @@ import { characterReducer } from '../services/character/character.reducer';
 import { postReducer } from '../services/post/post.reducer';
 import { corporationReducer } from '../services/corporation/corporation.reducer';
 import { allianceReducer } from '../services/alliance/alliance.reducer';
+import { commentReducer } from '../services/comment/comment.reducer';
 
 
 // Define the global store shape by combining our application's
@@ -21,4 +22,5 @@ export const rootReducer = composeReducers(
     corporation: corporationReducer,
     alliance: allianceReducer,
     post: postReducer,
+    comment: commentReducer,
   }));

@@ -7,6 +7,7 @@ import { MomentModule } from 'angular2-moment';
 import { PostService } from '../services/post/post.service';
 import { CommentModule } from './comment/comment.module';
 import { CommentFormModule } from './comment-form/comment-form.module';
+import { CommentService } from '../services/comment/comment.service';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { CommentFormModule } from './comment-form/comment-form.module';
     CommentModule,
     CommentFormModule,
   ],
-  providers: [PostService],
+  providers: [PostService, CommentService],
   declarations: [PostComponent],
   exports: [PostComponent],
 })

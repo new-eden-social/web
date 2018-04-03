@@ -15,8 +15,8 @@
   </div>
 
   <div class="card-footer">
-    <app-comment *ngFor="let i of [1,2,3]"></app-comment>
-    <app-comment-form></app-comment-form>
+    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+    <app-comment-form [postId]="post.id"></app-comment-form>
   </div>
 
 </mat-card>

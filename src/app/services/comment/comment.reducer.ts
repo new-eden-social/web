@@ -1,46 +1,52 @@
 import { Reducer } from 'redux';
-import { IPostState } from './comment.interface';
+import { ICommentState } from './comment.interface';
+import { CommentTypes } from './comment.types';
+import { DCommentList } from './comment.dto';
 
-const INITIAL_STATE: IPostState = {
-  list: null,
+const INITIAL_STATE: ICommentState = {
+  list: {},
 };
 
-export const postReducer: Reducer<IPostState> = (
-  state: IPostState = INITIAL_STATE,
+export const commentReducer: Reducer<ICommentState> = (
+  state: ICommentState = INITIAL_STATE,
   action: any,
-): IPostState => {
+): ICommentState => {
   switch (action.type) {
     /**
      * Add posts to the end (if page same as before or less, replace)
      */
-    case PostTypes.GET_LATEST:
-    case PostTypes.GET_HASHTAG:
-    case PostTypes.GET_CHARACTER_WALL:
-    case PostTypes.GET_CORPORATION_WALL:
-    case PostTypes.GET_ALLIANCE_WALL:
-      const oldPosts = state.list ? state.list.data : [];
-      let posts = [];
-      if (!state.list || state.list.page >= action.payload.page) posts = action.payload.data;
-      else posts = [...oldPosts, ...action.payload.data];
+    case CommentTypes.GET_LATEST:
+      const postComments = state.list[action.postId];
+
+      const oldComments = postComments ? postComments.data : [];
+      let comments = [];
+      if (!postComments || postComments.page >= action.payload.page) comments = action.payload.data;
+      else comments = [...oldComments, ...action.payload.data];
 
       return Object.assign({}, state, {
-        list: <DPostList>{
-          data: posts,
-          page: action.payload.page,
-          pages: action.payload.pages,
-          perPage: action.payload.perPage,
-          count: action.payload.count,
-        },
+        list: Object.assign({}, state.list, {
+          [action.postId]: <DCommentList>{
+            data: comments,
+            page: action.payload.page,
+            pages: action.payload.pages,
+            perPage: action.payload.perPage,
+            count: action.payload.count,
+          },
+        }),
       });
     /**
      * Add submitted post to the top
      */
-    case PostTypes.POST_AS_CHARACTER:
-    case PostTypes.POST_AS_CORPORATION:
-    case PostTypes.POST_AS_ALLIANCE:
+    case CommentTypes.POST_AS_CHARACTER:
+    case CommentTypes.POST_AS_CORPORATION:
+    case CommentTypes.POST_AS_ALLIANCE:
+      const currentPostComments = state.list[action.postId] ? state.list[action.postId].data : [];
+
       return Object.assign({}, state, {
-        list: <DPostList> Object.assign({}, state.list, {
-          data: [action.payload, ...state.list.data],
+        list: Object.assign({}, state.list, {
+          [action.postId]: {
+            data: [...currentPostComments, action.payload],
+          },
         }),
       });
 
