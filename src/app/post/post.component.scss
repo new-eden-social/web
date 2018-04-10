@@ -86,5 +86,9 @@ mat-card.post-item {
       justify-content: center;
       padding: 0.5em 0;
     }
+
+    > app-comment:first-child {
+      margin-top: 0.5em;
+    }
   }
 }

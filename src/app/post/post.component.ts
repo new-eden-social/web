@@ -49,8 +49,7 @@ export class PostComponent implements OnInit {
       if (!postCommentData) return;
 
       this.comments = postCommentData.data;
-      console.log(postCommentData.page, postCommentData.pages, postCommentData.page != postCommentData.pages);
-      this.moreComments = postCommentData.page != (postCommentData.pages - 1);
+      this.moreComments = postCommentData.page < (postCommentData.pages - 1);
     });
 
     if (this.post.character) {
