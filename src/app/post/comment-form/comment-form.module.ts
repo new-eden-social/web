@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostFormComponent } from './post-form.component';
+import { CommentFormComponent } from './comment-form.component';
 import {
   MatButtonModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatMenuModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PostService } from '../services/post/post.service';
-import { ContentEditableDirective } from '../content-editable/content-editable.directive';
-import { ContentEditableModule } from '../content-editable/content-editable.module';
+import { ContentEditableModule } from '../../content-editable/content-editable.module';
+import { CommentService } from '../../services/comment/comment.service';
 
 @NgModule({
   imports: [
@@ -22,9 +21,8 @@ import { ContentEditableModule } from '../content-editable/content-editable.modu
     MatIconModule,
     ContentEditableModule,
   ],
-  exports: [PostFormComponent],
-  declarations: [PostFormComponent],
-  providers: [PostService],
+  declarations: [CommentFormComponent],
+  exports: [CommentFormComponent],
+  providers: [CommentService],
 })
-export class PostFormModule {
-}
+export class CommentFormModule { }

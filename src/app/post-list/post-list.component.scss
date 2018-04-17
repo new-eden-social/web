@@ -4,9 +4,11 @@
 .post-list {
   display: flex;
   flex-direction: column;
-  @include mat-elevation(1);
+
   app-post {
+    @include mat-elevation(1);
     border-top: 1px solid map-get($app-primary, 500);
+    margin-top: 0.5em;
   }
 }
 
