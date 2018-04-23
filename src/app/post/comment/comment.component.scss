@@ -2,6 +2,7 @@
 @import '~@angular/material/theming';
 
 $image-size: 32px;
+$emoji-size: 1.25rem;
 
 .comment {
   display: flex;
@@ -64,12 +65,24 @@ $image-size: 32px;
       font-size: 0.8em;
       letter-spacing: 0.08em;
 
-      .text-link {
+      a {
         color: map-get($app-primary, 500);
         text-decoration: none;
 
         &:hover {
           text-decoration: underline;
+        }
+      }
+
+
+      ngx-emoji {
+        display: inline-block;
+        .emoji-mart-emoji {
+          > span {
+            width: $emoji-size !important;
+            height: $emoji-size !important;
+            font-size: $emoji-size;
+          }
         }
       }
     }

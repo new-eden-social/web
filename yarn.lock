@@ -192,6 +192,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@ctrl/ngx-emoji-mart@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@ctrl/ngx-emoji-mart/-/ngx-emoji-mart-0.4.0.tgz#1f0e37127fed6f9b0d302e4d8d0663c8ac3c70b7"
+  dependencies:
+    tslib "^1.7.1"
+
 "@ngtools/json-schema@1.1.0", "@ngtools/json-schema@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.1.0.tgz#c3a0c544d62392acc2813a42c8a0dc6f58f86922"
@@ -6335,10 +6341,6 @@ type-is@~1.6.15:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
-
-typescript@~2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.3.tgz#df3dcdc38f3beb800d4bc322646b04a3f6ca7f0d"
 
 typescript@~2.6.2:
   version "2.6.2"

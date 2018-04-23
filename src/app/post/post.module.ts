@@ -8,6 +8,7 @@ import { PostService } from '../services/post/post.service';
 import { CommentModule } from './comment/comment.module';
 import { CommentFormModule } from './comment-form/comment-form.module';
 import { CommentService } from '../services/comment/comment.service';
+import { RichContentModule } from '../rich-content/rich-content.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { CommentService } from '../services/comment/comment.service';
 
     CommentModule,
     CommentFormModule,
+    RichContentModule,
   ],
   providers: [PostService, CommentService],
   declarations: [PostComponent],

@@ -24,10 +24,7 @@ export class CommentFormComponent implements OnInit {
 
   postAs: 'character' | 'corporation' | 'alliance';
   postAsImage: string;
-  postValue: string = '';
-  postHtml: string = '';
-
-  private writingSubject = new BehaviorSubject<string>('');
+  postValue = '';
 
   constructor(
     private commentService: CommentService,
@@ -39,20 +36,11 @@ export class CommentFormComponent implements OnInit {
       this.character = character;
       this.setCharacter();
     });
-
-    this.writingSubject.subscribe(value => {
-      this.postValue = value;
-
-      const hashtagHtml = value.replace(
-        /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
-        (hashtag) => `<a href="" class="input-field-link">${hashtag}</a>`);
-
-      this.postHtml = hashtagHtml;
-    });
   }
 
   writing(value: string) {
-    this.writingSubject.next(value);
+    console.log("change  comment form", value)
+    this.postValue = value;
   }
 
   setCharacter() {

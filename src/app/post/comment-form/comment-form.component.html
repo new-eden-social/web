@@ -19,14 +19,10 @@
   </button>
 
   <div class="post-input-wrap">
-    <div class="post-input-field"
-         contenteditable="true"
-         role="textbox"
-         aria-multiline="true"
-         appContentEditable
-         [contentValue]="postHtml"
-         (contentValueUpdate)="writing($event)">
-    </div>
+    <app-rich-content-editable
+        class="post-input-field"
+        (update)="writing($event)">
+    </app-rich-content-editable>
   </div>
 
   <div class="button-wrap">

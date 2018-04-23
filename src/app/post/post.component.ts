@@ -31,7 +31,7 @@ export class PostComponent implements OnInit {
   link: any[];
   handle: string;
   image: string;
-  content: string | SafeHtml;
+  content: string;
 
   constructor(
     private router: Router,
@@ -70,13 +70,6 @@ export class PostComponent implements OnInit {
       this.link = ['/alliance', this.post.alliance.id];
       this.image = this.post.alliance.icon.px64x64;
     }
-
-    const html = this.post.content.replace(
-      /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
-      (hashtag) =>
-        `<a href="/hashtag/${hashtag.replace('#', '')}" class="text-link">${hashtag}</a>`);
-
-    this.content = this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   openItem() {

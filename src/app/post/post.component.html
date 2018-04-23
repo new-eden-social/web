@@ -10,7 +10,7 @@
         <a [routerLink]="link">{{ name }}</a>
         <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
       </div>
-      <p class="card-text" [innerHtml]="content"></p>
+      <app-rich-content class="card-text" [content]="post.content"></app-rich-content>
     </div>
 
   </div>
