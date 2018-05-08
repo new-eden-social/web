@@ -1,19 +1,17 @@
-import { Component, OnInit, Input, SimpleChanges, Output, ElementRef, EventEmitter, HostListener } from '@angular/core';
+import { Component, Output, ElementRef, EventEmitter, HostListener } from '@angular/core';
 import { RichContentService } from './rich-content.service';
 
 @Component({
   selector: 'app-rich-content-editable',
-  template: '<html-outlet [html]="contentHtml"></html-outlet>',
+  template: '<html-outlet contenteditable="true" [html]="contentHtml"></html-outlet>',
 })
 export class RichContentEditableComponent {
 
   @Output()
   update = new EventEmitter<string>();
 
+  public contentHtml = '';
 
-  private content = '';
-  private contentHtml = '';
-  private oldValue = '';
   private selection: {
     start: number,
     end: number,
@@ -26,14 +24,19 @@ export class RichContentEditableComponent {
 
   @HostListener('keyup')
   writing() {
-    const value = this.elRef.nativeElement.innerText;
+    const value = this.elRef.nativeElement.textContent;
+    this.update.emit(value);
 
-    if (this.oldValue === value) {
+    let html = value;
+    // TODO: Sanitize html, as for now it should be just text
+    html = this.richContentService.parseHashtags(html);
+    html = this.richContentService.parseEmojies(html);
+    html = this.richContentService.parseText(html);
+
+    // No change to value (only text was entered) return
+    if (html === value) {
       return;
     }
-
-    this.update.emit(value);
-    this.oldValue = value;
 
     this.saveSelection();
 
@@ -45,23 +48,17 @@ export class RichContentEditableComponent {
         element.removeChild(child)
       }
     }
-    this.updateContent(value);
 
+    this.contentHtml = html;
     this.restoreSelection();
   }
 
-  updateContent(content: string) {
-    let html = content;
-    // TODO: Sanitize html, as for now it should be just text
-    html = this.richContentService.parseHashtags(html);
-    html = this.richContentService.parseEmojies(html);
-    this.contentHtml = html;
-  }
-
  private saveSelection() {
-    const range = window.getSelection().getRangeAt(0);
+   const mainElement = this.elRef.nativeElement;
+
+   const range = window.getSelection().getRangeAt(0);
     const preSelectionRange = range.cloneRange();
-    preSelectionRange.selectNodeContents(this.elRef.nativeElement);
+    preSelectionRange.selectNodeContents(mainElement);
     preSelectionRange.setEnd(range.startContainer, range.startOffset);
     const start = preSelectionRange.toString().length;
 
@@ -72,18 +69,21 @@ export class RichContentEditableComponent {
   }
 
   private restoreSelection() {
-    let charIndex = 0;
+    const mainElement = this.elRef.nativeElement;
+
     const range = document.createRange();
-    range.setStart(this.elRef.nativeElement, 0);
+    range.setStart(mainElement, 0);
     range.collapse(true);
-    const nodeStack = [this.elRef.nativeElement];
-    let node;
+    const nodeStack: Node[] = [mainElement];
+    let charIndex = 0;
+    let node: Node;
     let foundStart = false;
     let stop = false;
 
     while (!stop && (node = nodeStack.pop())) {
       if (node.nodeType === 3) {
-        const nextCharIndex = charIndex + node.length;
+        console.log("parentNode", node.parentNode);
+        const nextCharIndex = charIndex + (<Text>node).length;
         if (!foundStart && this.selection.start >= charIndex && this.selection.start <= nextCharIndex) {
           range.setStart(node, this.selection.start - charIndex);
           foundStart = true;
@@ -101,6 +101,7 @@ export class RichContentEditableComponent {
       }
     }
 
+    console.log(range, this.selection);
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
