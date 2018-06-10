@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
-import { PostService } from '../../services/post/post.service';
+import { PostEffects } from '../../services/post/post.effects';
 import { DPostList } from '../../services/post/post.dto';
 import { DAlliance } from '../../services/alliance/alliance.dto';
 import { AllianceEffects } from '../../services/alliance/alliance.effects';
@@ -35,7 +35,7 @@ export class AllianceComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private allianceService: AllianceEffects,
-    private postService: PostService,
+    private postService: PostEffects,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

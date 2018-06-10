@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-import { PostService } from '../services/post/post.service';
+import { PostEffects } from '../services/post/post.effects';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { DPostList } from '../services/post/post.dto';
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostEffects) {
     this.postList$.subscribe(postList => {
       this.postList = postList;
       if (this.postList) this.loadingPosts = false;

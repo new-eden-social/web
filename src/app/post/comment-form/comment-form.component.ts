@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { select } from '@angular-redux/store';
 import { DCharacterShort } from '../../services/character/character.dto';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { CommentService } from '../../services/comment/comment.service';
+import { CommentEffects } from '../../services/comment/comment.effects';
 
 @Component({
   selector: 'app-comment-form',
@@ -30,7 +30,7 @@ export class CommentFormComponent implements OnInit {
   private writingSubject = new BehaviorSubject<string>('');
 
   constructor(
-    private commentService: CommentService,
+    private commentService: CommentEffects,
   ) {
   }
 

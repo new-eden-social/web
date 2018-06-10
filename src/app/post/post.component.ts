@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { DPost } from '../services/post/post.dto';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CommentService } from '../services/comment/comment.service';
+import { CommentEffects } from '../services/comment/comment.effects';
 import { Observable } from 'rxjs/Rx';
 import { select } from '@angular-redux/store';
 import { ICommentState } from '../services/comment/comment.interface';
@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
   constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
-    private commentService: CommentService,
+    private commentService: CommentEffects,
   ) {
   }
 

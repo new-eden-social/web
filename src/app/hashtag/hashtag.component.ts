@@ -3,7 +3,7 @@ import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { DPostList } from '../services/post/post.dto';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { PostService } from '../services/post/post.service';
+import { PostEffects } from '../services/post/post.effects';
 
 @Component({
   selector: 'app-hashtag',
@@ -26,7 +26,7 @@ export class HashtagComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private postService: PostService,
+    private postService: PostEffects,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

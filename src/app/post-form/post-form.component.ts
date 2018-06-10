@@ -5,7 +5,7 @@ import {
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { DCharacter, DCharacterShort } from '../services/character/character.dto';
-import { PostService } from '../services/post/post.service';
+import { PostEffects } from '../services/post/post.effects';
 import { DCorporation } from '../services/corporation/corporation.dto';
 import { DAlliance } from '../services/alliance/alliance.dto';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -48,7 +48,7 @@ export class PostFormComponent implements OnInit {
   private writingSubject = new BehaviorSubject<string>('');
 
   constructor(
-    private postService: PostService,
+    private postService: PostEffects,
   ) {
   }
 

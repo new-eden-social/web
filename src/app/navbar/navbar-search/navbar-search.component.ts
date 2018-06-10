@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { SearchService } from '../../services/search/search.service';
+import { SearchService } from '../../services/search/search.effects';
 import { DCharacterName } from '../../services/character/character.dto';
 import { DCorporationName } from '../../services/corporation/corporation.dto';
 import { DAllianceName } from '../../services/alliance/alliance.dto';

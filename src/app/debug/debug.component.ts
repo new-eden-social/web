@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SearchService } from '../services/search/search.service';
+import { SearchService } from '../services/search/search.effects';
 import { Router } from '@angular/router';
 import { AuthenticationEffects } from '../services/authentication/authentication.effects';
 

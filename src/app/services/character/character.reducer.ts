@@ -1,16 +1,22 @@
-import { Reducer } from 'redux';
 import { ICharacterState } from './character.interface';
-import { CharacterTypes } from './character.types';
+import { CharacterActionsUnion, CharacterActionTypes } from './character.actions';
 
-const INITIAL_STATE: ICharacterState = {
-};
+const INITIAL_STATE: ICharacterState = {};
 
-export const characterReducer: Reducer<ICharacterState> = (state: ICharacterState = INITIAL_STATE, action: any): ICharacterState => {
+export function characterReducer(
+  state: ICharacterState = INITIAL_STATE,
+  action: CharacterActionsUnion,
+): ICharacterState {
   switch (action.type) {
-    case CharacterTypes.LOAD:
-      return Object.assign({}, state, {
+    case CharacterActionTypes.LOAD_SUCCESS: {
+      return {
+        ...state,
         data: action.payload,
-      });
+      };
+    }
+
+    default: {
+      return state;
+    }
   }
-  return state;
-};
+}

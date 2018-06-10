@@ -4,10 +4,10 @@ import { PostComponent } from './post.component';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatCardModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
-import { PostService } from '../services/post/post.service';
+import { PostEffects } from '../services/post/post.effects';
 import { CommentModule } from './comment/comment.module';
 import { CommentFormModule } from './comment-form/comment-form.module';
-import { CommentService } from '../services/comment/comment.service';
+import { CommentEffects } from '../services/comment/comment.effects';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { CommentService } from '../services/comment/comment.service';
     CommentModule,
     CommentFormModule,
   ],
-  providers: [PostService, CommentService],
+  providers: [PostEffects, CommentEffects],
   declarations: [PostComponent],
   exports: [PostComponent],
 })

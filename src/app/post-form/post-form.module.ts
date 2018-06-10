@@ -6,7 +6,7 @@ import {
   MatMenuModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PostService } from '../services/post/post.service';
+import { PostEffects } from '../services/post/post.effects';
 import { ContentEditableDirective } from '../content-editable/content-editable.directive';
 import { ContentEditableModule } from '../content-editable/content-editable.module';
 
@@ -24,7 +24,7 @@ import { ContentEditableModule } from '../content-editable/content-editable.modu
   ],
   exports: [PostFormComponent],
   declarations: [PostFormComponent],
-  providers: [PostService],
+  providers: [PostEffects],
 })
 export class PostFormModule {
 }

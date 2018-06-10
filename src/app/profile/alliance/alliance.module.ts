@@ -4,7 +4,7 @@ import { AllianceComponent } from './alliance.component';
 import { MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
 import { PostFormModule } from '../../post-form/post-form.module';
 import { PostModule } from '../../post/post.module';
-import { PostService } from '../../services/post/post.service';
+import { PostEffects } from '../../services/post/post.effects';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FooterModule } from '../../footer/footer.module';
 import { LoadingModule } from '../../loading/loading.module';
@@ -26,7 +26,7 @@ import { PostListModule } from '../../post-list/post-list.module';
     ProfileHeaderModule,
     PostListModule,
   ],
-  providers: [AllianceEffects, PostService],
+  providers: [AllianceEffects, PostEffects],
   declarations: [AllianceComponent],
   exports: [AllianceComponent],
 })

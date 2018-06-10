@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { CharacterService } from '../../services/character/character.service';
+import { CharacterEffects } from '../../services/character/character.effects';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
 import { DCharacter } from '../../services/character/character.dto';
-import { PostService } from '../../services/post/post.service';
+import { PostEffects } from '../../services/post/post.effects';
 import { DPostList } from '../../services/post/post.dto';
 
 @Component({
@@ -34,8 +34,8 @@ export class CharacterComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private characterService: CharacterService,
-    private postService: PostService,
+    private characterService: CharacterEffects,
+    private postService: PostEffects,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

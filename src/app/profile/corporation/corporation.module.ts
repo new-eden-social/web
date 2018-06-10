@@ -4,10 +4,10 @@ import { CorporationComponent } from './corporation.component';
 import { MatButtonModule, MatCardModule, MatListModule } from '@angular/material';
 import { PostFormModule } from '../../post-form/post-form.module';
 import { PostModule } from '../../post/post.module';
-import { PostService } from '../../services/post/post.service';
+import { PostEffects } from '../../services/post/post.effects';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FooterModule } from '../../footer/footer.module';
-import { CorporationService } from '../../services/corporation/corporation.service';
+import { CorporationEffects } from '../../services/corporation/corporation.effects';
 import { LoadingModule } from '../../loading/loading.module';
 import { ProfileHeaderModule } from '../header/header.module';
 import { RouterModule } from '@angular/router';
@@ -28,7 +28,7 @@ import { PostListModule } from '../../post-list/post-list.module';
     RouterModule,
     PostListModule,
   ],
-  providers: [CorporationService, PostService],
+  providers: [CorporationEffects, PostEffects],
   declarations: [CorporationComponent],
   exports: [CorporationComponent],
 })

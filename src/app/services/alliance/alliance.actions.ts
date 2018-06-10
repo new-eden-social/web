@@ -2,8 +2,8 @@ import { Action } from '@ngrx/store';
 import { DAlliance } from './alliance.dto';
 
 export enum AllianceActionTypes {
-  LOAD = '[Alliance] Load initiated',
-  LOAD_SUCCESS = '[Alliance] Load success',
+  LOAD = '[Alliance] Load single alliance initiated',
+  LOAD_SUCCESS = '[Alliance] Load single alliance success',
 }
 
 export class Load implements Action {
@@ -17,4 +17,5 @@ export class LoadSuccess implements Action {
   constructor(public payload: DAlliance) {
   }
 }
+
 export type AllianceActionsUnion = Load | LoadSuccess;

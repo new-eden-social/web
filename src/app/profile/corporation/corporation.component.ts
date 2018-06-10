@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
-import { PostService } from '../../services/post/post.service';
+import { PostEffects } from '../../services/post/post.effects';
 import { DPostList } from '../../services/post/post.dto';
 import { DCorporation } from '../../services/corporation/corporation.dto';
-import { CorporationService } from '../../services/corporation/corporation.service';
+import { CorporationEffects } from '../../services/corporation/corporation.effects';
 
 @Component({
   selector: 'app-corporation',
@@ -37,8 +37,8 @@ export class CorporationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private corporationService: CorporationService,
-    private postService: PostService,
+    private corporationService: CorporationEffects,
+    private postService: PostEffects,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationEffects } from '../services/authentication/authentication.effects';
-import { SearchService } from '../services/search/search.service';
+import { SearchService } from '../services/search/search.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatCardModule, MatIconModule, MatInputModule,

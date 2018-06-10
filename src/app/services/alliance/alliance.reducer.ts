@@ -8,10 +8,11 @@ export function allianceReducer(
   action: AllianceActionsUnion,
 ): IAllianceState {
   switch (action.type) {
-    case AllianceActionTypes.LOAD: {
-      return Object.assign({}, state, {
+    case AllianceActionTypes.LOAD_SUCCESS: {
+      return {
+        ...state,
         data: action.payload,
-      });
+      }
     }
 
     default: {
