@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SearchService } from '../services/search/search.service';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication/authentication.service';
+import { AuthenticationEffects } from '../services/authentication/authentication.effects';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -19,7 +19,7 @@ export class DebugComponent implements OnInit {
 
   constructor(private searchService: SearchService,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationEffects) {
     this.searchCtrl = new FormControl();
     this.searchCtrl.valueChanges
     .debounceTime(200)

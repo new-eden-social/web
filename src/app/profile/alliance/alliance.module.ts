@@ -9,7 +9,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FooterModule } from '../../footer/footer.module';
 import { LoadingModule } from '../../loading/loading.module';
 import { ProfileHeaderModule } from '../header/header.module';
-import { AllianceService } from 'app/services/alliance/alliance.service';
+import { AllianceEffects } from 'app/services/alliance/alliance.effects';
 import { PostListModule } from '../../post-list/post-list.module';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { PostListModule } from '../../post-list/post-list.module';
     ProfileHeaderModule,
     PostListModule,
   ],
-  providers: [AllianceService, PostService],
+  providers: [AllianceEffects, PostService],
   declarations: [AllianceComponent],
   exports: [AllianceComponent],
 })

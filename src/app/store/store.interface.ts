@@ -6,12 +6,4 @@ import { IPostState } from '../services/post/post.interface';
 import { ICorporationState } from '../services/corporation/corporation.interface';
 import { IAllianceState } from '../services/alliance/alliance.interface';
 
-export interface IAppState {
-  authentication?: IAuthenticationState,
-  search?: ISearchState,
-  character?: ICharacterState,
-  corporation?: ICorporationState,
-  alliance?: IAllianceState,
-  comment?: ICommentState,
-  post?: IPostState,
-}
+

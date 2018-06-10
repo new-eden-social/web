@@ -3,7 +3,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { IAppState } from 'app/store/store.interface';
 import { Router } from '@angular/router';
-import { AuthenticationTypes } from '../services/authentication/authentication.types';
+import { AuthenticationTypes } from '../services/authentication/authentication.actions';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../environments/environment';
 

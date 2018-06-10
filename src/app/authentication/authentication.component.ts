@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from '../store/store.interface';
-import { AuthenticationService } from 'app/services/authentication/authentication.service';
+import { AuthenticationEffects } from 'app/services/authentication/authentication.effects';
 import { Observable } from 'rxjs';
-import { AuthenticationTypes } from '../services/authentication/authentication.types';
+import { AuthenticationTypes } from '../services/authentication/authentication.actions';
 import 'rxjs/add/operator/filter';
 
 @Component({
@@ -41,7 +41,7 @@ export class AuthenticationComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private ngRedux: NgRedux<IAppState>,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationEffects) {
 
     // When authenticated, redirect to welcome
     this.authenticated$

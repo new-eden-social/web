@@ -5,7 +5,7 @@ import { select } from '@angular-redux/store';
 import { PostService } from '../../services/post/post.service';
 import { DPostList } from '../../services/post/post.dto';
 import { DAlliance } from '../../services/alliance/alliance.dto';
-import { AllianceService } from '../../services/alliance/alliance.service';
+import { AllianceEffects } from '../../services/alliance/alliance.effects';
 
 @Component({
   selector: 'app-alliance',
@@ -34,7 +34,7 @@ export class AllianceComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private allianceService: AllianceService,
+    private allianceService: AllianceEffects,
     private postService: PostService,
   ) {
     this.router.events.subscribe((event) => {

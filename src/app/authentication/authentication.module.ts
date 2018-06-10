@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationComponent } from './authentication.component';
-import { AuthenticationService } from '../services/authentication/authentication.service';
+import { AuthenticationEffects } from '../services/authentication/authentication.effects';
 import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
     MatProgressSpinnerModule,
   ],
   declarations: [AuthenticationComponent],
-  providers: [AuthenticationService],
+  providers: [AuthenticationEffects],
 })
 export class AuthenticationModule {
 }
