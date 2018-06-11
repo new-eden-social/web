@@ -26,14 +26,12 @@ export abstract class ApiService {
     protected store: Store<IAppState>,
     protected router: Router,
   ) {
-    store.pipe(
+    this.store.pipe(
       select('authentication', 'data', 'accessToken'),
-      tap(token => this.accessToken = token),
-    );
-    store.pipe(
+    ).subscribe(token => this.accessToken = token);
+    this.store.pipe(
       select('authentication', 'data', 'refreshToken'),
-      tap(token => this.refreshToken = token),
-    );
+    ).subscribe(token => this.refreshToken = token);
   }
 
   protected createAuthorizationHeader(
@@ -60,7 +58,7 @@ export abstract class ApiService {
       observe: 'response',
     })
     .pipe(
-      map(response => (<HttpResponse<T>>response).body)
-    )
+      map(response => (<HttpResponse<T>>response).body),
+    );
   }
 }

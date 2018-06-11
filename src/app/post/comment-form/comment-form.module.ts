@@ -7,7 +7,6 @@ import {
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentEditableModule } from '../../content-editable/content-editable.module';
-import { CommentEffects } from '../../services/comment/comment.effects';
 
 @NgModule({
   imports: [
@@ -23,6 +22,5 @@ import { CommentEffects } from '../../services/comment/comment.effects';
   ],
   declarations: [CommentFormComponent],
   exports: [CommentFormComponent],
-  providers: [CommentEffects],
 })
 export class CommentFormModule { }

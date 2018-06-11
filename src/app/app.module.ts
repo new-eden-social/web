@@ -14,7 +14,6 @@ import { NavbarModule } from './navbar/navbar.module';
 import { HomeModule } from './home/home.module';
 import { CharacterModule } from './profile/character/character.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { DebugModule } from './debug/debug.module';
 import { CorporationModule } from './profile/corporation/corporation.module';
 import { AllianceModule } from './profile/alliance/alliance.module';
 import { HashtagModule } from './hashtag/hashtag.module';
@@ -23,6 +22,14 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AllianceEffects } from './services/alliance/alliance.effects';
+import { AuthenticationEffects } from './services/authentication/authentication.effects';
+import { CharacterEffects } from './services/character/character.effects';
+import { CommentEffects } from './services/comment/comment.effects';
+import { CorporationEffects } from './services/corporation/corporation.effects';
+import { PostEffects } from './services/post/post.effects';
+import { SearchEffects } from './services/search/search.effects';
 
 @NgModule({
   declarations: [
@@ -31,6 +38,15 @@ import { environment } from '../environments/environment';
   imports: [
     RouterModule.forRoot(appRoutes),
     StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([
+      AllianceEffects,
+      AuthenticationEffects,
+      CharacterEffects,
+      CommentEffects,
+      CorporationEffects,
+      PostEffects,
+      SearchEffects,
+    ]),
     // Connects RouterModule with StoreModule
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router', // name of reducer key
@@ -50,7 +66,6 @@ import { environment } from '../environments/environment';
     CorporationModule,
     AllianceModule,
     AuthenticationModule,
-    DebugModule,
     HashtagModule,
   ],
   providers: [],

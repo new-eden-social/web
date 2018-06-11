@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-
 import { ApiService } from '../api.service';
 import {
   Authenticate, AuthenticateCallback, AuthenticateCheck, AuthenticateSuccess,
@@ -17,14 +14,12 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class AuthenticationEffects extends ApiService {
 
-  private uri = 'authentication/sso';
-
   @Effect()
-  authenticateCallback$: Observable<AuthenticateCallback | AuthenticateCheck> = this.actions$.pipe(
+  authenticateCallback$: Observable<AuthenticateCheck> = this.actions$.pipe(
     ofType<AuthenticateCallback>(AuthenticationActionTypes.AUTHENTICATE_CALLBACK),
-    tap(()=> new AuthenticateCheck()),
+    mergeMap(() => of(new AuthenticateCheck())),
   );
-
+  private uri = 'authentication/sso';
   @Effect()
   authenticate$: Observable<any> = this.actions$.pipe(
     ofType<Authenticate>(AuthenticationActionTypes.AUTHENTICATE),

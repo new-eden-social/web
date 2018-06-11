@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { select } from '@angular-redux/store';
-import { PostEffects } from '../../services/post/post.effects';
 import { DPostList } from '../../services/post/post.dto';
 import { DAlliance } from '../../services/alliance/alliance.dto';
-import { AllianceEffects } from '../../services/alliance/alliance.effects';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../../store/store.reducer';
+import { Load } from '../../services/alliance/alliance.actions';
+import { GetAllianceWall } from '../../services/post/post.actions';
 
 @Component({
   selector: 'app-alliance',
@@ -14,13 +15,9 @@ import { AllianceEffects } from '../../services/alliance/alliance.effects';
 })
 export class AllianceComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
 
-  @select(['alliance', 'data'])
   alliance$: Observable<DAlliance>;
-
-  @select(['post', 'list'])
   wall$: Observable<DPostList>;
 
   alliance: DAlliance;
@@ -32,18 +29,25 @@ export class AllianceComponent implements OnInit {
   loadingWall: boolean = true;
 
   constructor(
+    private store: Store<IAppState>,
     private route: ActivatedRoute,
     private router: Router,
-    private allianceService: AllianceEffects,
-    private postService: PostEffects,
   ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.alliance$ = this.store.pipe(select('alliance', 'data'));
+    this.wall$ = this.store.pipe(select('post', 'list'));
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.setInitValues();
 
-        let id = +this.route.snapshot.params['id'];
-        this.allianceService.get(id);
-        this.postService.allianceWall(id);
+        let id = this.route.snapshot.params['id'];
+        this.store.dispatch(new Load(id));
+        this.store.dispatch(new GetAllianceWall({
+          allianceId: id,
+          page: this.page,
+          limit: 20,
+        }));
       }
     });
   }
@@ -61,7 +65,11 @@ export class AllianceComponent implements OnInit {
 
   onScroll() {
     this.page++;
-    this.postService.allianceWall(this.alliance.id, this.page);
+    this.store.dispatch(new GetAllianceWall({
+      allianceId: this.alliance.id,
+      page: this.page,
+      limit: 20,
+    }));
   }
 
   private setInitValues(): void {

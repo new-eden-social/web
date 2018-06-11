@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { CharacterEffects } from '../../services/character/character.effects';
 import { Observable } from 'rxjs';
-import { select } from '@angular-redux/store';
 import { DCharacter } from '../../services/character/character.dto';
-import { PostEffects } from '../../services/post/post.effects';
 import { DPostList } from '../../services/post/post.dto';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../../store/store.reducer';
+import { Load } from '../../services/character/character.actions';
+import { GetCharacterWall } from '../../services/post/post.actions';
 
 @Component({
   selector: 'app-character',
@@ -14,13 +15,8 @@ import { DPostList } from '../../services/post/post.dto';
 })
 export class CharacterComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
-
-  @select(['character', 'data'])
   character$: Observable<DCharacter>;
-
-  @select(['post', 'list'])
   wall$: Observable<DPostList>;
 
   character: DCharacter;
@@ -32,18 +28,25 @@ export class CharacterComponent implements OnInit {
   loadingWall: boolean = true;
 
   constructor(
+    private store: Store<IAppState>,
     private route: ActivatedRoute,
     private router: Router,
-    private characterService: CharacterEffects,
-    private postService: PostEffects,
   ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.character$ = this.store.pipe(select('character', 'data'));
+    this.wall$ = this.store.pipe(select('post', 'list'));
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.setInitValues();
 
-        let id = +this.route.snapshot.params['id'];
-        this.characterService.get(id);
-        this.postService.characterWall(id);
+        let id = this.route.snapshot.params['id'];
+        this.store.dispatch(new Load(id));
+        this.store.dispatch(new GetCharacterWall({
+          characterId: id,
+          page: this.page,
+          limit: 20,
+        }));
       }
     });
   }
@@ -61,7 +64,11 @@ export class CharacterComponent implements OnInit {
 
   onScroll() {
     this.page++;
-    this.postService.characterWall(this.character.id, this.page);
+    this.store.dispatch(new GetCharacterWall({
+      characterId: this.character.id,
+      page: this.page,
+      limit: 20,
+    }));
   }
 
   private setInitValues(): void {

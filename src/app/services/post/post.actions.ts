@@ -39,21 +39,21 @@ export class GetHashtag implements Action {
 export class GetCharacterWall implements Action {
   readonly type = PostActionTypes.GET_CHARACTER_WALL;
 
-  constructor(public payload: { characterId: string, page: number, limit: number }) {
+  constructor(public payload: { characterId: string|number, page: number, limit: number }) {
   }
 }
 
 export class GetCorporationWall implements Action {
   readonly type = PostActionTypes.GET_CORPORATION_WALL;
 
-  constructor(public payload: { corporationId: string, page: number, limit: number }) {
+  constructor(public payload: { corporationId: string|number, page: number, limit: number }) {
   }
 }
 
 export class GetAllianceWall implements Action {
   readonly type = PostActionTypes.GET_ALLIANCE_WALL;
 
-  constructor(public payload: { allianceId: string, page: number, limit: number }) {
+  constructor(public payload: { allianceId: string|number, page: number, limit: number }) {
   }
 }
 

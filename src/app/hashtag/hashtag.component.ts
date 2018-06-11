@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 import { DPostList } from '../services/post/post.dto';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PostEffects } from '../services/post/post.effects';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../store/store.reducer';
+import { GetHashtag } from '../services/post/post.actions';
 
 @Component({
   selector: 'app-hashtag',
@@ -12,10 +14,8 @@ import { PostEffects } from '../services/post/post.effects';
 })
 export class HashtagComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
 
-  @select(['post', 'list'])
   wall$: Observable<DPostList>;
   wall: DPostList;
 
@@ -27,13 +27,21 @@ export class HashtagComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private postService: PostEffects,
+    private store: Store<IAppState>,
   ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.wall$ = this.store.pipe(select('post', 'list'));
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.loadingWall = true;
         this.page = 0;
         this.hashtag = this.route.snapshot.params['hashtag'];
-        this.postService.hashtag(this.hashtag);
+        this.store.dispatch(new GetHashtag({
+          hashtag: this.hashtag,
+          page: this.page,
+          limit: 20,
+        }));
       }
     });
   }

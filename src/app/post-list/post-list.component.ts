@@ -3,8 +3,9 @@ import { DCharacter } from '../services/character/character.dto';
 import { DCorporation } from '../services/corporation/corporation.dto';
 import { DAlliance } from '../services/alliance/alliance.dto';
 import { DPostList } from '../services/post/post.dto';
-import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../store/store.reducer';
 
 @Component({
   selector: 'app-post-list',
@@ -25,10 +26,12 @@ export class PostListComponent implements OnInit {
   @Input()
   postList: DPostList;
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
 
-  constructor() {
+  constructor(
+    private store: Store<IAppState>,
+  ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
   }
 
   ngOnInit() {

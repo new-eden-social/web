@@ -9,7 +9,7 @@ import { map, mergeMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
-export class SearchService extends ApiService {
+export class SearchEffects extends ApiService {
 
   private uri = 'search';
 
