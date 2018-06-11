@@ -46,8 +46,7 @@ export class AuthenticationComponent implements OnInit {
     this.store.pipe(
       select('authentication', 'authenticated'),
       filter(authenticated => authenticated),
-      tap(() => this.router.navigate([''])),
-    );
+    ).subscribe(() => this.router.navigate(['']));
   }
 
   ngOnInit() {

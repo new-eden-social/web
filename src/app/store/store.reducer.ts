@@ -32,6 +32,7 @@ export const metaReducers: Array<MetaReducer<any, any>> = [
     return localStorageSync({
       // Only store authentication and router
       keys: ['authentication', 'router'],
+      rehydrate: true
     })(reducer);
   },
 ];
