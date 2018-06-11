@@ -2,11 +2,11 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { DPost } from '../services/post/post.dto';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CommentService } from '../services/comment/comment.service';
 import { Observable } from 'rxjs/Rx';
-import { select } from '@angular-redux/store';
-import { ICommentState } from '../services/comment/comment.interface';
 import { DComment, DCommentList } from '../services/comment/comment.dto';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../store/store.reducer';
+import { Latest } from '../services/comment/comment.actions';
 
 @Component({
   selector: 'app-post',
@@ -19,7 +19,6 @@ export class PostComponent implements OnInit {
   @Input()
   post: DPost;
 
-  @select(['comment', 'list'])
   allComments$: Observable<{}>;
 
   comments: DComment[] = [];
@@ -34,15 +33,20 @@ export class PostComponent implements OnInit {
   content: string | SafeHtml;
 
   constructor(
+    private store: Store<IAppState>,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private commentService: CommentService,
   ) {
+    this.allComments$ = this.store.pipe(select('comment', 'list'));
   }
 
   ngOnInit() {
     // get initial comments
-    this.commentService.latest(this.post.id, 0, this.commentsPerPage);
+    this.store.dispatch(new Latest({
+      postId: this.post.id,
+      page: this.commentsPage,
+      limit: this.commentsPerPage,
+    }));
     // subscribe on comments
     this.allComments$.subscribe((allComments) => {
       const postCommentData: DCommentList = allComments[this.post.id];
@@ -86,7 +90,11 @@ export class PostComponent implements OnInit {
   loadMoreComments() {
     // load comments
     this.commentsPage++;
-    this.commentService.latest(this.post.id, this.commentsPage, this.commentsPerPage);
+    this.store.dispatch(new Latest({
+      postId: this.post.id,
+      page: this.commentsPage,
+      limit: this.commentsPerPage,
+    }));
   }
 
 }

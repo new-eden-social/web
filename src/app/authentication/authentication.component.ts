@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NgRedux, select } from '@angular-redux/store';
-import { IAppState } from '../store/store.interface';
-import { AuthenticationService } from 'app/services/authentication/authentication.service';
-import { Observable } from 'rxjs';
-import { AuthenticationTypes } from '../services/authentication/authentication.types';
-import 'rxjs/add/operator/filter';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../store/store.reducer';
+import {
+  AuthenticateCallback,
+  AuthenticateCheck,
+} from '../services/authentication/authentication.actions';
+import { filter, map, mergeMap, tap } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-authentication',
@@ -35,18 +36,17 @@ import 'rxjs/add/operator/filter';
 })
 export class AuthenticationComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
-  authenticated$: Observable<boolean>;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private store: Store<IAppState>,
+  ) {
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private ngRedux: NgRedux<IAppState>,
-              private router: Router,
-              private authenticationService: AuthenticationService) {
-
-    // When authenticated, redirect to welcome
-    this.authenticated$
-    .filter(authenticated => authenticated)
-    .subscribe(() => this.router.navigate(['']))
+    // When authenticated, redirect to home
+    this.store.pipe(
+      select('authentication', 'authenticated'),
+      filter(authenticated => authenticated),
+    ).subscribe(() => this.router.navigate(['']));
   }
 
   ngOnInit() {
@@ -56,16 +56,12 @@ export class AuthenticationComponent implements OnInit {
       const expiresIn = params['expires_in'];
       const tokenType = params['token_type'];
 
-      this.ngRedux.dispatch({
-        type: AuthenticationTypes.REDIRECTED, payload: {
-          accessToken,
-          refreshToken,
-          expiresIn,
-          tokenType,
-        },
-      });
-
-      this.authenticationService.initialCheck(accessToken)
+      this.store.dispatch(new AuthenticateCallback({
+        accessToken,
+        tokenType,
+        expiresIn,
+        refreshToken,
+      }));
     });
   }
 

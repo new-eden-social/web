@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-import { PostService } from '../services/post/post.service';
-import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 import { DPostList } from '../services/post/post.dto';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../store/store.reducer';
+import { GetLatest } from '../services/post/post.actions';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,9 @@ import { DPostList } from '../services/post/post.dto';
 })
 export class HomeComponent implements OnInit {
 
-  @select(['post', 'list'])
   postList$: Observable<DPostList>;
   postList: DPostList;
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
 
   page: number;
@@ -53,21 +52,28 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor(private postService: PostService) {
+  constructor(
+    private store: Store<IAppState>,
+  ) {
+    this.postList$ = this.store.pipe(select('post', 'list'));
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+
+  }
+
+  ngOnInit() {
+    this.page = 0;
+
+    this.store.dispatch(new GetLatest({ page: this.page, limit: 20 }));
+
     this.postList$.subscribe(postList => {
       this.postList = postList;
       if (this.postList) this.loadingPosts = false;
     });
   }
 
-  ngOnInit() {
-    this.page = 0;
-    this.postService.latest(this.page);
-  }
-
   onScroll() {
     this.page++;
-    this.postService.latest(this.page);
+    this.store.dispatch(new GetLatest({ page: this.page, limit: 20 }));
   }
 
 }

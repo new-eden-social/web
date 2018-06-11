@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { select } from '@angular-redux/store';
-import { PostService } from '../../services/post/post.service';
 import { DPostList } from '../../services/post/post.dto';
 import { DCorporation } from '../../services/corporation/corporation.dto';
-import { CorporationService } from '../../services/corporation/corporation.service';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../../store/store.reducer';
+import { GetCorporationWall } from '../../services/post/post.actions';
+import { Load } from '../../services/corporation/corporaiton.actions';
 
 @Component({
   selector: 'app-corporation',
@@ -14,13 +15,8 @@ import { CorporationService } from '../../services/corporation/corporation.servi
 })
 export class CorporationComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
-
-  @select(['corporation', 'data'])
   corporation$: Observable<DCorporation>;
-
-  @select(['post', 'list'])
   wall$: Observable<DPostList>;
 
   corporation: DCorporation;
@@ -35,18 +31,25 @@ export class CorporationComponent implements OnInit {
   allianceId: number;
 
   constructor(
+    private store: Store<IAppState>,
     private route: ActivatedRoute,
     private router: Router,
-    private corporationService: CorporationService,
-    private postService: PostService,
   ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.corporation$ = this.store.pipe(select('corporation', 'data'));
+    this.wall$ = this.store.pipe(select('post', 'list'));
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.setInitValues();
 
-        let id = +this.route.snapshot.params['id'];
-        this.corporationService.get(id);
-        this.postService.corporationWall(id);
+        let id = this.route.snapshot.params['id'];
+        this.store.dispatch(new Load(id));
+        this.store.dispatch(new GetCorporationWall({
+          corporationId: id,
+          page: this.page,
+          limit: 20,
+        }));
       }
     });
   }
@@ -68,7 +71,11 @@ export class CorporationComponent implements OnInit {
 
   onScroll() {
     this.page++;
-    this.postService.corporationWall(this.corporation.id, this.page);
+    this.store.dispatch(new GetCorporationWall({
+      corporationId: this.corporation.id,
+      page: this.page,
+      limit: 20,
+    }));
   }
 
   private setInitValues(): void {

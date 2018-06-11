@@ -4,7 +4,6 @@ import { HashtagComponent } from './hashtag.component';
 import { LoadingModule } from '../loading/loading.module';
 import { PostListModule } from '../post-list/post-list.module';
 import { FooterModule } from '../footer/footer.module';
-import { PostService } from 'app/services/post/post.service';
 import { MatButtonModule } from '@angular/material';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { MatButtonModule } from '@angular/material';
     FooterModule,
     MatButtonModule,
   ],
-  providers: [PostService],
   declarations: [HashtagComponent],
   exports: [HashtagComponent],
 })

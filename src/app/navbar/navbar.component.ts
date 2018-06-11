@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
-import { IAppState } from 'app/store/store.interface';
 import { Router } from '@angular/router';
-import { AuthenticationTypes } from '../services/authentication/authentication.types';
-import { FormControl } from '@angular/forms';
 import { environment } from '../../environments/environment';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../store/store.reducer';
+import { DCharacterShort } from '../services/character/character.dto';
+import { UnAuthenticate } from '../services/authentication/authentication.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -14,25 +14,24 @@ import { environment } from '../../environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
-  authenticated: boolean;
-
-  @select(['authentication', 'character'])
-  character$: Observable<boolean>;
+  character$: Observable<DCharacterShort>;
 
   authenticationUrl = environment.apiEndpoint;
 
-  constructor(private ngRedux: NgRedux<IAppState>, private router: Router) {
-    this.authenticated$
-    .subscribe(authenticated => this.authenticated = authenticated);
+  constructor(
+    private store: Store<IAppState>,
+    private router: Router,
+  ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.character$ = this.store.pipe(select('authentication', 'character'));
   }
 
   ngOnInit() {
   }
 
   logout() {
-    this.ngRedux.dispatch({ type: AuthenticationTypes.UN_AUTHENTICATE });
+    this.store.dispatch(new UnAuthenticate());
     this.router.navigate(['']);
   }
 
