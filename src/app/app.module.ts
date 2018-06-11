@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './navbar/navbar.module';
@@ -13,7 +13,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { CorporationModule } from './profile/corporation/corporation.module';
 import { AllianceModule } from './profile/alliance/alliance.module';
 import { HashtagModule } from './hashtag/hashtag.module';
-import { effects, metaReducers, reducers } from './store/store.reducer';
+import { effects, metaReducers, reducers } from './app.store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -48,6 +48,7 @@ import { EffectsModule } from '@ngrx/effects';
     AllianceModule,
     AuthenticationModule,
     HashtagModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

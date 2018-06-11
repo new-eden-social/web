@@ -6,7 +6,7 @@ import { DCharacterName } from '../../services/character/character.dto';
 import { DCorporationName } from '../../services/corporation/corporation.dto';
 import { DAllianceName } from '../../services/alliance/alliance.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import { debounceTime, map, tap } from 'rxjs/internal/operators';
 import { Clear, Search } from '../../services/search/search.actions';
 

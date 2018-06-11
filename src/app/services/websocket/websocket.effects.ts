@@ -6,20 +6,21 @@ import {
   Connect, ConnectError, ConnectSuccess, ConnectTimeout, Disconnected, SocketError,
   WebsocketActionTypes,
 } from './websocket.actions';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import { Store } from '@ngrx/store';
-import { mergeMap, take, tap } from 'rxjs/internal/operators';
+import { map, mergeMap } from 'rxjs/internal/operators';
 import { environment } from '../../../environments/environment';
 import { WS_EVENT_AUTHENTICATION } from './websocket.constants';
 import * as io from 'socket.io-client';
 import { fromEvent, of, race } from 'rxjs/index';
 import { DWebsocketAuthentication } from './websocket.dto';
-import { IAuthenticationResponse } from './websocket.interface';
+import { IAuthenticationResponse, IWebsocketException } from './websocket.interface';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class WebsocketEffects {
 
-  private socket: SocketIOClient.Socket;
+  public socket: SocketIOClient.Socket;
   @Effect()
   connect$: Observable<ConnectSuccess | ConnectTimeout | ConnectError> = this.actions$.pipe(
     ofType<Connect>(WebsocketActionTypes.CONNECT),
@@ -39,38 +40,53 @@ export class WebsocketEffects {
       fromEvent<Error>(this.socket, 'error')
       .subscribe(event => this.store.dispatch(new SocketError(event)));
 
+      fromEvent<IWebsocketException>(this.socket, 'exception')
+      .subscribe(event => this.showSnackBar(event.status + ' - ' + event.message));
+
       // Listen for connect events
       return race(
         fromEvent<string>(this.socket, 'connect'),
         fromEvent<string>(this.socket, 'connect_timeout'),
         fromEvent<string>(this.socket, 'connect_error'),
-      ).pipe(mergeMap(event => {
-        if (!event) return of(new ConnectSuccess());
+      ).pipe(map(event => {
+        if (!event) {
+          this.showSnackBar('Websocket connected');
+          return new ConnectSuccess();
+        }
         // We stop socket (we don't wan't any auto retries...)
         this.socket.close();
-        if (event === 'timeout') return of(new ConnectTimeout());
-        return of(new ConnectError());
+        if (event === 'timeout') return new ConnectTimeout();
+        return new ConnectError();
       }));
     }),
   );
   @Effect()
-  authenticate$: Observable<AuthenticateSuccess> = this.actions$.pipe(
+  authenticate$: Observable<AuthenticateSuccess | AuthenticateFailed> = this.actions$.pipe(
     ofType<Authenticate>(WebsocketActionTypes.AUTHENTICATE),
     mergeMap(action => {
       this.socket.emit(WS_EVENT_AUTHENTICATION, new DWebsocketAuthentication(action.payload));
       // Wait
       return fromEvent<IAuthenticationResponse>(this.socket, WS_EVENT_AUTHENTICATION).pipe(
-        mergeMap(event => {
-          if (event.success) return of(new AuthenticateSuccess());
-          return of(new AuthenticateFailed());
+        map(event => {
+          if (event.success) {
+            this.showSnackBar('Websocket Authentication Success');
+            return new AuthenticateSuccess();
+          }
+          this.showSnackBar('Websocket Authentication Failed');
+          return new AuthenticateFailed();
         }));
     }),
   );
 
   constructor(
-    protected actions$: Actions,
-    protected store: Store<IAppState>,
+    private actions$: Actions,
+    private store: Store<IAppState>,
+    private snackBar: MatSnackBar,
   ) {
+  }
+
+  private showSnackBar(message: string) {
+    this.snackBar.open(message, null, { duration: 2500 });
   }
 
 }

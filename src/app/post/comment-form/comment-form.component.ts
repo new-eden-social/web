@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { DCharacterShort } from '../../services/character/character.dto';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { CommentEffects } from '../../services/comment/comment.effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import {
   PostAsAlliance, PostAsCharacter,
   PostAsCorporation,
@@ -34,7 +33,6 @@ export class CommentFormComponent implements OnInit {
 
   constructor(
     private store: Store<IAppState>,
-    private commentService: CommentEffects,
   ) {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
     this.character$ = this.store.pipe(select('authentication', 'character'));

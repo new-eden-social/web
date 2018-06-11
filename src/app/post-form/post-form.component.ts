@@ -8,7 +8,7 @@ import { DCorporation } from '../services/corporation/corporation.dto';
 import { DAlliance } from '../services/alliance/alliance.dto';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import { PostAsAlliance, PostAsCharacter, PostAsCorporation } from '../services/post/post.actions';
 
 @Component({

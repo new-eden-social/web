@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DPostList } from '../../services/post/post.dto';
 import { DCorporation } from '../../services/corporation/corporation.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import { GetCorporationWall } from '../../services/post/post.actions';
 import { Load } from '../../services/corporation/corporaiton.actions';
 

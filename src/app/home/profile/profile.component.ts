@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { DCharacterShort } from '../../services/character/character.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 
 @Component({
   selector: 'app-home-profile',

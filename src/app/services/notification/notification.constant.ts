@@ -1,0 +1,10 @@
+export enum NOTIFICATION_TYPE {
+  'NOTIFICATION_NEW_POST_ON_YOUR_WALL',
+}
+
+export const NOTIFICATION_MESSAGES = {
+  [NOTIFICATION_TYPE.NOTIFICATION_NEW_POST_ON_YOUR_WALL]:
+    (id) => `There is a new post on your wall! [${id}]`,
+};
+
+export const WS_NOTIFICATION_EVENT = 'WS_NOTIFICATION_EVENT';

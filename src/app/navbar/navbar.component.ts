@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import { DCharacterShort } from '../services/character/character.dto';
 import { UnAuthenticate } from '../services/authentication/authentication.actions';
 import { Authenticate, Connect } from '../services/websocket/websocket.actions';

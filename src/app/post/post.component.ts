@@ -5,7 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Rx';
 import { DComment, DCommentList } from '../services/comment/comment.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import { Latest } from '../services/comment/comment.actions';
 
 @Component({

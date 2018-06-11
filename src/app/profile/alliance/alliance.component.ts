@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DPostList } from '../../services/post/post.dto';
 import { DAlliance } from '../../services/alliance/alliance.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import { Load } from '../../services/alliance/alliance.actions';
 import { GetAllianceWall } from '../../services/post/post.actions';
 

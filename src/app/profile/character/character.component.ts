@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DCharacter } from '../../services/character/character.dto';
 import { DPostList } from '../../services/post/post.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import { Load } from '../../services/character/character.actions';
 import { GetCharacterWall } from '../../services/post/post.actions';
 

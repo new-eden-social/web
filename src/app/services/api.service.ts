@@ -7,7 +7,7 @@ import 'rxjs/add/operator/filter';
 import { environment } from '../../environments/environment';
 import { Actions } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import { map, tap } from 'rxjs/internal/operators';
 import { HttpResponse } from '@angular/common/http/src/response';
 import { Router } from '@angular/router';
