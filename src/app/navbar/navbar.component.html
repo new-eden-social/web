@@ -2,7 +2,7 @@
   <div class="button-row">
     <div class="nav-container">
       <a routerLink="" mat-button>HOME</a>
-      <a *ngIf="authenticated$ | async" mat-button>NOTIFICATIONS</a>
+      <a (click)="notifications()" *ngIf="authenticated$ | async" mat-button>NOTIFICATIONS</a>
     </div>
     <div class="nav-container">
       <app-navbar-search></app-navbar-search>

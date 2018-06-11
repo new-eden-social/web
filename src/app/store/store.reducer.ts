@@ -15,6 +15,16 @@ import { ICharacterState } from '../services/character/character.interface';
 import { IAllianceState } from '../services/alliance/alliance.interface';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { IWebsocketState } from '../services/websocket/websocket.interface';
+import { websocketReducer } from '../services/websocket/websocket.reducer';
+import { AllianceEffects } from '../services/alliance/alliance.effects';
+import { CorporationEffects } from '../services/corporation/corporation.effects';
+import { CharacterEffects } from '../services/character/character.effects';
+import { CommentEffects } from '../services/comment/comment.effects';
+import { SearchEffects } from '../services/search/search.effects';
+import { AuthenticationEffects } from '../services/authentication/authentication.effects';
+import { PostEffects } from '../services/post/post.effects';
+import { WebsocketEffects } from '../services/websocket/websocket.effects';
 
 export interface IAppState {
   authentication?: IAuthenticationState,
@@ -25,6 +35,7 @@ export interface IAppState {
   comment?: ICommentState,
   post?: IPostState,
   router?: RouterReducerState,
+  websocket?: IWebsocketState,
 }
 
 export const metaReducers: Array<MetaReducer<any, any>> = [
@@ -32,7 +43,7 @@ export const metaReducers: Array<MetaReducer<any, any>> = [
     return localStorageSync({
       // Only store authentication and router
       keys: ['authentication', 'router'],
-      rehydrate: true
+      rehydrate: true,
     })(reducer);
   },
 ];
@@ -48,4 +59,16 @@ export const reducers: ActionReducerMap<IAppState> = {
   alliance: allianceReducer,
   post: postReducer,
   comment: commentReducer,
+  websocket: websocketReducer,
 };
+
+export const effects = [
+  AllianceEffects,
+  AuthenticationEffects,
+  CharacterEffects,
+  CommentEffects,
+  CorporationEffects,
+  PostEffects,
+  SearchEffects,
+  WebsocketEffects,
+];
