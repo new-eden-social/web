@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import { DNotification, DNotificationList } from '../../services/notification/notification.dto';
 import { Observable, of } from 'rxjs/index';
-import { filter, map, mergeMap } from 'rxjs/internal/operators';
+import { filter, map, mergeMap, share } from 'rxjs/internal/operators';
 import { SeenNotification } from '../../services/notification/notification.actions';
 import * as moment from 'moment';
 
@@ -38,17 +38,13 @@ export class NavbarNotificationsComponent implements OnInit {
           moment(notification.createdAt).isAfter(moment().subtract(2, 'day'));
       })),
     );
-    this.otherNotifications$ = this.newNotifications$.pipe(
-      mergeMap(newNotifications => {
-        return this.notifications$.pipe(
-          map(notificationsData => notificationsData ? notificationsData.data : []),
-          map(notifications => notifications.filter(notification => {
-              return !newNotifications.find(
-                newNotification => newNotification.id === notification.id);
-            }),
-          ),
-        );
-      }),
+    this.otherNotifications$ = this.notifications$.pipe(
+      map(notificationsData => notificationsData ? notificationsData.data : []),
+      map(notifications => notifications.filter(notification => {
+        return notification.seenAt ||
+          // Not younger than 2 days
+          moment(notification.createdAt).isBefore(moment().subtract(2, 'day'));
+      })),
     );
   }
 

@@ -15,29 +15,27 @@
 
       <h3 *ngIf="(newNotifications$ | async).length > 0">New notifications</h3>
       <li *ngFor="let notification of newNotifications$ | async"
-          [ngClass]="{'not-seen': !notification.seenAt}"
-          (click)="openNotification(notification)">
+          [ngClass]="{'not-seen': !notification.seenAt}">
         <button mat-icon-button>
           <img aria-label="Profile"
                src="https://imageserver.eveonline.com/Character/96361892_64.jpg"/>
         </button>
-        <div class="notification-content">
+        <div class="notification-content" (click)="openNotification(notification)">
           <p><strong>Nyota Walker</strong> has posted on <strong>your wall</strong>.</p>
           <small class="mat-caption">
-            {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not Seen'}}
+            {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not seen'}}
           </small>
         </div>
       </li>
 
       <h3 *ngIf="(otherNotifications$ | async).length > 0">Other notifications</h3>
       <li *ngFor="let notification of otherNotifications$ | async"
-          [ngClass]="{'not-seen': !notification.seenAt}"
-          (click)="openNotification(notification)">
+          [ngClass]="{'not-seen': !notification.seenAt}">
         <button mat-icon-button>
           <img aria-label="Profile"
                src="https://imageserver.eveonline.com/Character/96361892_64.jpg"/>
         </button>
-        <div class="notification-content">
+        <div class="notification-content" (click)="openNotification(notification)">
           <p><strong>Nyota Walker</strong> has posted on <strong>your wall</strong>.</p>
           <small class="mat-caption">
             {{ notification.createdAt | amTimeAgo }}
