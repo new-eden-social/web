@@ -1,0 +1,53 @@
+<div class="notifications">
+  <div class="notifications-wrapper">
+
+    <a matBadge="{{ (newNotifications$ | async).length }}"
+       matBadgeHidden="{{ (newNotifications$ | async).length === 0 }}"
+       matBadgeColor="accent"
+       (focus)="toggleFocus()"
+       (blur)="toggleBlur()"
+       mat-button>NOTIFICATIONS</a>
+
+    <ul class="notifications-results"
+        *ngIf="notificationsToggle || notificationsHover"
+        (mouseleave)="leftNotifications()"
+        (mouseenter)="enterNotifications()">
+
+      <h3 *ngIf="(newNotifications$ | async).length > 0">New notifications</h3>
+      <li *ngFor="let notification of newNotifications$ | async"
+          [ngClass]="{'not-seen': !notification.seenAt}"
+          (click)="openNotification(notification)">
+        <button mat-icon-button>
+          <img aria-label="Profile"
+               src="https://imageserver.eveonline.com/Character/96361892_64.jpg"/>
+        </button>
+        <div class="notification-content">
+          <p><strong>Nyota Walker</strong> has posted on <strong>your wall</strong>.</p>
+          <small class="mat-caption">
+            {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not Seen'}}
+          </small>
+        </div>
+      </li>
+
+      <h3 *ngIf="(otherNotifications$ | async).length > 0">Other notifications</h3>
+      <li *ngFor="let notification of otherNotifications$ | async"
+          [ngClass]="{'not-seen': !notification.seenAt}"
+          (click)="openNotification(notification)">
+        <button mat-icon-button>
+          <img aria-label="Profile"
+               src="https://imageserver.eveonline.com/Character/96361892_64.jpg"/>
+        </button>
+        <div class="notification-content">
+          <p><strong>Nyota Walker</strong> has posted on <strong>your wall</strong>.</p>
+          <small class="mat-caption">
+            {{ notification.createdAt | amTimeAgo }}
+          </small>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+
+

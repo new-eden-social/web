@@ -13,7 +13,7 @@ import { HttpResponse } from '@angular/common/http/src/response';
 import { Router } from '@angular/router';
 
 @Injectable()
-export abstract class ApiService {
+export class ApiService {
 
   accessToken: string;
   refreshToken: string;
@@ -41,7 +41,7 @@ export abstract class ApiService {
     return headers.set('Authorization', 'Bearer ' + token);
   }
 
-  protected request<T = any>(
+  public request<T = any>(
     method: string,
     url: string,
     config: any = {},

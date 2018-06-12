@@ -19,6 +19,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { EffectsModule } from '@ngrx/effects';
     HashtagModule,
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {

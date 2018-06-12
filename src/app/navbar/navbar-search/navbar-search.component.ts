@@ -46,14 +46,13 @@ export class NavbarSearchComponent implements OnInit {
 
     this.searchCtrl.valueChanges.pipe(
       debounceTime(500),
-      tap(query => {
-        if (query.length > 2) {
-          this.store.dispatch(new Search(query));
-        } else if (this.showCharacters || this.showCorporations || this.showAlliances) {
-          this.store.dispatch(new Clear());
-        }
-      }),
-    );
+    ).subscribe(query => {
+      if (query.length > 2) {
+        this.store.dispatch(new Search(query));
+      } else if (this.showCharacters || this.showCorporations || this.showAlliances) {
+        this.store.dispatch(new Clear());
+      }
+    });
 
     this.charactersLess = this.characters$.pipe(
       map(characters => characters.splice(0, this.limit)),

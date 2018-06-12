@@ -7,8 +7,8 @@ import {
   WebsocketActionTypes,
 } from './websocket.actions';
 import { IAppState } from '../../app.store';
-import { Store } from '@ngrx/store';
-import { map, mergeMap } from 'rxjs/internal/operators';
+import { select, Store } from '@ngrx/store';
+import { filter, map, mergeMap } from 'rxjs/internal/operators';
 import { environment } from '../../../environments/environment';
 import { WS_EVENT_AUTHENTICATION } from './websocket.constants';
 import * as io from 'socket.io-client';
@@ -53,8 +53,6 @@ export class WebsocketEffects {
           this.showSnackBar('Websocket connected');
           return new ConnectSuccess();
         }
-        // We stop socket (we don't wan't any auto retries...)
-        this.socket.close();
         if (event === 'timeout') return new ConnectTimeout();
         return new ConnectError();
       }));
@@ -62,20 +60,23 @@ export class WebsocketEffects {
   );
   @Effect()
   authenticate$: Observable<AuthenticateSuccess | AuthenticateFailed> = this.actions$.pipe(
-    ofType<Authenticate>(WebsocketActionTypes.AUTHENTICATE),
-    mergeMap(action => {
-      this.socket.emit(WS_EVENT_AUTHENTICATION, new DWebsocketAuthentication(action.payload));
-      // Wait
-      return fromEvent<IAuthenticationResponse>(this.socket, WS_EVENT_AUTHENTICATION).pipe(
-        map(event => {
-          if (event.success) {
-            this.showSnackBar('Websocket Authentication Success');
-            return new AuthenticateSuccess();
-          }
-          this.showSnackBar('Websocket Authentication Failed');
-          return new AuthenticateFailed();
-        }));
-    }),
+    ofType<ConnectSuccess>(WebsocketActionTypes.CONNECT_SUCCESS),
+    mergeMap(action => this.store.pipe(
+      select('authentication', 'data', 'accessToken'),
+      mergeMap(accessToken => {
+        this.socket.emit(WS_EVENT_AUTHENTICATION, new DWebsocketAuthentication(accessToken));
+        // Wait for response
+        return fromEvent<IAuthenticationResponse>(this.socket, WS_EVENT_AUTHENTICATION).pipe(
+          map(event => {
+            if (event.success) {
+              this.showSnackBar('Websocket Authentication Success');
+              return new AuthenticateSuccess();
+            }
+            this.showSnackBar('Websocket Authentication Failed');
+            return new AuthenticateFailed();
+          }));
+      }),
+    )),
   );
 
   constructor(

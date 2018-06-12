@@ -6,8 +6,6 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../app.store';
 import { DCharacterShort } from '../services/character/character.dto';
 import { UnAuthenticate } from '../services/authentication/authentication.actions';
-import { Authenticate, Connect } from '../services/websocket/websocket.actions';
-import { filter } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -38,19 +36,5 @@ export class NavbarComponent implements OnInit {
   }
 
   notifications() {
-    console.log('ze button');
-    this.store.dispatch(new Connect());
-    this.store.pipe(
-      select('websocket', 'connected'),
-      filter(connected => connected),
-    ).subscribe(() => {
-      console.log('Heell yeah, connected!!!');
-      return this.store.pipe(
-        select('authentication', 'data', 'accessToken'),
-      ).subscribe(token => {
-        console.log('going to do authentication now');
-        this.store.dispatch(new Authenticate(token));
-      });
-    });
   }
 }

@@ -42,11 +42,11 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     // get initial comments
-    this.store.dispatch(new Latest({
-      postId: this.post.id,
-      page: this.commentsPage,
-      limit: this.commentsPerPage,
-    }));
+    // this.store.dispatch(new Latest({
+    //   postId: this.post.id,
+    //   page: this.commentsPage,
+    //   limit: this.commentsPerPage,
+    // }));
     // subscribe on comments
     this.allComments$.subscribe((allComments) => {
       const postCommentData: DCommentList = allComments[this.post.id];
