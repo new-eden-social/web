@@ -69,4 +69,16 @@ export class NavbarNotificationsComponent implements OnInit {
     this.notificationsToggle = true;
   }
 
+  getSenderImage(notification: DNotification): string {
+    if (notification.senderCharacter) return notification.senderCharacter.portrait.px256x256;
+    if (notification.senderCorporation) return notification.senderCorporation.icon.px256x256;
+    if (notification.senderAlliance) return notification.senderAlliance.icon.px128x128;
+  }
+
+  getSenderName(notification: DNotification): string {
+    if (notification.senderCharacter) return notification.senderCharacter.name;
+    if (notification.senderCorporation) return notification.senderCorporation.name;
+    if (notification.senderAlliance) return notification.senderAlliance.name;
+  }
+
 }
