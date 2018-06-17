@@ -7,8 +7,9 @@ import { DCorporationName } from '../../services/corporation/corporation.dto';
 import { DAllianceName } from '../../services/alliance/alliance.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
-import { debounceTime, map, tap } from 'rxjs/internal/operators';
+import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/internal/operators';
 import { Clear, Search } from '../../services/search/search.actions';
+import { switchMap } from 'rxjs-compat/operator/switchMap';
 
 @Component({
   selector: 'app-navbar-search',
@@ -46,6 +47,7 @@ export class NavbarSearchComponent implements OnInit {
 
     this.searchCtrl.valueChanges.pipe(
       debounceTime(500),
+      distinctUntilChanged(),
     ).subscribe(query => {
       if (query.length > 2) {
         this.store.dispatch(new Search(query));

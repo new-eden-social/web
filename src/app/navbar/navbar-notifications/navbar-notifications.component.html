@@ -21,14 +21,17 @@
                src="{{ getSenderImage(notification) }}"/>
         </button>
         <div class="notification-content" (click)="openNotification(notification)">
-          <p><strong>{{ getSenderName(notification) }}</strong> has posted on <strong>your wall</strong>.</p>
+          <p [innerHtml]="getText(notification)"></p>
           <small class="mat-caption">
             {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not seen'}}
           </small>
         </div>
       </li>
 
-      <h3 *ngIf="(otherNotifications$ | async).length > 0">Other notifications</h3>
+      <h3>Notifications</h3>
+      <p class="no-notifications" *ngIf="(otherNotifications$ | async).length === 0">
+        No notifications yet
+      </p>
       <li *ngFor="let notification of otherNotifications$ | async"
           [ngClass]="{'not-seen': !notification.seenAt}">
         <button mat-icon-button>
@@ -36,9 +39,9 @@
                src="{{ getSenderImage(notification) }}"/>
         </button>
         <div class="notification-content" (click)="openNotification(notification)">
-          <p><strong>{{ getSenderName(notification) }}</strong> has posted on <strong>your wall</strong>.</p>
+          <p [innerHtml]="getText(notification)"></p>
           <small class="mat-caption">
-            {{ notification.createdAt | amTimeAgo }}
+            {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not seen'}}
           </small>
         </div>
       </li>

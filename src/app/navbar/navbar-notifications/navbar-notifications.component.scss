@@ -38,8 +38,17 @@
         font-size: 0.6em;
         line-height: 2em;
         padding-left: 1em;
-        background: lighten($app-background-color, 50%);
+        background: darken(#fafafa, 10);
         text-transform: uppercase;
+      }
+
+      .no-notifications {
+        font-size: 1em;
+        font-weight: 300;
+        height: 4em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       li {

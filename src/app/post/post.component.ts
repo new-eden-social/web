@@ -7,6 +7,9 @@ import { DComment, DCommentList } from '../services/comment/comment.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../app.store';
 import { Latest } from '../services/comment/comment.actions';
+import { DCharacterShort } from '../services/character/character.dto';
+import { DCorporationShort } from '../services/corporation/corporation.dto';
+import { DAllianceShort } from '../services/alliance/alliance.dto';
 
 @Component({
   selector: 'app-post',
@@ -26,10 +29,19 @@ export class PostComponent implements OnInit {
   commentsPage = 0;
   commentsPerPage = 3;
 
-  name: string;
-  link: any[];
-  handle: string;
-  image: string;
+  author: {
+    name: string;
+    link: any[];
+    handle: string;
+    image: string;
+  } = { name: null, link: [], handle: null, image: null };
+  wall: {
+    name: string;
+    link: any[];
+    handle: string;
+    image: string;
+  };
+
   content: string | SafeHtml;
 
   constructor(
@@ -42,11 +54,11 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     // get initial comments
-    // this.store.dispatch(new Latest({
-    //   postId: this.post.id,
-    //   page: this.commentsPage,
-    //   limit: this.commentsPerPage,
-    // }));
+    this.store.dispatch(new Latest({
+      postId: this.post.id,
+      page: this.commentsPage,
+      limit: this.commentsPerPage,
+    }));
     // subscribe on comments
     this.allComments$.subscribe((allComments) => {
       const postCommentData: DCommentList = allComments[this.post.id];
@@ -57,22 +69,23 @@ export class PostComponent implements OnInit {
     });
 
     if (this.post.character) {
-      this.name = this.post.character.name;
-      this.handle = this.post.character.handle;
-      this.link = ['/character', this.post.character.id];
-      this.image = this.post.character.portrait.px64x64;
+      this.author = this.getInfoDependingOnType(this.post.character, 'character');
     }
     if (this.post.corporation) {
-      this.name = this.post.corporation.name;
-      this.handle = this.post.corporation.handle;
-      this.link = ['/corporation', this.post.corporation.id];
-      this.image = this.post.corporation.icon.px64x64;
+      this.author = this.getInfoDependingOnType(this.post.corporation, 'corporation');
     }
     if (this.post.alliance) {
-      this.name = this.post.alliance.name;
-      this.handle = this.post.alliance.handle;
-      this.link = ['/alliance', this.post.alliance.id];
-      this.image = this.post.alliance.icon.px64x64;
+      this.author = this.getInfoDependingOnType(this.post.alliance, 'alliance');
+    }
+
+    if (this.post.characterWall) {
+      this.wall = this.getInfoDependingOnType(this.post.characterWall, 'character');
+    }
+    if (this.post.corporationWall) {
+      this.wall = this.getInfoDependingOnType(this.post.corporationWall, 'corporation');
+    }
+    if (this.post.allianceWall) {
+      this.wall = this.getInfoDependingOnType(this.post.allianceWall, 'alliance');
     }
 
     const html = this.post.content.replace(
@@ -81,10 +94,6 @@ export class PostComponent implements OnInit {
         `<a href="/hashtag/${hashtag.replace('#', '')}" class="text-link">${hashtag}</a>`);
 
     this.content = this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-
-  openItem() {
-    this.router.navigate(this.link);
   }
 
   loadMoreComments() {
@@ -97,4 +106,32 @@ export class PostComponent implements OnInit {
     }));
   }
 
+  private getInfoDependingOnType(
+    item: any,
+    type: 'character' | 'corporation' | 'alliance',
+  ) {
+    switch (type) {
+      case 'character':
+        return {
+          name: item.name,
+          handle: item.handle,
+          link: ['/character', item.id],
+          image: item.portrait.px64x64,
+        };
+      case 'corporation':
+        return {
+          name: item.name,
+          handle: item.handle,
+          link: ['/corporation', item.id],
+          image: item.icon.px64x64,
+        };
+      case 'alliance':
+        return {
+          name: item.name,
+          handle: item.handle,
+          link: ['/alliance', item.id],
+          image: item.icon.px64x64,
+        };
+    }
+  }
 }

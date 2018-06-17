@@ -2,12 +2,14 @@
 
   <div class="card-content">
     <button mat-icon-button>
-      <img aria-label="Profile" [src]="image" (click)="openItem()"/>
+      <img aria-label="Profile" [src]="author.image" [routerLink]="author.link"/>
     </button>
 
     <div class="card-main">
       <div class="card-header">
-        <a [routerLink]="link">{{ name }}</a>
+        <a [routerLink]="author.link">{{ author.name }}</a>
+        <mat-icon *ngIf="wall">arrow_right</mat-icon>
+        <a *ngIf="wall" [routerLink]="wall.link">{{ wall.name }}</a>
         <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
       </div>
       <p class="card-text" [innerHtml]="content"></p>

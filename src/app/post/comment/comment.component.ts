@@ -54,4 +54,7 @@ export class CommentComponent implements OnInit {
     this.content = this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
+  openItem() {
+    this.router.navigate(this.link);
+  }
 }

@@ -1,5 +1,5 @@
 export interface ApiExceptionResponse {
-  reason: string;
-  error?: any;
-  errors?: any[];
+  statusCode: number;
+  error: string;
+  message: string;
 }

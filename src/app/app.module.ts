@@ -20,13 +20,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiService } from './services/api.service';
+import { httpInterceptorProviders } from './http-interceptors';
+import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
     // Connects RouterModule with StoreModule
@@ -50,8 +52,12 @@ import { ApiService } from './services/api.service';
     AuthenticationModule,
     HashtagModule,
     MatSnackBarModule,
+    PageNotFoundModule,
   ],
-  providers: [ApiService],
+  providers: [
+    httpInterceptorProviders,
+    ApiService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -17,6 +17,9 @@ export class DPost {
   hashtags: string[];
   location?: DUniverseLocation;
   createdAt: Date;
+  characterWall: DCharacterShort;
+  corporationWall: DCorporationShort;
+  allianceWall: DAllianceShort;
 }
 
 export class DPostList extends DPagination<DPost> {

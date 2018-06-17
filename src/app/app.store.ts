@@ -42,14 +42,16 @@ export interface IAppState {
   notification?: INotificationState,
 }
 
+export function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    // Only store authentication
+    keys: ['authentication'],
+    rehydrate: true,
+  })(reducer);
+}
+
 export const metaReducers: Array<MetaReducer<any, any>> = [
-  (reducer: ActionReducer<any>): ActionReducer<any> => {
-    return localStorageSync({
-      // Only store authentication and router
-      keys: ['authentication', 'router'],
-      rehydrate: true,
-    })(reducer);
-  },
+  localStorage,
 ];
 
 // Define the global store shape by combining our application's

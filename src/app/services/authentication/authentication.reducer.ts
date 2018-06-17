@@ -33,6 +33,13 @@ export function authenticationReducer(
       };
     }
 
+    case AuthenticationActionTypes.REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        data: action.payload,
+      };
+    }
+
     default: {
       return state;
     }

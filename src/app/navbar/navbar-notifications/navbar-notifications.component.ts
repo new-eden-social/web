@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs/index';
 import { filter, map, mergeMap, share } from 'rxjs/internal/operators';
 import { SeenNotification } from '../../services/notification/notification.actions';
 import * as moment from 'moment';
+import { NOTIFICATION_TYPE } from '../../services/notification/notification.constant';
 
 @Component({
   selector: 'app-navbar-notifications',
@@ -79,6 +80,24 @@ export class NavbarNotificationsComponent implements OnInit {
     if (notification.senderCharacter) return notification.senderCharacter.name;
     if (notification.senderCorporation) return notification.senderCorporation.name;
     if (notification.senderAlliance) return notification.senderAlliance.name;
+  }
+
+  getText(notification: DNotification): string {
+    const name = this.getSenderName(notification);
+    switch (notification.type) {
+      case NOTIFICATION_TYPE.NEW_POST_ON_YOUR_WALL:
+        return `<strong>${name}</strong> has posted on <strong>your wall</strong>.`;
+      case NOTIFICATION_TYPE.NEW_POST_ON_YOUR_CORPORATION_WALL:
+        return `<strong>${name}</strong> has posted on <strong>your corporation wall</strong>.`;
+      case NOTIFICATION_TYPE.NEW_POST_ON_YOUR_ALLIANCE_WALL:
+        return `<strong>${name}</strong> has posted on <strong>your alliance wall</strong>.`;
+      case NOTIFICATION_TYPE.NEW_COMMENT_ON_YOUR_POST:
+        return `<strong>${name}</strong> has commented on <strong>your post</strong>.`;
+      case NOTIFICATION_TYPE.NEW_COMMENT_ON_A_POST_YOU_COMMENTED:
+        return `<strong>${name}</strong> has commented on <strong>a post you commented</strong>.`;
+      default:
+        return `Unknown notification type: ${notification.type}`;
+    }
   }
 
 }

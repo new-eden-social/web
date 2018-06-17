@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { Actions, Effect, ofType, } from '@ngrx/effects';
 import { IAppState } from '../../app.store';
 import { fromEvent } from 'rxjs/index';
-import { NOTIFICATION_MESSAGES, WS_NOTIFICATION_EVENT } from './notification.constant';
+import { WS_NOTIFICATION_EVENT } from './notification.constant';
 import {
   Load, LoadSuccess, NewNotification,
   NotificationsActionTypes, SeenNotification, SeenNotificationSuccess,
@@ -63,7 +63,7 @@ export class NotificationEffects {
     .subscribe(authenticated => {
       fromEvent<DNotification>(this.websocketEffects.socket, WS_NOTIFICATION_EVENT)
       .subscribe(notification => {
-        this.showSnackBar(NOTIFICATION_MESSAGES[notification.type](notification.id));
+        this.showSnackBar(`New notification! ${notification.id}`);
         this.store.dispatch(new NewNotification(notification));
       });
     });

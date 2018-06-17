@@ -33,31 +33,30 @@ export class CorporationComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private route: ActivatedRoute,
-    private router: Router,
   ) {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
     this.corporation$ = this.store.pipe(select('corporation', 'data'));
     this.wall$ = this.store.pipe(select('post', 'list'));
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.setInitValues();
+    this.setInitValues();
 
-        let id = this.route.snapshot.params['id'];
-        this.store.dispatch(new Load(id));
-        this.store.dispatch(new GetCorporationWall({
-          corporationId: id,
-          page: this.page,
-          limit: 20,
-        }));
-      }
-    });
+    let id = this.route.snapshot.params['id'];
+    this.store.dispatch(new Load(id));
+
   }
 
   ngOnInit() {
     this.corporation$.subscribe(corporation => {
       this.corporation = corporation;
-      if (this.corporation) this.loadingProfile = false;
+      if (this.corporation) {
+        this.loadingProfile = false;
+        // After corporation is loaded, start loading the wall
+        this.store.dispatch(new GetCorporationWall({
+          corporationId: this.corporation.id,
+          page: this.page,
+          limit: 20,
+        }));
+      }
       if (this.corporation && this.corporation.alliance) {
         this.allianceId = this.corporation.alliance.id;
         this.allianceName = this.corporation.alliance.name;

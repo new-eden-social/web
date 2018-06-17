@@ -6,10 +6,4 @@ export enum NOTIFICATION_TYPE {
   NEW_COMMENT_ON_A_POST_YOU_COMMENTED = 'NEW_COMMENT_ON_A_POST_YOU_COMMENTED',
 }
 
-
-export const NOTIFICATION_MESSAGES = {
-  [NOTIFICATION_TYPE.NEW_POST_ON_YOUR_WALL]:
-    (id) => `There is a new post on your wall! [${id}]`,
-};
-
 export const WS_NOTIFICATION_EVENT = 'WS_NOTIFICATION_EVENT';
