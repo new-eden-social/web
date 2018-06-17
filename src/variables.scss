@@ -56,6 +56,8 @@ $app-typography: mat-typography-config(
   $font-family: 'Shentox, Roboto, "Helvetica Neue", sans-serif'
 );
 
-$app-narrow-column-width: 320px;
+$app-narrow-column-min-width: 320px;
+$app-narrow-column-flex: 1 1 auto;
+$app-wide-column-flex: 7 1 auto;
 
 $app-content-max-width: 1200px;

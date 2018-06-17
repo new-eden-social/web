@@ -10,7 +10,8 @@
 
   .narrow {
     margin-right: 0.5em;
-    min-width: $app-narrow-column-width;
+    min-width: $app-narrow-column-min-width;
+    flex: $app-narrow-column-flex;
 
     > :not(:first-child) {
       margin-top: 1em;
@@ -63,8 +64,8 @@
     margin-left: 0.5em;
     display: flex;
     flex-direction: column;
-    width: 100%;
     margin-top: 25px; // to be inline with profile-card
+    flex: $app-wide-column-flex;
 
     > * {
       &:not(:first-child) {
