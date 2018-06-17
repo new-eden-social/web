@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -19,6 +19,8 @@ export class NavbarComponent implements OnInit {
 
   authenticationUrl = environment.apiEndpoint;
 
+  scrolling = false;
+
   constructor(
     private store: Store<IAppState>,
     private router: Router,
@@ -35,6 +37,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  notifications() {
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    // In chrome and some browser scroll is given to body tag
+    const pos = (document.documentElement.scrollTop || document.body.scrollTop);
+    this.scrolling = pos !== 0;
   }
 }

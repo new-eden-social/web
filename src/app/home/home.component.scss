@@ -1,7 +1,8 @@
 @import "../../variables";
 
 .home-wrap {
-  width: 80%; // TODO Responsive
+  width: 80%;
+  max-width: $app-content-max-width;
   display: flex;
   flex-direction: row;
   margin: auto;

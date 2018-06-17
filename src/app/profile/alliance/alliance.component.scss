@@ -22,6 +22,7 @@ app-loading {
     flex-direction: row;
     width: 80%; // TODO: Responsive
     margin-top: 2em;
+    max-width: $app-content-max-width;
 
     .narrow {
       display: flex;
