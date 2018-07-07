@@ -13,7 +13,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "localization": "ng xi18n --output-path locale",
-    "heroku-postbuild": "npm run prebuild && ng build --dev",
+    "heroku-postbuild": "npm run prebuild && ng build",
     "prebuild": "eval \"echo \"$(cat src/environments/environment.ts.template)\"\" > src/environments/environment.ts"
   },
   "private": true,
@@ -37,6 +37,7 @@
     "angular2-moment": "^1.9.0",
     "core-js": "^2.5.7",
     "eve-singlesignon": "^0.0.5",
+    "express": "^4.16.3",
     "flux-standard-action": "^2.0.3",
     "hammerjs": "^2.0.8",
     "moment": "^2.22.2",
