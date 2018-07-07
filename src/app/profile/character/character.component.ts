@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DCharacter } from '../../services/character/character.dto';
 import { DPostList } from '../../services/post/post.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../store/store.reducer';
+import { IAppState } from '../../app.store';
 import { Load } from '../../services/character/character.actions';
 import { GetCharacterWall } from '../../services/post/post.actions';
 
@@ -30,31 +30,29 @@ export class CharacterComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private route: ActivatedRoute,
-    private router: Router,
   ) {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
     this.character$ = this.store.pipe(select('character', 'data'));
     this.wall$ = this.store.pipe(select('post', 'list'));
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.setInitValues();
+    this.setInitValues();
 
-        let id = this.route.snapshot.params['id'];
-        this.store.dispatch(new Load(id));
-        this.store.dispatch(new GetCharacterWall({
-          characterId: id,
-          page: this.page,
-          limit: 20,
-        }));
-      }
-    });
+    let id = this.route.snapshot.params['id'];
+    this.store.dispatch(new Load(id));
   }
 
   ngOnInit() {
     this.character$.subscribe(character => {
       this.character = character;
-      if (this.character) this.loadingProfile = false;
+      if (this.character) {
+        this.loadingProfile = false;
+        // After character is loaded, start loading the wall
+        this.store.dispatch(new GetCharacterWall({
+          characterId: this.character.id,
+          page: this.page,
+          limit: 20,
+        }));
+      }
     });
     this.wall$.subscribe(wall => {
       this.wall = wall;

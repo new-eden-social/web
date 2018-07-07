@@ -5,8 +5,10 @@ import { ApiService } from '../api.service';
 import { Search, SearchActionTypes, SearchSuccess } from './search.actions';
 import { DSearch } from './search.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/internal/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
+import { Exception } from '../api.actions';
+import { of } from 'rxjs/index';
 
 @Injectable()
 export class SearchEffects extends ApiService {
@@ -14,12 +16,13 @@ export class SearchEffects extends ApiService {
   private uri = 'search';
 
   @Effect()
-  search$: Observable<SearchSuccess> = this.actions$.pipe(
+  search$: Observable<SearchSuccess | Exception> = this.actions$.pipe(
     ofType<Search>(SearchActionTypes.SEARCH),
-    mergeMap(({ payload }) =>
+    switchMap(({ payload }) =>
       this.request<DSearch>('GET', this.uri, { params: { query: payload } })
       .pipe(
         map(data => new SearchSuccess(data)),
+        catchError(error => of(new Exception(error))),
       ),
     ));
 

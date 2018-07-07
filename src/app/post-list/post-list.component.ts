@@ -5,7 +5,7 @@ import { DAlliance } from '../services/alliance/alliance.dto';
 import { DPostList } from '../services/post/post.dto';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 
 @Component({
   selector: 'app-post-list',

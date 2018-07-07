@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import {
   AuthenticateCallback,
   AuthenticateCheck,

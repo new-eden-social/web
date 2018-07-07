@@ -6,7 +6,7 @@ import 'rxjs/add/operator/debounceTime';
 import { Observable } from 'rxjs';
 import { DPostList } from '../services/post/post.dto';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import { GetLatest } from '../services/post/post.actions';
 
 @Component({

@@ -4,7 +4,7 @@ import { DPostList } from '../services/post/post.dto';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PostEffects } from '../services/post/post.effects';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../store/store.reducer';
+import { IAppState } from '../app.store';
 import { GetHashtag } from '../services/post/post.actions';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { DCharacterShort } from '../character/character.dto';
-import { IAuthenticationResponse } from './authentication.interface';
+import { IAuthenticationData, IRefreshResponse } from './authentication.interface';
 
 export enum AuthenticationActionTypes {
   AUTHENTICATE = '[Authentication] Authenticating User',
@@ -8,6 +8,8 @@ export enum AuthenticationActionTypes {
   AUTHENTICATE_SUCCESS = '[Authentication] User successfully authenticated',
   AUTHENTICATE_CALLBACK = '[Authentication] Callback from authentication request',
   AUTHENTICATE_CHECK = '[Authentication] Check if user is still authenticated',
+  REFRESH_TOKEN = '[Authentication] Try to refresh authentication token',
+  REFRESH_TOKEN_SUCCESS = '[Authentication] Successfully refreshed authentication token',
 }
 
 export class Authenticate implements Action {
@@ -24,7 +26,7 @@ export class AuthenticateSuccess implements Action {
 export class AuthenticateCallback implements Action {
   readonly type = AuthenticationActionTypes.AUTHENTICATE_CALLBACK;
 
-  constructor(public payload: IAuthenticationResponse) {
+  constructor(public payload: IAuthenticationData) {
   }
 }
 
@@ -36,9 +38,25 @@ export class AuthenticateCheck implements Action {
   readonly type = AuthenticationActionTypes.AUTHENTICATE_CHECK;
 }
 
+export class RefreshToken implements Action {
+  readonly type = AuthenticationActionTypes.REFRESH_TOKEN;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class RefreshTokenSuccess implements Action {
+  readonly type = AuthenticationActionTypes.REFRESH_TOKEN_SUCCESS;
+
+  constructor(public payload: IAuthenticationData) {
+  }
+}
+
 export type AuthenticationActionsUnion =
   Authenticate |
   AuthenticateSuccess |
   UnAuthenticate |
   AuthenticateCheck |
-  AuthenticateCallback;
+  AuthenticateCallback |
+  RefreshToken |
+  RefreshTokenSuccess;

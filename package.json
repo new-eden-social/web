@@ -12,6 +12,7 @@
     "test": "exit 0 || ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "localization": "ng xi18n --output-path locale",
     "heroku-postbuild": "npm run prebuild && ng build --dev",
     "prebuild": "eval \"echo \"$(cat src/environments/environment.ts.template)\"\" > src/environments/environment.ts"
   },
@@ -32,6 +33,7 @@
     "@ngrx/router-store": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "@ngrx/store-devtools": "^6.0.1",
+    "@types/socket.io-client": "^1.4.32",
     "angular2-moment": "^1.9.0",
     "core-js": "^2.5.7",
     "eve-singlesignon": "^0.0.5",
@@ -43,6 +45,7 @@
     "normalize.css": "^8.0.0",
     "rxjs": "^6.2.0",
     "rxjs-compat": "^6.2.0",
+    "socket.io-client": "^2.1.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
