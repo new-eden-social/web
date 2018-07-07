@@ -4,9 +4,11 @@ import 'rxjs/add/operator/map';
 import { ApiService } from '../api.service';
 import { DCharacter } from './character.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/internal/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
 import { CharacterActionTypes, Load, LoadSuccess } from './character.actions';
+import { Exception } from '../api.actions';
+import { of } from 'rxjs/index';
 
 @Injectable()
 export class CharacterEffects extends ApiService {
@@ -14,11 +16,12 @@ export class CharacterEffects extends ApiService {
   private uri = 'characters';
 
   @Effect()
-  load$: Observable<LoadSuccess> = this.actions$.pipe(
+  load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
     ofType<Load>(CharacterActionTypes.LOAD),
-    mergeMap(action =>
+    switchMap(action =>
       this.request<DCharacter>('GET', `${this.uri}/${action.payload}`).pipe(
         map(data => new LoadSuccess(data)),
+        catchError(error => of(new Exception(error)))
       ),
     ),
   );

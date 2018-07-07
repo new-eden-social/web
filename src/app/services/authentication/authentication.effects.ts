@@ -20,7 +20,9 @@ export class AuthenticationEffects extends ApiService {
     ofType<AuthenticateCallback>(AuthenticationActionTypes.AUTHENTICATE_CALLBACK),
     mergeMap(() => of(new AuthenticateCheck())),
   );
+
   private uri = 'authentication/sso';
+
   @Effect()
   authenticate$: Observable<any> = this.actions$.pipe(
     ofType<Authenticate>(AuthenticationActionTypes.AUTHENTICATE),

@@ -3,17 +3,18 @@ import { select, Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material';
 import { Actions, Effect, ofType, } from '@ngrx/effects';
 import { IAppState } from '../../app.store';
-import { fromEvent } from 'rxjs/index';
-import { WS_NOTIFICATION_EVENT } from './notification.constant';
+import { EMPTY, fromEvent, of } from 'rxjs/index';
+import { WS_NOTIFICATION_EVENT, WS_NOTIFICATION_SEEN_EVENT } from './notification.constant';
 import {
   Load, LoadSuccess, NewNotification,
-  NotificationsActionTypes, SeenNotification, SeenNotificationSuccess,
+  NotificationsActionTypes, SeenNotification, SeenNotificationUpdate,
 } from './notification.actions';
-import { filter, map, mergeMap } from 'rxjs/internal/operators';
+import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { WebsocketEffects } from '../websocket/websocket.effects';
 import { Observable } from 'rxjs/Rx';
 import { DNotification, DNotificationList } from './notification.dto';
 import { ApiService } from '../api.service';
+import { Exception } from '../api.actions';
 
 @Injectable()
 export class NotificationEffects {
@@ -21,25 +22,27 @@ export class NotificationEffects {
   private uri = 'notifications';
 
   @Effect()
-  load$: Observable<LoadSuccess> = this.actions$.pipe(
+  load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
     ofType<Load>(NotificationsActionTypes.LOAD),
-    mergeMap(({ payload }) =>
+    switchMap(({ payload }) =>
       this.apiService.request<DNotificationList>(
         'GET',
         `${this.uri}/latest?page=${payload.page}&limit=${payload.limit}`).pipe(
         map(data => new LoadSuccess(data)),
+        catchError(error => of(new Exception(error))),
       ),
     ),
   );
 
   @Effect()
-  seenNotification$: Observable<SeenNotificationSuccess> = this.actions$.pipe(
+  seenNotification$: Observable<null | Exception> = this.actions$.pipe(
     ofType<SeenNotification>(NotificationsActionTypes.SEEN_NOTIFICATION),
-    mergeMap(({ payload }) =>
-      this.apiService.request<DNotification>(
+    switchMap(({ payload }) =>
+      this.apiService.request<void>(
         'POST',
         `${this.uri}/${payload}/seen`).pipe(
-        map(data => new SeenNotificationSuccess(data)),
+        mergeMap(() => EMPTY),
+        catchError(error => of(new Exception(error))),
       ),
     ),
   );
@@ -65,6 +68,12 @@ export class NotificationEffects {
       .subscribe(notification => {
         this.showSnackBar(`New notification! ${notification.id}`);
         this.store.dispatch(new NewNotification(notification));
+      });
+
+      fromEvent<DNotification>(this.websocketEffects.socket, WS_NOTIFICATION_SEEN_EVENT)
+      .subscribe(notification => {
+        this.showSnackBar(`Seen update notification! ${notification.id}`);
+        this.store.dispatch(new SeenNotificationUpdate(notification));
       });
     });
   }

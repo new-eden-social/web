@@ -28,6 +28,9 @@ import { WebsocketEffects } from './services/websocket/websocket.effects';
 import { NotificationEffects } from './services/notification/notification.effects';
 import { notificationReducer } from './services/notification/notification.reducer';
 import { INotificationState } from './services/notification/notification.interface';
+import { IApiState } from './services/api.interface';
+import { apiReducer } from './services/api.reducer';
+import { ApiEffects } from './services/api.effects';
 
 export interface IAppState {
   authentication?: IAuthenticationState,
@@ -40,6 +43,7 @@ export interface IAppState {
   router?: RouterReducerState,
   websocket?: IWebsocketState,
   notification?: INotificationState,
+  api?: IApiState,
 }
 
 export function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -67,6 +71,7 @@ export const reducers: ActionReducerMap<IAppState> = {
   comment: commentReducer,
   websocket: websocketReducer,
   notification: notificationReducer,
+  api: apiReducer,
 };
 
 export const effects = [
@@ -79,4 +84,5 @@ export const effects = [
   SearchEffects,
   WebsocketEffects,
   NotificationEffects,
+  ApiEffects,
 ];

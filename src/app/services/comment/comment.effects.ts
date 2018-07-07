@@ -8,20 +8,22 @@ import {
 } from './comment.actions';
 import { DComment, DCommentList } from './comment.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/internal/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
+import { Exception } from '../api.actions';
+import { of } from 'rxjs/index';
 
 @Injectable()
 export class CommentEffects extends ApiService {
 
   private uri = 'comments';
   @Effect()
-  post$: Observable<PostSuccess> = this.actions$.pipe(
+  post$: Observable<PostSuccess | Exception> = this.actions$.pipe(
     ofType<PostAsCharacter | PostAsCorporation | PostAsAlliance>(
       CommentActionTypes.POST_AS_CHARACTER,
       CommentActionTypes.POST_AS_CORPORATION,
       CommentActionTypes.POST_AS_ALLIANCE),
-    mergeMap(({ payload, type }) => {
+    switchMap(({ payload, type }) => {
         let path;
         switch (type) {
           case CommentActionTypes.POST_AS_CHARACTER:
@@ -40,18 +42,20 @@ export class CommentEffects extends ApiService {
           },
         }).pipe(
           map(comment => new PostSuccess({ postId: payload.postId, comment })),
+          catchError(error => of(new Exception(error))),
         );
       },
     ),
   );
   @Effect()
-  latest$: Observable<LatestSuccess> = this.actions$.pipe(
+  latest$: Observable<LatestSuccess | Exception> = this.actions$.pipe(
     ofType<Latest>(CommentActionTypes.GET_LATEST),
-    mergeMap(({ payload }) =>
+    switchMap(({ payload }) =>
       this.request<DCommentList>(
         'GET',
         `${this.uri}/${payload.postId}/latest?page=${payload.page}&limit=${payload.limit}`).pipe(
         map(comments => new LatestSuccess({ postId: payload.postId, comments })),
+        catchError(error => of(new Exception(error))),
       ),
     ));
 }

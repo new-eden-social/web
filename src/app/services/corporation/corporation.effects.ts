@@ -4,9 +4,11 @@ import 'rxjs/add/operator/map';
 import { ApiService } from '../api.service';
 import { DCorporation } from './corporation.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/internal/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
 import { CorporationActionTypes, Load, LoadSuccess } from './corporaiton.actions';
+import { Exception } from '../api.actions';
+import { of } from 'rxjs/index';
 
 @Injectable()
 export class CorporationEffects extends ApiService {
@@ -14,11 +16,12 @@ export class CorporationEffects extends ApiService {
   private uri = 'corporations';
 
   @Effect()
-  load$: Observable<LoadSuccess> = this.actions$.pipe(
+  load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
     ofType<Load>(CorporationActionTypes.LOAD),
-    mergeMap(action =>
+    switchMap(action =>
       this.request<DCorporation>('GET', `${this.uri}/${action.payload}`).pipe(
         map(data => new LoadSuccess(data)),
+        catchError(error => of(new Exception(error))),
       ),
     ),
   );

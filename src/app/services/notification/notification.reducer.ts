@@ -28,7 +28,7 @@ export function notificationReducer(
       };
     }
 
-    case NotificationsActionTypes.SEEN_NOTIFICATION_SUCCESS: {
+    case NotificationsActionTypes.SEEN_NOTIFICATION_UPDATE: {
       return {
         ...state,
         list: {

@@ -3,3 +3,7 @@ export interface ApiExceptionResponse {
   error: string;
   message: string;
 }
+
+export interface IApiState {
+  errors: (any|ApiExceptionResponse)[];
+}

@@ -29,7 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         return error.pipe(
           mergeMap((error: HttpErrorResponse) => {
             const body = <ApiExceptionResponse>error.error;
-            console.log(this.refreshToken, error.status);
             if (this.refreshToken
               && error.status === 401
               && body.error === API_EXCEPTIONS.CHARACTER_NOT_AUTHENTICATED) {
@@ -39,10 +38,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                 filter(token => token != this.refreshToken),
               );
             }
-            this.snackBar.open(`API Error: "${body.message}"`, null, {
-              horizontalPosition: 'end',
-              duration: 2500,
-            });
             throw error;
           }),
         );

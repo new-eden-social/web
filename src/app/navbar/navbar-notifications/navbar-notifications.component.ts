@@ -51,7 +51,7 @@ export class NavbarNotificationsComponent implements OnInit {
 
   openNotification(notification: DNotification) {
     console.log('Opening notification', notification);
-    this.store.dispatch(new SeenNotification(notification.id));
+    if (!notification.seenAt) this.store.dispatch(new SeenNotification(notification.id));
   }
 
   leftNotifications() {
