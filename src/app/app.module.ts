@@ -22,6 +22,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ApiService } from './services/api.service';
 import { httpInterceptorProviders } from './http-interceptors';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
+import { NotificationService } from './services/notification/notification.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PageNotFoundModule } from './page-not-found/page-not-found.module';
   ],
   providers: [
     httpInterceptorProviders,
-    ApiService
+    ApiService,
+    NotificationService,
   ],
   bootstrap: [AppComponent],
 })

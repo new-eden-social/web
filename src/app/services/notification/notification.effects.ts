@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Rx';
 import { DNotification, DNotificationList } from './notification.dto';
 import { ApiService } from '../api.service';
 import { Exception } from '../api.actions';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class NotificationEffects {
@@ -53,6 +54,7 @@ export class NotificationEffects {
     private snackBar: MatSnackBar,
     private websocketEffects: WebsocketEffects,
     private apiService: ApiService,
+    private notificationService: NotificationService,
   ) {
     this.listenForNotifications();
   }
@@ -66,13 +68,12 @@ export class NotificationEffects {
     .subscribe(authenticated => {
       fromEvent<DNotification>(this.websocketEffects.socket, WS_NOTIFICATION_EVENT)
       .subscribe(notification => {
-        this.showSnackBar(`New notification! ${notification.id}`);
+        this.showSnackBar(this.notificationService.getText(notification));
         this.store.dispatch(new NewNotification(notification));
       });
 
       fromEvent<DNotification>(this.websocketEffects.socket, WS_NOTIFICATION_SEEN_EVENT)
       .subscribe(notification => {
-        this.showSnackBar(`Seen update notification! ${notification.id}`);
         this.store.dispatch(new SeenNotificationUpdate(notification));
       });
     });

@@ -18,10 +18,10 @@
           [ngClass]="{'not-seen': !notification.seenAt}">
         <button mat-icon-button>
           <img aria-label="Profile"
-               src="{{ getSenderImage(notification) }}"/>
+               src="{{ notificationService.getSenderImage(notification) }}"/>
         </button>
         <div class="notification-content" (click)="openNotification(notification)">
-          <p [innerHtml]="getText(notification)"></p>
+          <p [innerHtml]="notificationService.getHTML(notification)"></p>
           <small class="mat-caption">
             {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not seen'}}
           </small>
@@ -36,10 +36,10 @@
           [ngClass]="{'not-seen': !notification.seenAt}">
         <button mat-icon-button>
           <img aria-label="Profile"
-               src="{{ getSenderImage(notification) }}"/>
+               src="{{ notificationService.getSenderImage(notification) }}"/>
         </button>
         <div class="notification-content" (click)="openNotification(notification)">
-          <p [innerHtml]="getText(notification)"></p>
+          <p [innerHtml]="notificationService.getHTML(notification)"></p>
           <small class="mat-caption">
             {{ notification.createdAt | amTimeAgo }} {{ notification.seenAt ? '' : ' - Not seen'}}
           </small>
