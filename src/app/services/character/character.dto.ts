@@ -9,11 +9,6 @@ export class DCharacterPortrait {
   px512x512: string;
 }
 
-export class DCharacterName {
-  id: number;
-  name: string;
-}
-
 export class DCharacterShort {
   id: number;
   handle: string;

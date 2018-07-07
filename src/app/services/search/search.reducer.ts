@@ -2,11 +2,7 @@ import { SearchActionsUnion, SearchActionTypes } from './search.actions';
 import { ISearchState } from './search.interface';
 
 const INITIAL_STATE: ISearchState = {
-  data: {
-    characters: [],
-    corporations: [],
-    alliances: [],
-  },
+  data: { names: [] },
 };
 
 export function searchReducer(

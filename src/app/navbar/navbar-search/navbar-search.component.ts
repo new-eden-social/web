@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DCharacterName } from '../../services/character/character.dto';
-import { DCorporationName } from '../../services/corporation/corporation.dto';
-import { DAllianceName } from '../../services/alliance/alliance.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
-import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/internal/operators';
+import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/internal/operators';
 import { Clear, Search } from '../../services/search/search.actions';
-import { switchMap } from 'rxjs-compat/operator/switchMap';
+import { DSearchName } from '../../services/search/search.dto';
+import { Categories } from '../../services/esi.interface';
 
 @Component({
   selector: 'app-navbar-search',
@@ -18,16 +16,15 @@ import { switchMap } from 'rxjs-compat/operator/switchMap';
 })
 export class NavbarSearchComponent implements OnInit {
 
-  characters$: Observable<DCharacterName[]>;
-  charactersLess: Observable<DCharacterName[]>;
+  names$: Observable<DSearchName[]>;
+
+  characters: Observable<DSearchName[]>;
   showCharacters: Observable<boolean>;
 
-  corporations$: Observable<DCorporationName[]>;
-  corporationsLess: Observable<DCorporationName[]>;
+  corporations: Observable<DSearchName[]>;
   showCorporations: Observable<boolean>;
 
-  alliances$: Observable<DAllianceName[]>;
-  alliancesLess: Observable<DAllianceName[]>;
+  alliances: Observable<DSearchName[]>;
   showAlliances: Observable<boolean>;
 
   searchCtrl = new FormControl();
@@ -41,9 +38,7 @@ export class NavbarSearchComponent implements OnInit {
     private store: Store<IAppState>,
     private router: Router,
   ) {
-    this.characters$ = this.store.pipe(select('search', 'data', 'characters'));
-    this.corporations$ = this.store.pipe(select('search', 'data', 'corporations'));
-    this.alliances$ = this.store.pipe(select('search', 'data', 'alliances'));
+    this.names$ = this.store.pipe(select('search', 'data', 'names'));
 
     this.searchCtrl.valueChanges.pipe(
       debounceTime(500),
@@ -56,41 +51,38 @@ export class NavbarSearchComponent implements OnInit {
       }
     });
 
-    this.charactersLess = this.characters$.pipe(
-      map(characters => characters.splice(0, this.limit)),
+    this.characters = this.names$.pipe(
+      map(characters => characters
+        .filter(name => name.category === Categories.character)
+        .splice(0, this.limit),
+      ),
     );
-    this.showCharacters = this.characters$.pipe(
+    this.showCharacters = this.characters.pipe(
       map(characters => !!characters.length),
     );
 
-    this.corporationsLess = this.corporations$.pipe(
-      map(corporation => corporation.splice(0, this.limit)),
+    this.corporations = this.names$.pipe(
+      map(corporation => corporation
+        .filter(name => name.category === Categories.corporation)
+        .splice(0, this.limit),
+      ),
     );
-    this.showCorporations = this.corporations$.pipe(
+    this.showCorporations = this.corporations.pipe(
       map(corporations => !!corporations.length),
     );
 
-    this.alliancesLess = this.alliances$.pipe(
-      map(alliances => alliances.splice(0, this.limit)),
+    this.alliances = this.names$.pipe(
+      map(alliances => alliances
+        .filter(name => name.category === Categories.alliance)
+        .splice(0, this.limit),
+      ),
     );
-    this.showAlliances = this.alliances$.pipe(
+    this.showAlliances = this.alliances.pipe(
       map(alliances => !!alliances.length),
     );
   }
 
   ngOnInit() {
-  }
-
-  openCharacter(character: DCharacterName) {
-    this.router.navigate(['/character', character.id]);
-  }
-
-  openCorporation(corporation: DCorporationName) {
-    this.router.navigate(['/corporation', corporation.id]);
-  }
-
-  openAlliance(alliance: DAllianceName) {
-    this.router.navigate(['/alliance', alliance.id]);
   }
 
   leftSearch() {

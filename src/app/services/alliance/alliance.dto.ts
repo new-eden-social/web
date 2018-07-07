@@ -6,12 +6,6 @@ export class DAllianceIcon {
   px128x128: string;
 }
 
-
-export class DAllianceName {
-  id: number;
-  name: string;
-}
-
 export class DAllianceShort {
   id: number;
   handle: string;

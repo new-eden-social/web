@@ -1,9 +1,11 @@
-import { DCharacterName } from '../character/character.dto';
-import { DCorporationName } from '../corporation/corporation.dto';
-import { DAllianceName } from '../alliance/alliance.dto';
+import { Categories } from '../esi.interface';
+
+export class DSearchName {
+  id: number;
+  name: string;
+  category: Categories;
+}
 
 export class DSearch {
-  characters: DCharacterName[];
-  corporations: DCorporationName[];
-  alliances: DAllianceName[];
+  names: DSearchName[];
 }
