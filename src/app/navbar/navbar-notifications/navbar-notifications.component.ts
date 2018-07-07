@@ -93,8 +93,8 @@ export class NavbarNotificationsComponent implements OnInit {
         return `<strong>${name}</strong> has posted on <strong>your alliance wall</strong>.`;
       case NOTIFICATION_TYPE.NEW_COMMENT_ON_YOUR_POST:
         return `<strong>${name}</strong> has commented on <strong>your post</strong>.`;
-      case NOTIFICATION_TYPE.NEW_COMMENT_ON_A_POST_YOU_COMMENTED:
-        return `<strong>${name}</strong> has commented on <strong>a post you commented</strong>.`;
+      case NOTIFICATION_TYPE.NEW_COMMENT_ON_A_POST_YOU_PARTICIPATE:
+        return `<strong>${name}</strong> has commented on <strong>a post you participate</strong>.`;
       default:
         return `Unknown notification type: ${notification.type}`;
     }
