@@ -33,16 +33,20 @@ export class CorporationComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
     this.corporation$ = this.store.pipe(select('corporation', 'data'));
     this.wall$ = this.store.pipe(select('post', 'list'));
 
-    this.setInitValues();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.setInitValues();
 
-    let id = this.route.snapshot.params['id'];
-    this.store.dispatch(new Load(id));
-
+        let id = this.route.snapshot.params['id'];
+        this.store.dispatch(new Load(id));
+      }
+    });
   }
 
   ngOnInit() {
