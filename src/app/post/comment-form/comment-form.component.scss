@@ -52,20 +52,21 @@ $image-size: 32px;
 
 }
 
-.post-input-wrap {
+.comment-input-wrap {
   display: flex;
   flex-direction: row;
   flex: 1 1;
   align-items: flex-start;
   margin: 0 1em 0 0;
 
-  .post-input-field {
+  .comment-input-field {
     border-bottom: 1px solid #f3f3f3;
     display: block;
     flex: 1 1;
     transition: border-bottom 280ms cubic-bezier(.4, 0, .2, 1);
     font-size: 0.8em;
     align-self: center;
+    min-height: 15px; // Firefox fix
 
     &:focus {
       border-bottom: 1px solid map-get($app-primary, 500);

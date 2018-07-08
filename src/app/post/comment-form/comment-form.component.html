@@ -24,13 +24,13 @@
     <img src="{{ postAsImage }}">
   </button>
 
-  <div class="post-input-wrap">
-    <div class="post-input-field"
+  <div class="comment-input-wrap">
+    <div class="comment-input-field"
          contenteditable="true"
          role="textbox"
          aria-multiline="true"
          appContentEditable
-         [contentValue]="postHtml"
+         [contentValue]="commentHtml"
          (contentValueUpdate)="writing($event)">
     </div>
   </div>

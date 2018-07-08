@@ -27,7 +27,7 @@ export class CommentFormComponent implements OnInit {
   postAs: 'character' | 'corporation' | 'alliance';
   postAsImage: string;
   postValue: string = '';
-  postHtml: string = '';
+  commentHtml: string = '';
 
   private writingSubject = new BehaviorSubject<string>('');
 
@@ -51,7 +51,7 @@ export class CommentFormComponent implements OnInit {
         /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
         (hashtag) => `<a href="" class="input-field-link">${hashtag}</a>`);
 
-      this.postHtml = hashtagHtml;
+      this.commentHtml = hashtagHtml;
     });
   }
 
