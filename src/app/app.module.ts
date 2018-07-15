@@ -23,6 +23,7 @@ import { ApiService } from './services/api.service';
 import { httpInterceptorProviders } from './http-interceptors';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { NotificationService } from './services/notification/notification.service';
+import {TransferHttpCacheModule} from '@nguniversal/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NotificationService } from './services/notification/notification.servic
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'my-app'}),
+    TransferHttpCacheModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

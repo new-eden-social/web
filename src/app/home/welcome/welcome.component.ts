@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class HomeWelcomeComponent implements OnInit {
 
-  authenticationUrl = environment.apiEndpoint;
+  authenticationUrl = (<any>environment).apiEndpoint;
 
   constructor() {
   }

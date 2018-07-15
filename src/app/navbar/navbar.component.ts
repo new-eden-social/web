@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   authenticated$: Observable<boolean>;
   character$: Observable<DCharacterShort>;
 
-  authenticationUrl = environment.apiEndpoint;
+  authenticationUrl = (<any>environment).apiEndpoint;
 
   scrolling = false;
 

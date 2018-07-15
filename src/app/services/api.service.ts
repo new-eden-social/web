@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class ApiService {
 
-  protected apiUrl = environment.apiEndpoint;
+  protected apiUrl = (<any>environment).apiEndpoint;
 
   constructor(
     protected http: HttpClient,

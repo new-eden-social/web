@@ -32,7 +32,7 @@ export class WebsocketEffects {
       }
       // If socket doesn't exist yet, create new one
       // and add some utility listeners
-      this.socket = io(environment.apiEndpoint);
+      this.socket = io((<any>environment).apiEndpoint);
 
       // Listen for status events
       fromEvent(this.socket, 'disconnect')

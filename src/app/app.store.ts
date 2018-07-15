@@ -31,6 +31,7 @@ import { INotificationState } from './services/notification/notification.interfa
 import { IApiState } from './services/api.interface';
 import { apiReducer } from './services/api.reducer';
 import { ApiEffects } from './services/api.effects';
+import { isBrowser } from '@angular/animations/browser/src/render/shared';
 
 export interface IAppState {
   authentication?: IAuthenticationState,
@@ -47,6 +48,8 @@ export interface IAppState {
 }
 
 export function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
+  if (!isBrowser()) return () => {};
+
   return localStorageSync({
     // Only store authentication
     keys: ['authentication'],
@@ -55,8 +58,8 @@ export function localStorage(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 export const metaReducers: Array<MetaReducer<any, any>> = [
-  localStorage,
-];
+   localStorage,
+].filter(i => i);
 
 // Define the global store shape by combining our application's
 // reducers together into a given structure.
