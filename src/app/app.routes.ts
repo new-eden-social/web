@@ -35,9 +35,6 @@ export const appRoutes = [
       { path: 'post/:postId', component: PostSingleComponent, data: { entity: 'alliance' } },
     ],
   },
-  { path: 'character/:id/post/:postId', component: CharacterComponent },
-  { path: 'corporation/:id/post/:postId', component: CorporationComponent },
-  { path: 'alliance/:id/post/:postId', component: AllianceComponent },
   { path: 'authentication/callback', component: AuthenticationComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
