@@ -1,7 +1,9 @@
 import { IAllianceState } from './alliance.interface';
 import { AllianceActionsUnion, AllianceActionTypes } from './alliance.actions';
 
-const INITIAL_STATE: IAllianceState = {};
+const INITIAL_STATE: IAllianceState = {
+  single: {}
+};
 
 export function allianceReducer(
   state: IAllianceState = INITIAL_STATE,
@@ -11,7 +13,10 @@ export function allianceReducer(
     case AllianceActionTypes.LOAD_SUCCESS: {
       return {
         ...state,
-        data: action.payload,
+        single: {
+          ...state.single,
+          [action.payload.id]: action.payload,
+        },
       }
     }
 

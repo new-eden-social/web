@@ -6,7 +6,7 @@ export enum AllianceActionTypes {
   LOAD_SUCCESS = '[Alliance] Load single alliance success',
 }
 
-export class Load implements Action {
+export class LoadAlliance implements Action {
   readonly type = AllianceActionTypes.LOAD;
   constructor(public payload: string) {
   }
@@ -18,4 +18,4 @@ export class LoadSuccess implements Action {
   }
 }
 
-export type AllianceActionsUnion = Load | LoadSuccess;
+export type AllianceActionsUnion = LoadAlliance | LoadSuccess;

@@ -14,17 +14,10 @@ import { PostListModule } from '../../post-list/post-list.module';
 @NgModule({
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    PostFormModule,
-    PostModule,
-    InfiniteScrollModule,
     FooterModule,
+    ProfileHeaderModule,
     RouterModule,
     LoadingModule,
-    ProfileHeaderModule,
-    PostListModule,
   ],
   declarations: [CharacterComponent],
   exports: [CharacterComponent],

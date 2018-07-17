@@ -4,11 +4,12 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import { DNotification, DNotificationList } from '../../services/notification/notification.dto';
 import { Observable, of } from 'rxjs/index';
-import { filter, map, mergeMap, share } from 'rxjs/internal/operators';
+import { filter, map, tap } from 'rxjs/internal/operators';
 import { SeenNotification } from '../../services/notification/notification.actions';
 import * as moment from 'moment';
-import { NOTIFICATION_TYPE } from '../../services/notification/notification.constant';
 import { NotificationService } from '../../services/notification/notification.service';
+import { PostService } from '../../services/post/post.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar-notifications',
@@ -26,7 +27,10 @@ export class NavbarNotificationsComponent implements OnInit {
 
   constructor(
     private store: Store<IAppState>,
+    private router: Router,
+    private title: Title,
     public notificationService: NotificationService,
+    public postService: PostService,
   ) {
     this.notifications$ = this.store.pipe(select('notification', 'list'));
   }
@@ -48,11 +52,18 @@ export class NavbarNotificationsComponent implements OnInit {
           moment(notification.createdAt).isBefore(moment().subtract(2, 'day'));
       })),
     );
+    this.newNotifications$.pipe(
+      map(notifications => notifications.length),
+    ).subscribe(notifications => {
+      const title = this.title.getTitle().replace(/^\(\d+\)/g, '');
+      if (notifications > 0) this.title.setTitle(`(${notifications}) ${title}`);
+      else this.title.setTitle(title);
+    });
   }
 
   openNotification(notification: DNotification) {
-    console.log('Opening notification', notification);
     if (!notification.seenAt) this.store.dispatch(new SeenNotification(notification.id));
+    if (notification.post) this.router.navigate(this.postService.getPostLink(notification.post));
   }
 
   leftNotifications() {

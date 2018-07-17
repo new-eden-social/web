@@ -2,7 +2,8 @@ import { IPostState } from './post.interface';
 import { PostActionsUnion, PostActionTypes } from './post.actions';
 
 const INITIAL_STATE: IPostState = {
-  list: null,
+  list: {},
+  single: {},
 };
 
 export function postReducer(
@@ -11,19 +12,24 @@ export function postReducer(
 ): IPostState {
   switch (action.type) {
     case PostActionTypes.GET_SUCCESS: {
-      const oldPosts = state.list ? state.list.data : [];
+      const oldKeyData = state.list[action.payload.key];
+
+      const oldPosts =  oldKeyData ? oldKeyData.data : [];
       let posts = [];
-      if (!state.list || state.list.page >= action.payload.page) posts = action.payload.data;
-      else posts = [...oldPosts, ...action.payload.data];
+      if (!oldKeyData || oldKeyData.page >= action.payload.posts.page) posts = action.payload.posts.data;
+      else posts = [...oldPosts, ...action.payload.posts.data];
 
       return {
         ...state,
         list: {
-          data: posts,
-          page: action.payload.page,
-          pages: action.payload.pages,
-          perPage: action.payload.perPage,
-          count: action.payload.count,
+          ...state.list,
+          [action.payload.key] : {
+            data: posts,
+            page: action.payload.posts.page,
+            pages: action.payload.posts.pages,
+            perPage: action.payload.posts.perPage,
+            count: action.payload.posts.count,
+          }
         },
       };
     }
@@ -33,9 +39,22 @@ export function postReducer(
         ...state,
         list: {
           ...state.list,
-          data: [action.payload, ...state.list.data],
+          [action.payload.key]: {
+            ...state.list[action.payload.key],
+            data: [action.payload.post, ...state.list[action.payload.key].data],
+          }
         },
       };
+    }
+
+    case PostActionTypes.LOAD_SUCCESS: {
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          [action.payload.post.id]: action.payload.post,
+        },
+      }
     }
 
     default: {

@@ -6,7 +6,7 @@ import { DCorporation } from './corporation.dto';
 import { Effect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
-import { CorporationActionTypes, Load, LoadSuccess } from './corporaiton.actions';
+import { CorporationActionTypes, LoadCorporation, LoadSuccess } from './corporaiton.actions';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
 
@@ -17,7 +17,7 @@ export class CorporationEffects extends ApiService {
 
   @Effect()
   load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
-    ofType<Load>(CorporationActionTypes.LOAD),
+    ofType<LoadCorporation>(CorporationActionTypes.LOAD),
     switchMap(action =>
       this.request<DCorporation>('GET', `${this.uri}/${action.payload}`).pipe(
         map(data => new LoadSuccess(data)),

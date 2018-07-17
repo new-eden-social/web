@@ -6,11 +6,11 @@ import 'rxjs/add/operator/map';
 import { ApiService } from '../api.service';
 import { DPost, DPostList } from './post.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
+import { catchError, concatMap, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
 import {
   GetAllianceWall,
-  GetCharacterWall, GetCorporationWall, GetHashtag, GetLatest, GetSuccess,
+  GetCharacterWall, GetCorporationWall, GetHashtag, GetLatest, GetSuccess, LoadPost, LoadSuccess,
   PostActionTypes, PostAsAlliance, PostAsCharacter, PostAsCorporation, PostSuccess,
 } from './post.actions';
 import { Exception } from '../api.actions';
@@ -22,13 +22,24 @@ export class PostEffects extends ApiService {
   private uri = 'posts';
 
   @Effect()
+  load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
+    ofType<LoadPost>(PostActionTypes.LOAD),
+    switchMap(({ payload }) => this.request<DPost>(
+      'GET',
+      `${this.uri}/${payload.postId}`).pipe(
+      map(post => new LoadSuccess({ post })),
+      catchError(error => of(new Exception(error))),
+      ),
+    ));
+
+  @Effect()
   latest$: Observable<GetSuccess | Exception> = this.actions$.pipe(
     ofType<GetLatest>(PostActionTypes.GET_LATEST),
     switchMap(({ payload }) =>
       this.request<DPostList>(
         'GET',
         `${this.uri}/latest?page=${payload.page}&limit=${payload.limit}`).pipe(
-        map(posts => new GetSuccess(posts)),
+        map(posts => new GetSuccess({ posts, key: `latest` })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -40,7 +51,7 @@ export class PostEffects extends ApiService {
       this.request<DPostList>(
         'GET',
         `${this.uri}/hashtag/${payload.hashtag}?page=${payload.page}&limit=${payload.limit}`).pipe(
-        map(posts => new GetSuccess(posts)),
+        map(posts => new GetSuccess({ posts, key: `hashtag:${payload.hashtag}` })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -53,7 +64,7 @@ export class PostEffects extends ApiService {
         'GET',
         `${this.uri}/character/${payload.characterId}?page=${payload.page}&limit=${payload.limit}`)
       .pipe(
-        map(posts => new GetSuccess(posts)),
+        map(posts => new GetSuccess({ posts, key: `character:${payload.characterId}` })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -66,7 +77,7 @@ export class PostEffects extends ApiService {
         'GET',
         `${this.uri}/corporation/${payload.corporationId}?page=${payload.page}&limit=${payload.limit}`)
       .pipe(
-        map(posts => new GetSuccess(posts)),
+        map(posts => new GetSuccess({ posts, key: `corporation:${payload.corporationId}` })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -79,7 +90,7 @@ export class PostEffects extends ApiService {
         'GET',
         `${this.uri}/alliance/${payload.allianceId}?page=${payload.page}&limit=${payload.limit}`)
       .pipe(
-        map(posts => new GetSuccess(posts)),
+        map(posts => new GetSuccess({ posts, key: `alliance:${payload.allianceId}` })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -91,7 +102,9 @@ export class PostEffects extends ApiService {
       PostActionTypes.POST_AS_CHARACTER,
       PostActionTypes.POST_AS_CORPORATION,
       PostActionTypes.POST_AS_ALLIANCE),
-    switchMap(({ payload, type }) => {
+    concatMap(({ payload, type }) => {
+        if (!payload.options) payload.options = {};
+
         let path;
         switch (type) {
           case PostActionTypes.POST_AS_CHARACTER:
@@ -104,7 +117,7 @@ export class PostEffects extends ApiService {
             path = 'alliance';
             break;
         }
-        if (!payload.options) payload.options = {};
+
         return this.request<DPost>('POST', `${this.uri}/${path}`, {
           body: {
             content: payload.content,
@@ -115,7 +128,7 @@ export class PostEffects extends ApiService {
             characterId: payload.options.characterId,
           },
         }).pipe(
-          map(post => new PostSuccess(post)),
+          map(post => new PostSuccess({ post, key: payload.wallKey })),
           catchError(error => of(new Exception(error))),
         );
       },

@@ -7,7 +7,7 @@ import { ApiService } from '../api.service';
 import { DAlliance } from './alliance.dto';
 import { Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Rx';
-import { AllianceActionTypes, Load, LoadSuccess } from './alliance.actions';
+import { AllianceActionTypes, LoadAlliance, LoadSuccess } from './alliance.actions';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
@@ -19,7 +19,7 @@ export class AllianceEffects extends ApiService {
 
   @Effect()
   load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
-    ofType<Load>(AllianceActionTypes.LOAD),
+    ofType<LoadAlliance>(AllianceActionTypes.LOAD),
     switchMap(action =>
       this.request<DAlliance>('GET', `${this.uri}/${action.payload}`).pipe(
         map(data => new LoadSuccess(data)),

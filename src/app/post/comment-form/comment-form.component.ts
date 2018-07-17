@@ -41,7 +41,7 @@ export class CommentFormComponent implements OnInit {
   ngOnInit() {
     this.character$.subscribe(character => {
       this.character = character;
-      this.setCharacter();
+      if (this.character) this.setCharacter();
     });
 
     this.writingSubject.subscribe(value => {

@@ -3,6 +3,7 @@ import { DPagination } from '../paggination.dto';
 import { DCharacterShort } from '../character/character.dto';
 import { DCorporationShort } from '../corporation/corporation.dto';
 import { DAllianceShort } from '../alliance/alliance.dto';
+import { DPost } from '../post/post.dto';
 
 export class DNotification {
   id: string;
@@ -11,7 +12,7 @@ export class DNotification {
 
   type: NOTIFICATION_TYPE;
 
-  postId?: string;
+  post?: DPost;
   commentId?: string;
 
   senderCharacter?: DCharacterShort;

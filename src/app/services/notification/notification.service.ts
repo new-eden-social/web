@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { NOTIFICATION_TYPE } from './notification.constant';
 import { DNotification } from './notification.dto';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationService {
 
   getSenderName(notification: DNotification): string {

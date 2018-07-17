@@ -8,7 +8,7 @@ import {
 } from './comment.actions';
 import { DComment, DCommentList } from './comment.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
+import { catchError, concatMap, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
@@ -23,7 +23,7 @@ export class CommentEffects extends ApiService {
       CommentActionTypes.POST_AS_CHARACTER,
       CommentActionTypes.POST_AS_CORPORATION,
       CommentActionTypes.POST_AS_ALLIANCE),
-    switchMap(({ payload, type }) => {
+    concatMap(({ payload, type }) => {
         let path;
         switch (type) {
           case CommentActionTypes.POST_AS_CHARACTER:
@@ -50,7 +50,7 @@ export class CommentEffects extends ApiService {
   @Effect()
   latest$: Observable<LatestSuccess | Exception> = this.actions$.pipe(
     ofType<Latest>(CommentActionTypes.GET_LATEST),
-    switchMap(({ payload }) =>
+    concatMap(({ payload }) =>
       this.request<DCommentList>(
         'GET',
         `${this.uri}/${payload.postId}/latest?page=${payload.page}&limit=${payload.limit}`).pipe(

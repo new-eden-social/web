@@ -10,7 +10,9 @@
         <a [routerLink]="author.link">{{ author.name }}</a>
         <mat-icon *ngIf="wall">arrow_right</mat-icon>
         <a *ngIf="wall" [routerLink]="wall.link">{{ wall.name }}</a>
-        <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
+        <a class="post-link" [routerLink]="postService.getPostLink(post)">
+          <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
+        </a>
       </div>
       <p class="card-text" [innerHtml]="content"></p>
     </div>

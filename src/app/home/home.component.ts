@@ -55,9 +55,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
   ) {
-    this.postList$ = this.store.pipe(select('post', 'list'));
+    this.postList$ = this.store.pipe(select('post', 'list', 'latest'));
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
-
   }
 
   ngOnInit() {

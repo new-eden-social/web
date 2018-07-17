@@ -30,13 +30,13 @@ export class HashtagComponent implements OnInit {
     private store: Store<IAppState>,
   ) {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
-    this.wall$ = this.store.pipe(select('post', 'list'));
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.loadingWall = true;
         this.page = 0;
         this.hashtag = this.route.snapshot.params['hashtag'];
+        this.wall$ = this.store.pipe(select('post', 'list', `hashtag:${this.hashtag}`));
         this.store.dispatch(new GetHashtag({
           hashtag: this.hashtag,
           page: this.page,

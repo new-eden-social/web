@@ -6,7 +6,7 @@ export enum CorporationActionTypes {
   LOAD_SUCCESS = '[Corporation] Load specific corporation success',
 }
 
-export class Load implements Action {
+export class LoadCorporation implements Action {
   readonly type = CorporationActionTypes.LOAD;
 
   constructor(public payload: string) {
@@ -20,4 +20,4 @@ export class LoadSuccess implements Action {
   }
 }
 
-export type CorporaitonActionsUnion = Load | LoadSuccess;
+export type CorporaitonActionsUnion = LoadCorporation | LoadSuccess;

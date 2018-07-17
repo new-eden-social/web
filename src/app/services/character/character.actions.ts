@@ -6,7 +6,7 @@ export enum CharacterActionTypes {
   LOAD_SUCCESS = '[Character] Load single character success',
 }
 
-export class Load implements Action {
+export class LoadCharacter implements Action {
   readonly type = CharacterActionTypes.LOAD;
   constructor(public payload: string) {
   }
@@ -18,4 +18,4 @@ export class LoadSuccess implements Action {
   }
 }
 
-export type CharacterActionsUnion = Load | LoadSuccess;
+export type CharacterActionsUnion = LoadCharacter | LoadSuccess;

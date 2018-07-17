@@ -6,7 +6,7 @@ import { DCharacter } from './character.dto';
 import { Effect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
-import { CharacterActionTypes, Load, LoadSuccess } from './character.actions';
+import { CharacterActionTypes, LoadCharacter, LoadSuccess } from './character.actions';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
 
@@ -17,7 +17,7 @@ export class CharacterEffects extends ApiService {
 
   @Effect()
   load$: Observable<LoadSuccess | Exception> = this.actions$.pipe(
-    ofType<Load>(CharacterActionTypes.LOAD),
+    ofType<LoadCharacter>(CharacterActionTypes.LOAD),
     switchMap(action =>
       this.request<DCharacter>('GET', `${this.uri}/${action.payload}`).pipe(
         map(data => new LoadSuccess(data)),

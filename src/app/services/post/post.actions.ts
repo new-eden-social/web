@@ -2,6 +2,8 @@ import { Action } from '@ngrx/store';
 import { DPost, DPostList } from './post.dto';
 
 export enum PostActionTypes {
+  LOAD = '[Post] Load specific post',
+  LOAD_SUCCESS = '[Post] Load specific post success',
   GET_SUCCESS = '[Post] Get posts success',
   GET_LATEST = '[Post] Get latest posts',
   GET_HASHTAG = '[Post] Get posts for hashtag',
@@ -14,10 +16,24 @@ export enum PostActionTypes {
   POST_SUCCESS = '[Post] Create post success',
 }
 
+export class LoadSuccess implements Action {
+  readonly type = PostActionTypes.LOAD_SUCCESS;
+
+  constructor(public payload: { post: DPost }) {
+  }
+}
+
+export class LoadPost implements Action {
+  readonly type = PostActionTypes.LOAD;
+
+  constructor(public payload: { postId: string }) {
+  }
+}
+
 export class GetSuccess implements Action {
   readonly type = PostActionTypes.GET_SUCCESS;
 
-  constructor(public payload: DPostList) {
+  constructor(public payload: { posts: DPostList, key: string }) {
   }
 }
 
@@ -60,34 +76,36 @@ export class GetAllianceWall implements Action {
 export class PostAsCharacter implements Action {
   readonly type = PostActionTypes.POST_AS_CHARACTER;
 
-  constructor(public payload: { content: string, type: 'TEXT', options: any }) {
+  constructor(public payload: { wallKey: string, content: string, type: 'TEXT', options: any }) {
   }
 }
 
 export class PostAsCorporation implements Action {
   readonly type = PostActionTypes.POST_AS_CORPORATION;
 
-  constructor(public payload: { content: string, type: 'TEXT', options: any }) {
+  constructor(public payload: { wallKey: string, content: string, type: 'TEXT', options: any }) {
   }
 }
 
 export class PostAsAlliance implements Action {
   readonly type = PostActionTypes.POST_AS_ALLIANCE;
 
-  constructor(public payload: { content: string, type: 'TEXT', options: any }) {
+  constructor(public payload: { wallKey: string, content: string, type: 'TEXT', options: any }) {
   }
 }
 
 export class PostSuccess implements Action {
   readonly type = PostActionTypes.POST_SUCCESS;
 
-  constructor(public payload: DPost) {
+  constructor(public payload: { post: DPost, key: string }) {
   }
 }
 
 
 export type PostActionsUnion =
-  GetSuccess
+  LoadPost
+  | LoadSuccess
+  | GetSuccess
   | GetLatest
   | GetHashtag
   | GetCharacterWall

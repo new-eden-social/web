@@ -19,18 +19,17 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { ApiService } from './services/api.service';
 import { httpInterceptorProviders } from './http-interceptors';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
-import { NotificationService } from './services/notification/notification.service';
 import {TransferHttpCacheModule} from '@nguniversal/common';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
+    RouterModule.forRoot(appRoutes),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
     // Connects RouterModule with StoreModule
@@ -49,9 +48,7 @@ import {TransferHttpCacheModule} from '@nguniversal/common';
     MatProgressSpinnerModule,
     NavbarModule,
     HomeModule,
-    CharacterModule,
-    CorporationModule,
-    AllianceModule,
+    ProfileModule,
     AuthenticationModule,
     HashtagModule,
     MatSnackBarModule,
@@ -59,8 +56,6 @@ import {TransferHttpCacheModule} from '@nguniversal/common';
   ],
   providers: [
     httpInterceptorProviders,
-    ApiService,
-    NotificationService,
   ],
   bootstrap: [AppComponent],
 })
