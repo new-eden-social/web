@@ -9,7 +9,16 @@ export enum WebsocketActionTypes {
   AUTHENTICATE = '[Websocket] Authenticate websocket connection',
   AUTHENTICATE_SUCCESS = '[Websocket] Authenticate websocket connection success',
   AUTHENTICATE_FAIL = '[Websocket] Authenticate websocket connection failed',
-  ERROR = '[Websocket] Error happened'
+  ERROR = '[Websocket] Error happened',
+
+  SUBSCRIBE_TO_LATEST_WALL = '[Websocket] Subscribe to latest wall',
+  SUBSCRIBE_TO_HASHTAG_WALL = '[Websocket] Subscribe to hashtag wall',
+  SUBSCRIBE_TO_CHARACTER_WALL = '[Websocket] Subscribe to character wall',
+  SUBSCRIBE_TO_CORPORATION_WALL = '[Websocket] Subscribe to corporation wall',
+  SUBSCRIBE_TO_ALLIANCE_WALL = '[Websocket] Subscribe to alliance wall',
+  SUBSCRIBE_TO_POST_COMMENTS = '[Websocket] Subscribe to post comments',
+  SUBSCRIBE_SUCCESS = '[Websocket] Subscribe success',
+  SUBSCRIBE_FAIL = '[Websocket] Subscribe fail',
 }
 
 export class Connect implements Action {
@@ -54,6 +63,18 @@ export class SocketError implements Action {
   }
 }
 
+export class SubscribeToLatestWall implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_TO_LATEST_WALL;
+}
+
+export class SubscribeSuccess implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_SUCCESS;
+}
+
+export class SubscribeFail implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_SUCCESS;
+}
+
 export type WebsocketActionsUnion =
   Authenticate
   | AuthenticateSuccess
@@ -63,4 +84,7 @@ export type WebsocketActionsUnion =
   | ConnectError
   | ConnectTimeout
   | Disconnected
-  | SocketError;
+  | SocketError
+  | SubscribeToLatestWall
+  | SubscribeSuccess
+  | SubscribeFail;

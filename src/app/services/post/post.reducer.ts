@@ -1,5 +1,6 @@
 import { IPostState } from './post.interface';
 import { PostActionsUnion, PostActionTypes } from './post.actions';
+import { DPostList } from './post.dto';
 
 const INITIAL_STATE: IPostState = {
   list: {},
@@ -14,7 +15,7 @@ export function postReducer(
     case PostActionTypes.GET_SUCCESS: {
       const oldKeyData = state.list[action.payload.key];
 
-      const oldPosts =  oldKeyData ? oldKeyData.data : [];
+      const oldPosts = oldKeyData ? oldKeyData.data : [];
       let posts = [];
       if (!oldKeyData || oldKeyData.page >= action.payload.posts.page) posts = action.payload.posts.data;
       else posts = [...oldPosts, ...action.payload.posts.data];
@@ -23,18 +24,18 @@ export function postReducer(
         ...state,
         list: {
           ...state.list,
-          [action.payload.key] : {
+          [action.payload.key]: {
             data: posts,
             page: action.payload.posts.page,
             pages: action.payload.posts.pages,
             perPage: action.payload.posts.perPage,
             count: action.payload.posts.count,
-          }
+          },
         },
       };
     }
 
-    case PostActionTypes.POST_SUCCESS: {
+    case PostActionTypes.NEW_POST: {
       return {
         ...state,
         list: {
@@ -42,7 +43,7 @@ export function postReducer(
           [action.payload.key]: {
             ...state.list[action.payload.key],
             data: [action.payload.post, ...state.list[action.payload.key].data],
-          }
+          },
         },
       };
     }
@@ -54,7 +55,7 @@ export function postReducer(
           ...state.single,
           [action.payload.post.id]: action.payload.post,
         },
-      }
+      };
     }
 
     default: {

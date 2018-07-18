@@ -128,7 +128,7 @@ export class PostEffects extends ApiService {
             characterId: payload.options.characterId,
           },
         }).pipe(
-          map(post => new PostSuccess({ post, key: payload.wallKey })),
+          map(post => new PostSuccess()),
           catchError(error => of(new Exception(error))),
         );
       },

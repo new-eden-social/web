@@ -2,20 +2,34 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Rx';
 import {
-  Authenticate, AuthenticateFailed, AuthenticateSuccess,
-  Connect, ConnectError, ConnectSuccess, ConnectTimeout, Disconnected, SocketError,
+  AuthenticateFailed, AuthenticateSuccess,
+  Connect, ConnectError, ConnectSuccess, ConnectTimeout, Disconnected, SocketError, SubscribeFail,
+  SubscribeSuccess,
+  SubscribeToLatestWall,
   WebsocketActionTypes,
 } from './websocket.actions';
 import { IAppState } from '../../app.store';
 import { select, Store } from '@ngrx/store';
-import { filter, map, mergeMap } from 'rxjs/internal/operators';
+import { concatMap, filter, map, mergeMap } from 'rxjs/internal/operators';
 import { environment } from '../../../environments/environment';
-import { WS_EVENT_AUTHENTICATION } from './websocket.constants';
+import {
+  WS_EVENT_AUTHENTICATION, WS_EVENT_SUBSCRIPTION, WS_NEW_SUBSCRIPTION_EVENT, WS_SUBSCRIBE_EVENTS,
+  WS_SUBSCRIPTIONS,
+} from './websocket.constants';
 import * as io from 'socket.io-client';
-import { fromEvent, of, race } from 'rxjs/index';
-import { DWebsocketAuthentication } from './websocket.dto';
-import { IAuthenticationResponse, IWebsocketException } from './websocket.interface';
+import { fromEvent, race } from 'rxjs/index';
+import {
+  DWebsocketAuthentication,
+  DWebsocketSubscribeToLatestWall,
+} from './websocket.dto';
+import {
+  DWsNewSubscriptionEvent,
+  IAuthenticationResponse, ISubscriptionResponse,
+  IWebsocketException,
+} from './websocket.interface';
 import { MatSnackBar } from '@angular/material';
+import { DPost } from '../post/post.dto';
+import { NewPost } from '../post/post.actions';
 
 @Injectable()
 export class WebsocketEffects {
@@ -58,6 +72,7 @@ export class WebsocketEffects {
       }));
     }),
   );
+
   @Effect()
   authenticate$: Observable<AuthenticateSuccess | AuthenticateFailed> = this.actions$.pipe(
     ofType<ConnectSuccess>(WebsocketActionTypes.CONNECT_SUCCESS),
@@ -77,6 +92,34 @@ export class WebsocketEffects {
           }));
       }),
     )),
+  );
+
+  @Effect()
+  subscribeToLatestWall$: Observable<SubscribeSuccess | SubscribeFail> = this.actions$.pipe(
+    ofType<SubscribeToLatestWall>(WebsocketActionTypes.SUBSCRIBE_TO_LATEST_WALL),
+    concatMap(action => {
+      this.socket.emit(
+        WS_SUBSCRIBE_EVENTS.TO_LATEST_WALL,
+        new DWebsocketSubscribeToLatestWall());
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        map(event => {
+          if (event.success) {
+            this.showSnackBar('Subscription Success');
+
+            fromEvent<DWsNewSubscriptionEvent<DPost>>(this.socket, WS_NEW_SUBSCRIPTION_EVENT)
+            .pipe(
+              filter(event => event.subscription === WS_SUBSCRIPTIONS.TO_LATEST_WALL),
+            ).subscribe(event => {
+              this.store.dispatch(new NewPost({ post: event.payload, key: 'latest' }));
+            });
+
+            return new SubscribeSuccess();
+          }
+          this.showSnackBar('Subscription Failed: ' + event.message);
+          return new SubscribeFail();
+        }));
+    }),
   );
 
   constructor(

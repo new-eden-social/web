@@ -8,6 +8,8 @@ import { DPostList } from '../services/post/post.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../app.store';
 import { GetLatest } from '../services/post/post.actions';
+import { SubscribeToLatestWall } from '../services/websocket/websocket.actions';
+import { filter } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +19,11 @@ import { GetLatest } from '../services/post/post.actions';
 export class HomeComponent implements OnInit {
 
   postList$: Observable<DPostList>;
-  postList: DPostList;
 
   authenticated$: Observable<boolean>;
+  websocketAuthenticated$: Observable<boolean>;
 
   page: number;
-
-  loadingPosts: boolean = true;
 
   hashtags = [
     {
@@ -57,16 +57,22 @@ export class HomeComponent implements OnInit {
   ) {
     this.postList$ = this.store.pipe(select('post', 'list', 'latest'));
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.websocketAuthenticated$ = this.store.pipe(select('websocket', 'authenticated'))
   }
 
   ngOnInit() {
     this.page = 0;
 
-    this.store.dispatch(new GetLatest({ page: this.page, limit: 20 }));
+    this.authenticated$.pipe(
+      filter(authenticated => authenticated)
+    ).subscribe(() => {
+      this.store.dispatch(new GetLatest({ page: this.page, limit: 20 }));
+    });
 
-    this.postList$.subscribe(postList => {
-      this.postList = postList;
-      if (this.postList) this.loadingPosts = false;
+    this.websocketAuthenticated$.pipe(
+      filter(authenticated => authenticated)
+    ).subscribe(() => {
+      this.store.dispatch(new SubscribeToLatestWall());
     });
   }
 

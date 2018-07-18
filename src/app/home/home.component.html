@@ -16,12 +16,12 @@
     <app-footer></app-footer>
   </div>
 
-  <app-loading class="wide" *ngIf="loadingPosts"></app-loading>
+  <app-loading class="wide" *ngIf="!(postList$ | async)"></app-loading>
 
-  <div class="wide" *ngIf="!loadingPosts" infiniteScroll (scrolled)="onScroll()">
-    <app-post-list [postList]="postList"></app-post-list>
+  <div class="wide" *ngIf="postList$ | async" infiniteScroll (scrolled)="onScroll()">
+    <app-post-list [postList]="postList$ | async"></app-post-list>
   </div>
 </div>
 
 <!--Not Authenticated -->
-<app-home-welcome *ngIf="(authenticated$ | async) != true"></app-home-welcome>
+<app-home-welcome *ngIf="!(authenticated$ | async)"></app-home-welcome>

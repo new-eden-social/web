@@ -14,6 +14,8 @@ export enum PostActionTypes {
   POST_AS_CORPORATION = '[Post] Create post as corporation',
   POST_AS_ALLIANCE = '[Post] Create post as alliance',
   POST_SUCCESS = '[Post] Create post success',
+
+  NEW_POST = '[Post] New post (websocket)',
 }
 
 export class LoadSuccess implements Action {
@@ -96,11 +98,14 @@ export class PostAsAlliance implements Action {
 
 export class PostSuccess implements Action {
   readonly type = PostActionTypes.POST_SUCCESS;
+}
+
+export class NewPost implements Action {
+  readonly type = PostActionTypes.NEW_POST;
 
   constructor(public payload: { post: DPost, key: string }) {
   }
 }
-
 
 export type PostActionsUnion =
   LoadPost
@@ -114,4 +119,5 @@ export type PostActionsUnion =
   | PostSuccess
   | PostAsCharacter
   | PostAsCorporation
-  | PostAsAlliance;
+  | PostAsAlliance
+  | NewPost;
