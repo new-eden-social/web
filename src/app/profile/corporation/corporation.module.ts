@@ -5,6 +5,7 @@ import { FooterModule } from '../../footer/footer.module';
 import { LoadingModule } from '../../loading/loading.module';
 import { ProfileHeaderModule } from '../header/header.module';
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
     LoadingModule,
     ProfileHeaderModule,
     RouterModule,
+    MatButtonModule,
   ],
   declarations: [CorporationComponent],
   exports: [CorporationComponent],

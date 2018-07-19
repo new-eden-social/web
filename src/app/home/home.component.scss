@@ -23,7 +23,7 @@
       mat-card-title {
         text-transform: uppercase;
         font-weight: 300;
-        border-bottom: 2px solid #03a9f4;
+        border-bottom: 2px solid map-get($app-primary, 500);
         padding: 12px 24px 0;
       }
 

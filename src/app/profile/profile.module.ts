@@ -5,8 +5,6 @@ import { ProfilePostListModule } from './post-list/post-list.module';
 import { AllianceModule } from './alliance/alliance.module';
 import { CharacterModule } from './character/character.module';
 import { CorporationModule } from './corporation/corporation.module';
-import { RouterModule } from '@angular/router';
-import { LoadingModule } from '../loading/loading.module';
 
 @NgModule({
   imports: [

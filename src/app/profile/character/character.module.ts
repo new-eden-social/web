@@ -18,6 +18,7 @@ import { PostListModule } from '../../post-list/post-list.module';
     ProfileHeaderModule,
     RouterModule,
     LoadingModule,
+    MatButtonModule,
   ],
   declarations: [CharacterComponent],
   exports: [CharacterComponent],

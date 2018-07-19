@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  background-image: url("https://login.eveonline.com/src/img/site-bg-v2.jpg");
+  background-image: url($app-background-image);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+
   ],
   declarations: [HeaderComponent],
   exports: [HeaderComponent],

@@ -1,5 +1,4 @@
 @import "../../../variables";
-@import '~@angular/material/theming';
 
 .notifications {
 
@@ -62,7 +61,7 @@
 
         &:hover {
           cursor: pointer;
-          background: lighten($app-background-color, 60%);
+          background: rgba(0, 0, 0, 0.12);
         }
 
         .mat-icon-button {
