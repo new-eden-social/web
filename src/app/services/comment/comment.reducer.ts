@@ -14,7 +14,7 @@ export function commentReducer(
      * Add posts to the end (if page same as before or less, replace)
      */
     case CommentActionTypes.GET_LATEST_SUCCESS: {
-      const postComments = state.list[action.payload.postId];
+      const postComments = state.list[action.payload.key];
       const commentsResponse = action.payload.comments;
 
       const oldComments = postComments ? postComments.data : [];
@@ -28,7 +28,7 @@ export function commentReducer(
         ...state,
         list: {
           ...state.list,
-          [action.payload.postId]: {
+          [action.payload.key]: {
             data: comments,
             page: commentsResponse.page,
             pages: commentsResponse.pages,
@@ -39,16 +39,16 @@ export function commentReducer(
       };
     }
 
-    case CommentActionTypes.POST_SUCCESS: {
+    case CommentActionTypes.NEW_COMMENT: {
       const currentPostComments =
-        state.list[action.payload.postId] ? state.list[action.payload.postId].data : [];
+        state.list[action.payload.key] ? state.list[action.payload.key].data : [];
 
       return {
         ...state,
         list: {
           ...state.list,
-          [action.payload.postId]: {
-            ...state.list[action.payload.postId],
+          [action.payload.key]: {
+            ...state.list[action.payload.key],
             data: [...currentPostComments, action.payload.comment],
           },
         },

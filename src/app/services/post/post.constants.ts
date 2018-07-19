@@ -17,3 +17,9 @@ export enum POST_CREATABLE_TYPES {
   TEXT = 'TEXT',
   LOCATION = 'LOCATION',
 }
+
+export const getPostListKeyForCharacterWall = (characterId: string|number) => `character:${characterId}`;
+export const getPostListKeyForCorporationWall = (corporationId: string|number) => `corporation:${corporationId}`;
+export const getPostListKeyForAllianceWall = (allianceId: string|number) => `alliance:${allianceId}`;
+export const getPostListKeyForHashtagWall = (hashtag: string) => `hashtag:${hashtag}`;
+export const getPostListKeyForLatestWall = () => `latest`;

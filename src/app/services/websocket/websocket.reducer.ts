@@ -4,6 +4,7 @@ import { WebsocketActionsUnion, WebsocketActionTypes } from './websocket.actions
 const INITIAL_STATE: IWebsocketState = {
   connected: false,
   authenticated: false,
+  subscriptions: {},
 };
 
 export function websocketReducer(
@@ -33,6 +34,16 @@ export function websocketReducer(
       return {
         ...state,
         authenticated: false,
+      };
+    }
+
+    case WebsocketActionTypes.SUBSCRIBE_SUCCESS: {
+      return {
+        ...state,
+        subscriptions: {
+          ...state.subscriptions,
+          [action.payload.key]: true,
+        },
       };
     }
 

@@ -8,6 +8,7 @@ import {
   PostAsAlliance, PostAsCharacter,
   PostAsCorporation,
 } from '../../services/comment/comment.actions';
+import { SubscribeToPostComments } from '../../services/websocket/websocket.actions';
 
 @Component({
   selector: 'app-comment-form',
@@ -20,6 +21,8 @@ export class CommentFormComponent implements OnInit {
   postId: string;
 
   authenticated$: Observable<boolean>;
+
+  subscribedToComments = false;
 
   character$: Observable<DCharacterShort>;
   character: DCharacterShort;
@@ -75,18 +78,25 @@ export class CommentFormComponent implements OnInit {
   }
 
   submit() {
+    if (!this.subscribedToComments) {
+      this.subscribedToComments = true;
+      this.store.dispatch(new SubscribeToPostComments({ postId: this.postId }));
+    }
+
     switch (this.postAs) {
       case 'character':
         this.store.dispatch(new PostAsCharacter({ postId: this.postId, content: this.postValue }));
         break;
       case 'corporation':
-        this.store.dispatch(new PostAsCorporation({ postId: this.postId, content: this.postValue }));
+        this.store.dispatch(new PostAsCorporation({
+          postId: this.postId,
+          content: this.postValue,
+        }));
         break;
       case 'alliance':
         this.store.dispatch(new PostAsAlliance({ postId: this.postId, content: this.postValue }));
         break;
     }
-    // TODO: We could wait for feedback, if error do not reset
     this.writing('');
   }
 }

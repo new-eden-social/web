@@ -15,6 +15,10 @@ import {
 } from './post.actions';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
+import {
+  getPostListKeyForAllianceWall, getPostListKeyForCharacterWall,
+  getPostListKeyForCorporationWall, getPostListKeyForHashtagWall, getPostListKeyForLatestWall,
+} from './post.constants';
 
 @Injectable()
 export class PostEffects extends ApiService {
@@ -39,7 +43,10 @@ export class PostEffects extends ApiService {
       this.request<DPostList>(
         'GET',
         `${this.uri}/latest?page=${payload.page}&limit=${payload.limit}`).pipe(
-        map(posts => new GetSuccess({ posts, key: `latest` })),
+        map(posts => new GetSuccess({
+          posts,
+          key: getPostListKeyForLatestWall(),
+        })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -51,7 +58,10 @@ export class PostEffects extends ApiService {
       this.request<DPostList>(
         'GET',
         `${this.uri}/hashtag/${payload.hashtag}?page=${payload.page}&limit=${payload.limit}`).pipe(
-        map(posts => new GetSuccess({ posts, key: `hashtag:${payload.hashtag}` })),
+        map(posts => new GetSuccess({
+          posts,
+          key: getPostListKeyForHashtagWall(payload.hashtag),
+        })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -64,7 +74,10 @@ export class PostEffects extends ApiService {
         'GET',
         `${this.uri}/character/${payload.characterId}?page=${payload.page}&limit=${payload.limit}`)
       .pipe(
-        map(posts => new GetSuccess({ posts, key: `character:${payload.characterId}` })),
+        map(posts => new GetSuccess({
+          posts,
+          key: getPostListKeyForCharacterWall(payload.characterId),
+        })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -77,7 +90,10 @@ export class PostEffects extends ApiService {
         'GET',
         `${this.uri}/corporation/${payload.corporationId}?page=${payload.page}&limit=${payload.limit}`)
       .pipe(
-        map(posts => new GetSuccess({ posts, key: `corporation:${payload.corporationId}` })),
+        map(posts => new GetSuccess({
+          posts,
+          key: getPostListKeyForCorporationWall(payload.corporationId),
+        })),
         catchError(error => of(new Exception(error))),
       ),
     ));
@@ -90,7 +106,10 @@ export class PostEffects extends ApiService {
         'GET',
         `${this.uri}/alliance/${payload.allianceId}?page=${payload.page}&limit=${payload.limit}`)
       .pipe(
-        map(posts => new GetSuccess({ posts, key: `alliance:${payload.allianceId}` })),
+        map(posts => new GetSuccess({
+          posts,
+          key: getPostListKeyForAllianceWall(payload.allianceId),
+        })),
         catchError(error => of(new Exception(error))),
       ),
     ));

@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Subscription } from 'rxjs/Rx';
 
 export enum WebsocketActionTypes {
   CONNECT = '[Websocket] Try to establish connection',
@@ -67,12 +68,50 @@ export class SubscribeToLatestWall implements Action {
   readonly type = WebsocketActionTypes.SUBSCRIBE_TO_LATEST_WALL;
 }
 
+export class SubscribeToHashtagWall implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_TO_HASHTAG_WALL;
+
+  constructor(public payload: { hashtag: string }) {
+  }
+}
+
+export class SubscribeToCharacterWall implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_TO_CHARACTER_WALL;
+
+  constructor(public payload: { characterId: number|string }) {
+  }
+}
+
+export class SubscribeToCorporationWall implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_TO_CORPORATION_WALL;
+
+  constructor(public payload: { corporationId: number|string }) {
+  }
+}
+
+export class SubscribeToAllianceWall implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_TO_ALLIANCE_WALL;
+
+  constructor(public payload: { allianceId: number|string }) {
+  }
+}
+
+export class SubscribeToPostComments implements Action {
+  readonly type = WebsocketActionTypes.SUBSCRIBE_TO_POST_COMMENTS;
+
+  constructor(public payload: { postId: string }) {
+  }
+}
+
 export class SubscribeSuccess implements Action {
   readonly type = WebsocketActionTypes.SUBSCRIBE_SUCCESS;
+
+  constructor(public payload: { key: string }){
+  }
 }
 
 export class SubscribeFail implements Action {
-  readonly type = WebsocketActionTypes.SUBSCRIBE_SUCCESS;
+  readonly type = WebsocketActionTypes.SUBSCRIBE_FAIL;
 }
 
 export type WebsocketActionsUnion =
@@ -86,5 +125,10 @@ export type WebsocketActionsUnion =
   | Disconnected
   | SocketError
   | SubscribeToLatestWall
+  | SubscribeToHashtagWall
+  | SubscribeToCharacterWall
+  | SubscribeToCorporationWall
+  | SubscribeToAllianceWall
+  | SubscribeToPostComments
   | SubscribeSuccess
   | SubscribeFail;

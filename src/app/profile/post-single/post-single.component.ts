@@ -6,6 +6,11 @@ import { IAppState } from '../../app.store';
 import { Observable } from 'rxjs/index';
 import { DPost } from '../../services/post/post.dto';
 import { DCharacter } from '../../services/character/character.dto';
+import {
+  SubscribeToAllianceWall,
+  SubscribeToPostComments,
+} from '../../services/websocket/websocket.actions';
+import { filter } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-profile-post-single',
@@ -14,10 +19,12 @@ import { DCharacter } from '../../services/character/character.dto';
 })
 export class PostSingleComponent implements OnInit {
 
+  websocketAuthenticated$: Observable<boolean>;
+
   post$: Observable<DPost>;
   entityId: string;
   postId: string;
-  entityType: 'character'|'corporation'|'alliance';
+  entityType: 'character' | 'corporation' | 'alliance';
 
   constructor(
     private store: Store<IAppState>,
@@ -27,13 +34,23 @@ export class PostSingleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.websocketAuthenticated$ = this.store.pipe(select('websocket', 'authenticated'));
+
     this.route.params.subscribe(() => {
       this.entityId = this.route.parent.snapshot.paramMap.get('id');
-      this.entityType = <'character'|'corporation'|'alliance'>this.route.snapshot.data.entity;
+      this.entityType = <'character' | 'corporation' | 'alliance'>this.route.snapshot.data.entity;
 
       this.postId = this.route.snapshot.paramMap.get('postId');
       this.post$ = this.store.pipe(select('post', 'single', this.postId));
       this.store.dispatch(new LoadPost({ postId: this.postId }));
+
+      this.websocketAuthenticated$.pipe(
+        filter(authenticated => authenticated),
+      ).subscribe(() => {
+        this.store.dispatch(new SubscribeToPostComments({
+          postId: this.postId,
+        }));
+      });
     });
   }
 

@@ -8,10 +8,11 @@ import {
 } from './comment.actions';
 import { DComment, DCommentList } from './comment.dto';
 import { Effect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, mergeMap, switchMap } from 'rxjs/internal/operators';
+import { catchError, concatMap, map } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs/Rx';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
+import { getCommentListKey } from './comment.constants';
 
 @Injectable()
 export class CommentEffects extends ApiService {
@@ -41,7 +42,7 @@ export class CommentEffects extends ApiService {
             content: payload.content,
           },
         }).pipe(
-          map(comment => new PostSuccess({ postId: payload.postId, comment })),
+          map(comment => new PostSuccess()),
           catchError(error => of(new Exception(error))),
         );
       },
@@ -54,7 +55,10 @@ export class CommentEffects extends ApiService {
       this.request<DCommentList>(
         'GET',
         `${this.uri}/${payload.postId}/latest?page=${payload.page}&limit=${payload.limit}`).pipe(
-        map(comments => new LatestSuccess({ postId: payload.postId, comments })),
+        map(comments => new LatestSuccess({
+          comments,
+          key: getCommentListKey(payload.postId),
+        })),
         catchError(error => of(new Exception(error))),
       ),
     ));

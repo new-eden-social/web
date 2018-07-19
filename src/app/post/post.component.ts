@@ -8,6 +8,7 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../app.store';
 import { Latest } from '../services/comment/comment.actions';
 import { PostService } from '../services/post/post.service';
+import { getCommentListKey } from '../services/comment/comment.constants';
 
 @Component({
   selector: 'app-post',
@@ -60,7 +61,7 @@ export class PostComponent implements OnInit {
       limit: this.commentsPerPage,
     }));
 
-    this.comments$ = this.store.pipe(select('comment', 'list', this.post.id));
+    this.comments$ = this.store.pipe(select('comment', 'list', getCommentListKey(this.post.id)));
 
     // subscribe on comments
     this.comments$.subscribe((comments) => {

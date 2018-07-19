@@ -3,6 +3,9 @@ import { WS_SUBSCRIPTIONS } from './websocket.constants';
 export interface IWebsocketState {
   connected: boolean;
   authenticated: boolean;
+  subscriptions: {
+    [key: string]: boolean
+  }
 }
 
 export interface IAuthenticationResponse {
