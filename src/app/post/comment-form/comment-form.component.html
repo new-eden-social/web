@@ -4,11 +4,17 @@
       <img src="{{ character.portrait.px64x64}}">
       <span>{{ character.name }}</span>
     </button>
-    <button mat-menu-item class="select-post-method-menu-item" (click)="setCorporation()">
+    <button *ngIf="character.corporation"
+            mat-menu-item
+            class="select-post-method-menu-item"
+            (click)="setCorporation()">
       <img src="{{ character.corporation.icon.px64x64}}">
       <span>{{ character.corporation.name }}</span>
     </button>
-    <button mat-menu-item class="select-post-method-menu-item" (click)="setAlliance()">
+    <button *ngIf="character.corporation && character.corporation.alliance"
+            mat-menu-item
+            class="select-post-method-menu-item"
+            (click)="setAlliance()">
       <img src="{{ character.corporation.alliance.icon.px64x64}}">
       <span>{{ character.corporation.alliance.name }}</span>
     </button>
@@ -18,10 +24,10 @@
     <img src="{{ postAsImage }}">
   </button>
 
-  <div class="post-input-wrap">
+  <div class="comment-input-wrap">
     <app-rich-content-editable
         contenteditable="true"
-        class="post-input-field"
+        class="comment-input-field"
         (update)="writing($event)">
     </app-rich-content-editable>
   </div>

@@ -22,12 +22,14 @@ app-loading {
     flex-direction: row;
     width: 80%; // TODO: Responsive
     margin-top: 2em;
+    max-width: $app-content-max-width;
 
     .narrow {
       display: flex;
       flex-direction: column;
       margin-right: 2em;
-      min-width: $app-narrow-column-width;
+      min-width: $app-narrow-column-min-width;
+      flex: $app-narrow-column-flex;
 
       > mat-card {
         padding: 0;
@@ -82,32 +84,6 @@ app-loading {
               transition: color 100ms ease;
             }
           }
-        }
-      }
-    }
-
-    .wide {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-
-      > * {
-        &:not(:first-child) {
-          margin-top: 1em;
-        }
-        &:last-child {
-          margin-bottom: 1em;
-        }
-      }
-
-      .start,
-      .empty {
-        align-self: center;
-        padding: 0.8em;
-        margin-top: 2em;
-        p {
-          text-align: center;
-          text-transform: lowercase;
         }
       }
     }

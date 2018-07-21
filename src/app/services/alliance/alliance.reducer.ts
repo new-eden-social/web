@@ -1,18 +1,27 @@
-import { Reducer } from 'redux';
 import { IAllianceState } from './alliance.interface';
-import { AllianceTypes } from './alliance.types';
+import { AllianceActionsUnion, AllianceActionTypes } from './alliance.actions';
 
-const INITIAL_STATE: IAllianceState = {};
-
-export const allianceReducer: Reducer<IAllianceState> = (
-  state: IAllianceState = INITIAL_STATE,
-  action: any,
-): IAllianceState => {
-  switch (action.type) {
-    case AllianceTypes.LOAD:
-      return Object.assign({}, state, {
-        data: action.payload,
-      });
-  }
-  return state;
+const INITIAL_STATE: IAllianceState = {
+  single: {}
 };
+
+export function allianceReducer(
+  state: IAllianceState = INITIAL_STATE,
+  action: AllianceActionsUnion,
+): IAllianceState {
+  switch (action.type) {
+    case AllianceActionTypes.LOAD_SUCCESS: {
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          [action.payload.id]: action.payload,
+        },
+      }
+    }
+
+    default: {
+      return state;
+    }
+  }
+}

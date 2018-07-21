@@ -65,6 +65,7 @@
     display: block;
     flex: 1 1;
     transition: border-bottom 280ms cubic-bezier(.4,0,.2,1);
+    min-height: 21px; // Firefox fix
 
     &:focus {
       border-bottom: 1px solid map-get($app-primary, 500);

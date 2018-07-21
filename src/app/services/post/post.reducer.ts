@@ -1,51 +1,65 @@
-import { Reducer } from 'redux';
 import { IPostState } from './post.interface';
-import { PostTypes } from './post.types';
+import { PostActionsUnion, PostActionTypes } from './post.actions';
 import { DPostList } from './post.dto';
 
 const INITIAL_STATE: IPostState = {
-  list: null,
+  list: {},
+  single: {},
 };
 
-export const postReducer: Reducer<IPostState> = (
+export function postReducer(
   state: IPostState = INITIAL_STATE,
-  action: any,
-): IPostState => {
+  action: PostActionsUnion,
+): IPostState {
   switch (action.type) {
-    /**
-     * Add posts to the end (if page same as before or less, replace)
-     */
-    case PostTypes.GET_LATEST:
-    case PostTypes.GET_HASHTAG:
-    case PostTypes.GET_CHARACTER_WALL:
-    case PostTypes.GET_CORPORATION_WALL:
-    case PostTypes.GET_ALLIANCE_WALL:
-      const oldPosts = state.list ? state.list.data : [];
+    case PostActionTypes.GET_SUCCESS: {
+      const oldKeyData = state.list[action.payload.key];
+
+      const oldPosts = oldKeyData ? oldKeyData.data : [];
       let posts = [];
-      if (!state.list || state.list.page >= action.payload.page) posts = action.payload.data;
-      else posts = [...oldPosts, ...action.payload.data];
+      if (!oldKeyData || oldKeyData.page >= action.payload.posts.page) posts = action.payload.posts.data;
+      else posts = [...oldPosts, ...action.payload.posts.data];
 
-      return Object.assign({}, state, {
-        list: <DPostList>{
-          data: posts,
-          page: action.payload.page,
-          pages: action.payload.pages,
-          perPage: action.payload.perPage,
-          count: action.payload.count,
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          [action.payload.key]: {
+            data: posts,
+            page: action.payload.posts.page,
+            pages: action.payload.posts.pages,
+            perPage: action.payload.posts.perPage,
+            count: action.payload.posts.count,
+          },
         },
-      });
-    /**
-     * Add submitted post to the top
-     */
-    case PostTypes.POST_AS_CHARACTER:
-    case PostTypes.POST_AS_CORPORATION:
-    case PostTypes.POST_AS_ALLIANCE:
-      return Object.assign({}, state, {
-        list: <DPostList> Object.assign({}, state.list, {
-          data: [action.payload, ...state.list.data],
-        }),
-      });
+      };
+    }
 
+    case PostActionTypes.NEW_POST: {
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          [action.payload.key]: {
+            ...state.list[action.payload.key],
+            data: [action.payload.post, ...state.list[action.payload.key].data],
+          },
+        },
+      };
+    }
+
+    case PostActionTypes.LOAD_SUCCESS: {
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          [action.payload.post.id]: action.payload.post,
+        },
+      };
+    }
+
+    default: {
+      return state;
+    }
   }
-  return state;
-};
+}

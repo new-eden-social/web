@@ -2,7 +2,6 @@
 @import '~@angular/material/theming';
 
 .hashtags {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,13 +33,15 @@
     display: flex;
     flex-direction: row;
     margin-top: $app-content-top-margin;
-    width: 80%; // TODO: Responsive
+    width: 100%;
+    max-width: $app-content-max-width;
 
     .narrow {
       display: flex;
       flex-direction: column;
       margin-right: 2em;
-      min-width: $app-narrow-column-width;
+      min-width: $app-narrow-column-min-width;
+      flex: $app-narrow-column-flex;
 
       > mat-card {
         padding: 0;
@@ -56,7 +57,7 @@
     .wide {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      flex: $app-wide-column-flex;
     }
   }
 }

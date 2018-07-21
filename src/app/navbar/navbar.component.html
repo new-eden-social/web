@@ -1,16 +1,18 @@
-<mat-toolbar>
+<mat-toolbar [ngClass]="{'scroll': scrolling}">
   <div class="button-row">
     <div class="nav-container">
       <a routerLink="" mat-button>HOME</a>
-      <a *ngIf="authenticated" mat-button>NOTIFICATIONS</a>
+      <app-navbar-notifications *ngIf="authenticated$ | async"></app-navbar-notifications>
     </div>
     <div class="nav-container">
       <app-navbar-search></app-navbar-search>
-      <a *ngIf="!authenticated" href="{{authenticationUrl}}authentication/sso" mat-button>LOG IN</a>
-      <a *ngIf="authenticated"
+      <a *ngIf="!(authenticated$ | async)"
+         href="{{authenticationUrl}}authentication/sso"
+         mat-button>LOG IN</a>
+      <a *ngIf="authenticated$ | async"
          [routerLink]="['character', (character$|async).id]"
          mat-button>PROFILE</a>
-      <button *ngIf="authenticated" (click)="logout()" mat-button>LOGOUT</button>
+      <button *ngIf="authenticated$ | async" (click)="logout()" mat-button>LOGOUT</button>
     </div>
   </div>
 </mat-toolbar>

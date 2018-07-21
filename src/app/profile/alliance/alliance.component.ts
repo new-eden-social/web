@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { select } from '@angular-redux/store';
-import { PostService } from '../../services/post/post.service';
-import { DPostList } from '../../services/post/post.dto';
 import { DAlliance } from '../../services/alliance/alliance.dto';
-import { AllianceService } from '../../services/alliance/alliance.service';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../../app.store';
+import { LoadAlliance } from '../../services/alliance/alliance.actions';
 
 @Component({
   selector: 'app-alliance',
@@ -14,59 +13,28 @@ import { AllianceService } from '../../services/alliance/alliance.service';
 })
 export class AllianceComponent implements OnInit {
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
-
-  @select(['alliance', 'data'])
-  alliance$: Observable<DAlliance>;
-
-  @select(['post', 'list'])
-  wall$: Observable<DPostList>;
-
   alliance: DAlliance;
-  wall: DPostList;
-
-  page: number;
-
-  loadingProfile: boolean = true;
-  loadingWall: boolean = true;
 
   constructor(
+    private store: Store<IAppState>,
     private route: ActivatedRoute,
-    private router: Router,
-    private allianceService: AllianceService,
-    private postService: PostService,
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.setInitValues();
-
-        let id = +this.route.snapshot.params['id'];
-        this.allianceService.get(id);
-        this.postService.allianceWall(id);
-      }
-    });
   }
 
   ngOnInit() {
-    this.alliance$.subscribe(alliance => {
-      this.alliance = alliance;
-      if (this.alliance) this.loadingProfile = false;
-    });
-    this.wall$.subscribe(wall => {
-      this.wall = wall;
-      if (this.wall) this.loadingWall = false;
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+
+    this.route.params.subscribe(() => {
+      const id = this.route.snapshot.paramMap.get('id');
+
+      this.store.pipe(select('alliance', 'single', id))
+      .subscribe(alliance => {
+        this.alliance = alliance;
+      });
+
+      this.store.dispatch(new LoadAlliance(id));
     });
   }
 
-  onScroll() {
-    this.page++;
-    this.postService.allianceWall(this.alliance.id, this.page);
-  }
-
-  private setInitValues(): void {
-    this.loadingProfile = true;
-    this.loadingWall = true;
-    this.page = 0;
-  }
 }

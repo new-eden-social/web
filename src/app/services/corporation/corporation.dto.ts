@@ -7,12 +7,6 @@ export class DCorporationIcon {
   px256x256: string;
 }
 
-
-export class DCorporationName {
-  id: number;
-  name: string;
-}
-
 export class DCorporationShort {
   id: number;
   handle: string;

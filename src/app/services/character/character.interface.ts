@@ -1,5 +1,7 @@
-import { DCharacterShort } from './character.dto';
+import { DCharacter } from './character.dto';
 
 export interface ICharacterState {
-  data?: DCharacterShort;
+  single: {
+    [key: string]: DCharacter,
+  };
 }

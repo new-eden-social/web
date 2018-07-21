@@ -1,5 +1,7 @@
 import { DCorporation } from './corporation.dto';
 
 export interface ICorporationState {
-  data?: DCorporation;
+  single: {
+    [key: string]: DCorporation,
+  };
 }

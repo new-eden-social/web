@@ -10,6 +10,7 @@ export class DComment {
   corporation?: DCorporationShort;
   alliance?: DAllianceShort;
   createdAt: Date;
+  postId: string;
 }
 
 export class DCommentList extends DPagination<DComment> {

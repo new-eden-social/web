@@ -6,7 +6,6 @@ import {
   MatMenuModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommentService } from '../../services/comment/comment.service';
 import { RichContentModule } from '../../rich-content/rich-content.module';
 
 @NgModule({
@@ -23,6 +22,5 @@ import { RichContentModule } from '../../rich-content/rich-content.module';
   ],
   declarations: [CommentFormComponent],
   exports: [CommentFormComponent],
-  providers: [CommentService],
 })
 export class CommentFormModule { }

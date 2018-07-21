@@ -1,18 +1,27 @@
-import { Reducer } from 'redux';
 import { ICorporationState } from './corporation.interface';
-import { CorporationTypes } from './corporaiton.types';
+import { CorporaitonActionsUnion, CorporationActionTypes } from './corporaiton.actions';
 
-const INITIAL_STATE: ICorporationState = {};
-
-export const corporationReducer: Reducer<ICorporationState> = (
-  state: ICorporationState = INITIAL_STATE,
-  action: any,
-): ICorporationState => {
-  switch (action.type) {
-    case CorporationTypes.LOAD:
-      return Object.assign({}, state, {
-        data: action.payload,
-      });
-  }
-  return state;
+const INITIAL_STATE: ICorporationState = {
+  single: {}
 };
+
+export function corporationReducer(
+  state: ICorporationState = INITIAL_STATE,
+  action: CorporaitonActionsUnion,
+): ICorporationState {
+  switch (action.type) {
+    case CorporationActionTypes.LOAD_SUCCESS: {
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          [action.payload.id]: action.payload,
+        },
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
+}

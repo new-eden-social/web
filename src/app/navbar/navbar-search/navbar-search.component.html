@@ -12,18 +12,18 @@
         (mouseenter)="enterSearch()">
 
       <h3 *ngIf="showCharacters | async">Characters</h3>
-      <li *ngFor="let character of charactersLess | async">
-        <a mat-button (click)="openCharacter(character)">{{character.name}}</a>
+      <li *ngFor="let character of characters | async">
+        <a mat-button [routerLink]="['/', character.category, character.id]">{{character.name}}</a>
       </li>
 
       <h3 *ngIf="showCorporations | async">Corporations</h3>
-      <li *ngFor="let corporation of corporationsLess | async">
-        <a mat-button (click)="openCorporation(corporation)">{{corporation.name}}</a>
+      <li *ngFor="let corporation of corporations | async">
+        <a mat-button [routerLink]="['/', corporation.category, corporation.id]">{{corporation.name}}</a>
       </li>
 
       <h3 *ngIf="showAlliances | async">Alliances</h3>
-      <li *ngFor="let alliance of alliancesLess | async">
-        <a mat-button (click)="openAlliance(alliance)">{{alliance.name}}</a>
+      <li *ngFor="let alliance of alliances | async">
+        <a mat-button [routerLink]="['/', alliance.category, alliance.id]">{{alliance.name}}</a>
       </li>
     </ul>
 

@@ -1,9 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { select } from '@angular-redux/store';
 import { DCharacterShort } from '../../services/character/character.dto';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { CommentService } from '../../services/comment/comment.service';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../../app.store';
+import {
+  PostAsAlliance, PostAsCharacter,
+  PostAsCorporation,
+} from '../../services/comment/comment.actions';
+import { SubscribeToPostComments } from '../../services/websocket/websocket.actions';
 
 @Component({
   selector: 'app-comment-form',
@@ -15,26 +20,41 @@ export class CommentFormComponent implements OnInit {
   @Input('postId')
   postId: string;
 
-  @select(['authentication', 'authenticated'])
   authenticated$: Observable<boolean>;
 
-  @select(['authentication', 'character'])
+  subscribedToComments = false;
+
   character$: Observable<DCharacterShort>;
   character: DCharacterShort;
 
   postAs: 'character' | 'corporation' | 'alliance';
   postAsImage: string;
-  postValue = '';
+  postValue: string = '';
+  commentHtml: string = '';
+
+  private writingSubject = new BehaviorSubject<string>('');
 
   constructor(
-    private commentService: CommentService,
+    private store: Store<IAppState>,
   ) {
+    this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.character$ = this.store.pipe(select('authentication', 'character'));
   }
 
   ngOnInit() {
     this.character$.subscribe(character => {
       this.character = character;
-      this.setCharacter();
+      if (this.character) this.setCharacter();
+    });
+
+    this.writingSubject.subscribe(value => {
+      this.postValue = value;
+
+      const hashtagHtml = value.replace(
+        /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
+        (hashtag) => `<a href="" class="input-field-link">${hashtag}</a>`);
+
+      this.commentHtml = hashtagHtml;
     });
   }
 
@@ -59,18 +79,25 @@ export class CommentFormComponent implements OnInit {
   }
 
   submit() {
+    if (!this.subscribedToComments) {
+      this.subscribedToComments = true;
+      this.store.dispatch(new SubscribeToPostComments({ postId: this.postId }));
+    }
+
     switch (this.postAs) {
       case 'character':
-        this.commentService.postAsCharacter(this.postId, this.postValue);
+        this.store.dispatch(new PostAsCharacter({ postId: this.postId, content: this.postValue }));
         break;
       case 'corporation':
-        //this.commentService.postAsCorporation(this.postId, this.postValue);
+        this.store.dispatch(new PostAsCorporation({
+          postId: this.postId,
+          content: this.postValue,
+        }));
         break;
       case 'alliance':
-        //this.commentService.postAsAlliance(this.postId, this.postValue);
+        this.store.dispatch(new PostAsAlliance({ postId: this.postId, content: this.postValue }));
         break;
     }
-    // TODO: We could wait for feedback, if error do not reset
     this.writing('');
   }
 }

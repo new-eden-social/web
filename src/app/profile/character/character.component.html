@@ -1,6 +1,6 @@
-<app-loading *ngIf="loadingProfile"></app-loading>
+<app-loading *ngIf="!character"></app-loading>
 
-<div class="profile" *ngIf="!loadingProfile">
+<div class="profile" *ngIf="character">
 
   <app-profile-header [image]="character.portrait.px256x256"
                       [title]="character.name"
@@ -57,10 +57,6 @@
       <app-footer></app-footer>
     </div>
 
-    <app-loading class="wide" *ngIf="loadingWall"></app-loading>
-
-    <div *ngIf="!loadingWall" class="wide" infiniteScroll (scrolled)="onScroll()">
-      <app-post-list [characterWall]="character" [postList]="wall"></app-post-list>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

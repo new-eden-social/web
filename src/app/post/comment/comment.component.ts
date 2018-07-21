@@ -46,4 +46,7 @@ export class CommentComponent implements OnInit {
     }
   }
 
+  openItem() {
+    this.router.navigate(this.link);
+  }
 }

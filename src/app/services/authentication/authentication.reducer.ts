@@ -1,33 +1,47 @@
-import { Reducer } from 'redux';
-import { AuthenticationTypes } from './authentication.types';
 import { IAuthenticationState } from './authentication.interface';
+import { AuthenticationActionsUnion, AuthenticationActionTypes } from './authentication.actions';
 
 const INITIAL_STATE: IAuthenticationState = {
   authenticated: false,
 };
 
-// Basic reducer logic.
-export const authenticationReducer: Reducer<IAuthenticationState> = (state: IAuthenticationState = INITIAL_STATE, action: any): IAuthenticationState => {
+export function authenticationReducer(
+  state: IAuthenticationState = INITIAL_STATE,
+  action: AuthenticationActionsUnion,
+): IAuthenticationState {
   switch (action.type) {
-    case AuthenticationTypes.AUTHENTICATED:
-      return Object.assign({}, state, {
+    case AuthenticationActionTypes.AUTHENTICATE_SUCCESS: {
+      return {
+        ...state,
         character: action.payload,
         authenticated: true,
-      });
-    case AuthenticationTypes.REDIRECTED:
-      return Object.assign({}, state, {
-        data: action.payload,
-      });
-    case AuthenticationTypes.UN_AUTHENTICATE:
-      return Object.assign({}, state, {
+      };
+    }
+
+    case AuthenticationActionTypes.UN_AUTHENTICATE: {
+      return {
         data: undefined,
         character: undefined,
         authenticated: false,
-      });
-    case AuthenticationTypes.REFRESH_TOKEN:
-      return Object.assign({}, state, {
+      };
+    }
+
+    case AuthenticationActionTypes.AUTHENTICATE_CALLBACK: {
+      return {
+        ...state,
         data: action.payload,
-      });
+      };
+    }
+
+    case AuthenticationActionTypes.REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        data: action.payload,
+      };
+    }
+
+    default: {
+      return state;
+    }
   }
-  return state;
-};
+}
