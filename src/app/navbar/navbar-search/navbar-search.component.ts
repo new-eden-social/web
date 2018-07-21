@@ -95,6 +95,7 @@ export class NavbarSearchComponent implements OnInit {
 
   toggleBlur() {
     this.searchFocus = false;
+    this.searchCtrl.setValue('');
   }
 
   toggleFocus() {

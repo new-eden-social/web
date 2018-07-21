@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarSearchComponent } from './navbar-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatIconModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -11,7 +11,8 @@ import { MatButtonModule } from '@angular/material';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
   ],
   declarations: [NavbarSearchComponent],
   exports: [NavbarSearchComponent],
