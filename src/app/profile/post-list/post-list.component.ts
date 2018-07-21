@@ -16,6 +16,11 @@ import {
   SubscribeToCharacterWall, SubscribeToCorporationWall,
 } from '../../services/websocket/websocket.actions';
 import { filter } from 'rxjs/internal/operators';
+import {
+  getPostListKeyForAllianceWall,
+  getPostListKeyForCharacterWall,
+  getPostListKeyForCorporationWall,
+} from '../../services/post/post.constants';
 
 @Component({
   selector: 'app-profile-post-list',
@@ -44,7 +49,8 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.entityId = this.route.parent.snapshot.paramMap.get('id');
       this.entityType = <'character' | 'corporation' | 'alliance'>this.route.snapshot.data.entity;
 
-      this.wall$ = this.store.pipe(select('post', 'list', `${this.entityType}:${this.entityId}`));
+      const wallKey = this.getWallKeyForType(this.entityType, this.entityId);
+      this.wall$ = this.store.pipe(select('post', 'list', wallKey));
       this.entity$ = this.store.pipe(select(this.entityType, 'single', this.entityId));
 
       this.loadWallForType(this.entityType);
@@ -133,6 +139,17 @@ export class PostListComponent implements OnInit, OnDestroy {
   onScroll() {
     this.page++;
     this.loadWallForType(this.entityType);
+  }
+
+  private getWallKeyForType(type: 'character' | 'corporation' | 'alliance', entityId: string|number) {
+    switch (type) {
+      case 'character':
+        return getPostListKeyForCharacterWall(entityId);
+      case 'corporation':
+        return getPostListKeyForCorporationWall(entityId);
+      case 'alliance':
+        return getPostListKeyForAllianceWall(entityId);
+    }
   }
 
 }
