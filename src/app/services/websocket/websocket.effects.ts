@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 import {
   AuthenticateFailed, AuthenticateSuccess,
   Connect, ConnectError, ConnectSuccess, ConnectTimeout, Disconnected, SocketError, SubscribeFail,
   SubscribeSuccess, SubscribeToAllianceWall, SubscribeToCharacterWall, SubscribeToCorporationWall,
   SubscribeToHashtagWall,
-  SubscribeToLatestWall, SubscribeToPostComments,
+  SubscribeToLatestWall, SubscribeToPostComments, UnSubscribeFail, UnSubscribeFromAllianceWall,
+  UnSubscribeFromCharacterWall,
+  UnSubscribeFromCorporationWall,
+  UnSubscribeFromHashtagWall,
+  UnSubscribeFromLatestWall, UnSubscribeFromPostComments,
+  UnSubscribeSuccess,
   WebsocketActionTypes,
 } from './websocket.actions';
 import { IAppState } from '../../app.store';
 import { select, Store } from '@ngrx/store';
-import { concatMap, filter, map, mergeMap } from 'rxjs/internal/operators';
+import { concatMap, filter, map, mergeMap, take } from 'rxjs/internal/operators';
 import { environment } from '../../../environments/environment';
 import {
   WS_EVENT_AUTHENTICATION, WS_EVENT_SUBSCRIPTION, WS_NEW_SUBSCRIPTION_EVENT, WS_SUBSCRIBE_EVENTS,
-  WS_SUBSCRIPTIONS,
+  WS_SUBSCRIPTIONS, WS_UN_SUBSCRIBE_EVENTS,
 } from './websocket.constants';
 import * as io from 'socket.io-client';
 import { fromEvent, race } from 'rxjs/index';
@@ -23,6 +28,9 @@ import {
   DWebsocketAuthentication, DWebsocketSubscribeToAllianceWall, DWebsocketSubscribeToCharacterWall,
   DWebsocketSubscribeToCorporationWall, DWebsocketSubscribeToHashtagWall,
   DWebsocketSubscribeToLatestWall, DWebsocketSubscribeToPostComment,
+  DWebsocketUnSubscribeFromCharacterWall, DWebsocketUnSubscribeFromCorporationWall,
+  DWebsocketUnSubscribeFromHashtagWall, DWebsocketUnSubscribeFromLatestWall,
+  DWebsocketUnSubscribeFromPostComment,
 } from './websocket.dto';
 import {
   DWsNewSubscriptionEvent,
@@ -74,6 +82,7 @@ export class WebsocketEffects {
       ).pipe(map(event => {
         if (!event) {
           this.showSnackBar('Websocket connected');
+          this.subscriptions = {};
           return new ConnectSuccess();
         }
         if (event === 'timeout') return new ConnectTimeout();
@@ -112,10 +121,11 @@ export class WebsocketEffects {
         new DWebsocketSubscribeToHashtagWall(action.payload.hashtag));
       // Wait for response
       return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
         map(event => {
           if (event.success) {
             const key = getPostListKeyForHashtagWall(action.payload.hashtag);
-            const subscription = fromEvent<DWsNewSubscriptionEvent<DPost>>(
+            this.subscriptions[key] =  fromEvent<DWsNewSubscriptionEvent<DPost>>(
               this.socket,
               WS_NEW_SUBSCRIPTION_EVENT)
             .pipe(
@@ -143,18 +153,19 @@ export class WebsocketEffects {
         new DWebsocketSubscribeToCharacterWall(action.payload.characterId));
       // Wait for response
       return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
         map(event => {
           if (event.success) {
             const key = getPostListKeyForCharacterWall(action.payload.characterId);
-            const subscription = fromEvent<DWsNewSubscriptionEvent<DPost>>(
+            this.subscriptions[key] = fromEvent<DWsNewSubscriptionEvent<DPost>>(
               this.socket,
               WS_NEW_SUBSCRIPTION_EVENT)
             .pipe(
               filter(event => event.subscription === WS_SUBSCRIPTIONS.TO_CHARACTER_WALL),
               // We use == for a reason. As action.payload.characterId can be number
               filter(event =>
-                event.payload.characterWall.id == action.payload.characterId ||
-                event.payload.character.id == action.payload.characterId,
+                event.payload.characterWall && event.payload.characterWall.id == action.payload.characterId
+                || event.payload.character && event.payload.character.id == action.payload.characterId,
               ),
             ).subscribe(event => {
               this.store.dispatch(new NewPost({ post: event.payload, key }));
@@ -175,10 +186,11 @@ export class WebsocketEffects {
         new DWebsocketSubscribeToLatestWall());
       // Wait for response
       return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
         map(event => {
           if (event.success) {
             const key = getPostListKeyForLatestWall();
-            const subscription = fromEvent<DWsNewSubscriptionEvent<DPost>>(
+            this.subscriptions[key] = fromEvent<DWsNewSubscriptionEvent<DPost>>(
               this.socket,
               WS_NEW_SUBSCRIPTION_EVENT)
             .pipe(
@@ -205,17 +217,19 @@ export class WebsocketEffects {
         new DWebsocketSubscribeToCorporationWall(action.payload.corporationId));
       // Wait for response
       return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
         map(event => {
           if (event.success) {
             const key = getPostListKeyForCorporationWall(action.payload.corporationId);
-            const subscription = fromEvent<DWsNewSubscriptionEvent<DPost>>(
+            this.subscriptions[key] = fromEvent<DWsNewSubscriptionEvent<DPost>>(
               this.socket,
               WS_NEW_SUBSCRIPTION_EVENT)
             .pipe(
               filter(event => event.subscription === WS_SUBSCRIPTIONS.TO_CORPORATION_WALL),
               // We use == for a reason. As action.payload.corporationId can be number
-              filter(event => event.payload.corporationWall.id == action.payload.corporationId
-                || event.payload.corporation.id == action.payload.corporationId,
+              filter(event =>
+                event.payload.corporationWall && event.payload.corporationWall.id == action.payload.corporationId
+                || event.payload.corporation && event.payload.corporation.id == action.payload.corporationId,
               ),
             ).subscribe(event => {
               this.store.dispatch(new NewPost({ post: event.payload, key }));
@@ -236,17 +250,19 @@ export class WebsocketEffects {
         new DWebsocketSubscribeToAllianceWall(action.payload.allianceId));
       // Wait for response
       return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
         map(event => {
           if (event.success) {
             const key = getPostListKeyForAllianceWall(action.payload.allianceId);
-            const subscription = fromEvent<DWsNewSubscriptionEvent<DPost>>(
+            this.subscriptions[key] = fromEvent<DWsNewSubscriptionEvent<DPost>>(
               this.socket,
               WS_NEW_SUBSCRIPTION_EVENT)
             .pipe(
               filter(event => event.subscription === WS_SUBSCRIPTIONS.TO_ALLIANCE_WALL),
               // We use == for a reason. As action.payload.allianceId can be number
-              filter(event => event.payload.allianceWall.id == action.payload.allianceId
-                || event.payload.alliance.id == action.payload.allianceId,
+              filter(event =>
+                event.payload.allianceWall && event.payload.allianceWall.id == action.payload.allianceId
+                || event.payload.alliance && event.payload.alliance.id == action.payload.allianceId,
               ),
             ).subscribe(event => {
               this.store.dispatch(new NewPost({ post: event.payload, key }));
@@ -267,10 +283,11 @@ export class WebsocketEffects {
         new DWebsocketSubscribeToPostComment(action.payload.postId));
       // Wait for response
       return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
         map(event => {
           if (event.success) {
             const key = getCommentListKey(action.payload.postId);
-            const subscription = fromEvent<DWsNewSubscriptionEvent<DComment>>(
+            this.subscriptions[key] = fromEvent<DWsNewSubscriptionEvent<DComment>>(
               this.socket,
               WS_NEW_SUBSCRIPTION_EVENT)
             .pipe(
@@ -285,20 +302,150 @@ export class WebsocketEffects {
         }));
     }));
 
+  @Effect()
+  unSubscribeFromHashtagWall$: Observable<UnSubscribeSuccess | UnSubscribeFail> = this.actions$.pipe(
+    ofType<UnSubscribeFromHashtagWall>(WebsocketActionTypes.UN_SUBSCRIBE_FROM_HASHTAG_WALL),
+    concatMap(action => {
+      this.socket.emit(
+        WS_UN_SUBSCRIBE_EVENTS.FROM_HASHTAG_WALL,
+        new DWebsocketUnSubscribeFromHashtagWall(action.payload.hashtag));
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
+        map(event => {
+          if (event.success) {
+            const key = getPostListKeyForHashtagWall(action.payload.hashtag);
+            if (this.subscriptions[key]) {
+              this.subscriptions[key].unsubscribe();
+            }
+            return new UnSubscribeSuccess({ key });
+          }
+          return new UnSubscribeFail();
+        }));
+    }));
+
+  @Effect()
+  unSubscribeFromLatestWall$: Observable<UnSubscribeSuccess | UnSubscribeFail> = this.actions$.pipe(
+    ofType<UnSubscribeFromLatestWall>(WebsocketActionTypes.UN_SUBSCRIBE_FROM_LATEST_WALL),
+    concatMap(action => {
+      this.socket.emit(
+        WS_UN_SUBSCRIBE_EVENTS.FROM_LATEST_WALL,
+        new DWebsocketUnSubscribeFromLatestWall());
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
+        map(event => {
+          if (event.success) {
+            const key = getPostListKeyForLatestWall();
+            if (this.subscriptions[key]) {
+              this.subscriptions[key].unsubscribe();
+            }
+            return new UnSubscribeSuccess({ key });
+          }
+          return new UnSubscribeFail();
+        }));
+    }));
+
+  @Effect()
+  unSubscribeFromCharacterWall$: Observable<UnSubscribeSuccess | UnSubscribeFail> = this.actions$.pipe(
+    ofType<UnSubscribeFromCharacterWall>(WebsocketActionTypes.UN_SUBSCRIBE_FROM_CHARACTER_WALL),
+    concatMap(action => {
+      this.socket.emit(
+        WS_UN_SUBSCRIBE_EVENTS.FROM_CHARACTER_WALL,
+        new DWebsocketUnSubscribeFromCharacterWall(action.payload.characterId));
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
+        map(event => {
+          if (event.success) {
+            const key = getPostListKeyForCharacterWall(action.payload.characterId);
+            if (this.subscriptions[key]) {
+              this.subscriptions[key].unsubscribe();
+            }
+            return new UnSubscribeSuccess({ key });
+          }
+          return new UnSubscribeFail();
+        }));
+    }));
+
+  @Effect()
+  unSubscribeFromCorporationWall$: Observable<UnSubscribeSuccess | UnSubscribeFail> = this.actions$.pipe(
+    ofType<UnSubscribeFromCorporationWall>(WebsocketActionTypes.UN_SUBSCRIBE_FROM_CORPORATION_WALL),
+    concatMap(action => {
+      this.socket.emit(
+        WS_UN_SUBSCRIBE_EVENTS.FROM_CORPORATION_WALL,
+        new DWebsocketUnSubscribeFromCorporationWall(action.payload.corporationId));
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
+        map(event => {
+          if (event.success) {
+            const key = getPostListKeyForCorporationWall(action.payload.corporationId);
+            if (this.subscriptions[key]) {
+              this.subscriptions[key].unsubscribe();
+            }
+            return new UnSubscribeSuccess({ key });
+          }
+          return new UnSubscribeFail();
+        }));
+    }));
+
+  @Effect()
+  unSubscribeFromAllianceWall$: Observable<UnSubscribeSuccess | UnSubscribeFail> = this.actions$.pipe(
+    ofType<UnSubscribeFromAllianceWall>(WebsocketActionTypes.UN_SUBSCRIBE_FROM_ALLIANCE_WALL),
+    concatMap(action => {
+      this.socket.emit(
+        WS_UN_SUBSCRIBE_EVENTS.FROM_ALLIANCE_WALL,
+        new DWebsocketUnSubscribeFromHashtagWall(action.payload.allianceId));
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
+        map(event => {
+          if (event.success) {
+            const key = getPostListKeyForAllianceWall(action.payload.allianceId);
+            if (this.subscriptions[key]) {
+              this.subscriptions[key].unsubscribe();
+            }
+            return new UnSubscribeSuccess({ key });
+          }
+          return new UnSubscribeFail();
+        }));
+    }));
+
+  @Effect()
+  unSubscribeFromPostComments$: Observable<UnSubscribeSuccess | UnSubscribeFail> = this.actions$.pipe(
+    ofType<UnSubscribeFromPostComments>(WebsocketActionTypes.UN_SUBSCRIBE_FROM_POST_COMMENTS),
+    concatMap(action => {
+      this.socket.emit(
+        WS_UN_SUBSCRIBE_EVENTS.FROM_POST_COMMENTS,
+        new DWebsocketUnSubscribeFromPostComment(action.payload.postId));
+      // Wait for response
+      return fromEvent<ISubscriptionResponse>(this.socket, WS_EVENT_SUBSCRIPTION).pipe(
+        take(1),
+        map(event => {
+          if (event.success) {
+            const key = getCommentListKey(action.payload.postId);
+            if (this.subscriptions[key]) {
+              this.subscriptions[key].unsubscribe();
+            }
+            return new UnSubscribeSuccess({ key });
+          }
+          return new UnSubscribeFail();
+        }));
+    }));
+
   public socket: SocketIOClient.Socket;
-  private subscriptions: { [key: string]: boolean };
+  private subscriptions: { [key: string]: Subscription } = {};
 
   constructor(
     private actions$: Actions,
     private store: Store<IAppState>,
     private snackBar: MatSnackBar,
   ) {
-    this.store.pipe(select('websocket', 'subscriptions'))
-    .subscribe(subscriptions => this.subscriptions = subscriptions)
   }
 
   private showSnackBar(message: string) {
-    this.snackBar.open(message, null, { duration: 2500 });
+    this.snackBar.open(message, null, { duration: 2500, horizontalPosition: 'right' });
   }
 
 }

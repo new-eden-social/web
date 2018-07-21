@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { LoadPost } from '../../services/post/post.actions';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IAppState } from '../../app.store';
 import { Observable } from 'rxjs/index';
 import { DPost } from '../../services/post/post.dto';
-import { DCharacter } from '../../services/character/character.dto';
 import {
-  SubscribeToAllianceWall,
-  SubscribeToPostComments,
+  SubscribeToPostComments, UnSubscribeFromPostComments,
 } from '../../services/websocket/websocket.actions';
 import { filter } from 'rxjs/internal/operators';
 
@@ -17,9 +15,9 @@ import { filter } from 'rxjs/internal/operators';
   templateUrl: './post-single.component.html',
   styleUrls: ['./post-single.component.scss'],
 })
-export class PostSingleComponent implements OnInit {
+export class PostSingleComponent implements OnInit, OnDestroy {
 
-  websocketAuthenticated$: Observable<boolean>;
+  websocketConnected$: Observable<boolean>;
 
   post$: Observable<DPost>;
   entityId: string;
@@ -31,11 +29,20 @@ export class PostSingleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) {
+    this.websocketConnected$ = this.store.pipe(select('websocket', 'connected'));
+  }
+
+  ngOnDestroy() {
+    this.websocketConnected$.pipe(
+      filter(connected => connected)
+    ).subscribe(() => {
+      this.store.dispatch(new UnSubscribeFromPostComments({
+        postId: this.postId,
+      }));
+    });
   }
 
   ngOnInit() {
-    this.websocketAuthenticated$ = this.store.pipe(select('websocket', 'authenticated'));
-
     this.route.params.subscribe(() => {
       this.entityId = this.route.parent.snapshot.paramMap.get('id');
       this.entityType = <'character' | 'corporation' | 'alliance'>this.route.snapshot.data.entity;
@@ -44,8 +51,8 @@ export class PostSingleComponent implements OnInit {
       this.post$ = this.store.pipe(select('post', 'single', this.postId));
       this.store.dispatch(new LoadPost({ postId: this.postId }));
 
-      this.websocketAuthenticated$.pipe(
-        filter(authenticated => authenticated),
+      this.websocketConnected$.pipe(
+        filter(connected => connected),
       ).subscribe(() => {
         this.store.dispatch(new SubscribeToPostComments({
           postId: this.postId,

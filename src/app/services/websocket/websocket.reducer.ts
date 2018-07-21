@@ -47,6 +47,16 @@ export function websocketReducer(
       };
     }
 
+    case WebsocketActionTypes.UN_SUBSCRIBE_SUCCESS: {
+      return {
+        ...state,
+        subscriptions: {
+          ...state.subscriptions,
+          [action.payload.key]: false,
+        },
+      };
+    }
+
     default: {
       return state;
     }

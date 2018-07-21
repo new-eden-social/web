@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { Subscription } from 'rxjs/Rx';
 
 export enum WebsocketActionTypes {
   CONNECT = '[Websocket] Try to establish connection',
@@ -20,6 +19,15 @@ export enum WebsocketActionTypes {
   SUBSCRIBE_TO_POST_COMMENTS = '[Websocket] Subscribe to post comments',
   SUBSCRIBE_SUCCESS = '[Websocket] Subscribe success',
   SUBSCRIBE_FAIL = '[Websocket] Subscribe fail',
+
+  UN_SUBSCRIBE_FROM_LATEST_WALL = '[Websocket] Un Subscribe from latest wall',
+  UN_SUBSCRIBE_FROM_HASHTAG_WALL = '[Websocket] Un Subscribe from hashtag wall',
+  UN_SUBSCRIBE_FROM_CHARACTER_WALL = '[Websocket] Un Subscribe from character wall',
+  UN_SUBSCRIBE_FROM_CORPORATION_WALL = '[Websocket] Un Subscribe from corporation wall',
+  UN_SUBSCRIBE_FROM_ALLIANCE_WALL = '[Websocket] Un Subscribe from alliance wall',
+  UN_SUBSCRIBE_FROM_POST_COMMENTS = '[Websocket] Un Subscribe from post comments',
+  UN_SUBSCRIBE_SUCCESS = '[Websocket] Un Subscribe success',
+  UN_SUBSCRIBE_FAIL = '[Websocket] Un Subscribe fail',
 }
 
 export class Connect implements Action {
@@ -114,6 +122,56 @@ export class SubscribeFail implements Action {
   readonly type = WebsocketActionTypes.SUBSCRIBE_FAIL;
 }
 
+export class UnSubscribeFromLatestWall implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FROM_LATEST_WALL;
+}
+
+export class UnSubscribeFromHashtagWall implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FROM_HASHTAG_WALL;
+
+  constructor(public payload: { hashtag: string }) {
+  }
+}
+
+export class UnSubscribeFromCharacterWall implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FROM_CHARACTER_WALL;
+
+  constructor(public payload: { characterId: number|string }) {
+  }
+}
+
+export class UnSubscribeFromCorporationWall implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FROM_CORPORATION_WALL;
+
+  constructor(public payload: { corporationId: number|string }) {
+  }
+}
+
+export class UnSubscribeFromAllianceWall implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FROM_ALLIANCE_WALL;
+
+  constructor(public payload: { allianceId: number|string }) {
+  }
+}
+
+export class UnSubscribeFromPostComments implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FROM_POST_COMMENTS;
+
+  constructor(public payload: { postId: string }) {
+  }
+}
+
+export class UnSubscribeSuccess implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_SUCCESS;
+
+  constructor(public payload: { key: string }){
+  }
+}
+
+export class UnSubscribeFail implements Action {
+  readonly type = WebsocketActionTypes.UN_SUBSCRIBE_FAIL;
+}
+
 export type WebsocketActionsUnion =
   Authenticate
   | AuthenticateSuccess
@@ -131,4 +189,11 @@ export type WebsocketActionsUnion =
   | SubscribeToAllianceWall
   | SubscribeToPostComments
   | SubscribeSuccess
-  | SubscribeFail;
+  | SubscribeFail
+  | UnSubscribeFromLatestWall
+  | UnSubscribeFromHashtagWall
+  | UnSubscribeFromCharacterWall
+  | UnSubscribeFromCorporationWall
+  | UnSubscribeFromAllianceWall
+  | UnSubscribeSuccess
+  | UnSubscribeFail;

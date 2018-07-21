@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -8,7 +8,10 @@ import { DPostList } from '../services/post/post.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../app.store';
 import { GetLatest } from '../services/post/post.actions';
-import { SubscribeToLatestWall } from '../services/websocket/websocket.actions';
+import {
+  SubscribeToLatestWall,
+  UnSubscribeFromLatestWall,
+} from '../services/websocket/websocket.actions';
 import { filter } from 'rxjs/internal/operators';
 
 @Component({
@@ -16,12 +19,12 @@ import { filter } from 'rxjs/internal/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   postList$: Observable<DPostList>;
 
   authenticated$: Observable<boolean>;
-  websocketAuthenticated$: Observable<boolean>;
+  websocketConnected$: Observable<boolean>;
 
   page: number;
 
@@ -57,7 +60,15 @@ export class HomeComponent implements OnInit {
   ) {
     this.postList$ = this.store.pipe(select('post', 'list', 'latest'));
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
-    this.websocketAuthenticated$ = this.store.pipe(select('websocket', 'authenticated'))
+    this.websocketConnected$ = this.store.pipe(select('websocket', 'connected'))
+  }
+
+  ngOnDestroy() {
+    this.websocketConnected$.pipe(
+      filter(connected => connected)
+    ).subscribe(() => {
+      this.store.dispatch(new UnSubscribeFromLatestWall());
+    });
   }
 
   ngOnInit() {
@@ -69,8 +80,8 @@ export class HomeComponent implements OnInit {
       this.store.dispatch(new GetLatest({ page: this.page, limit: 20 }));
     });
 
-    this.websocketAuthenticated$.pipe(
-      filter(authenticated => authenticated)
+    this.websocketConnected$.pipe(
+      filter(connected => connected)
     ).subscribe(() => {
       this.store.dispatch(new SubscribeToLatestWall());
     });

@@ -1,5 +1,6 @@
 <div class="post-list">
-  <app-post-form [characterWall]="characterWall"
+  <app-post-form *ngIf="showForm"
+                 [characterWall]="characterWall"
                  [corporationWall]="corporationWall"
                  [allianceWall]="allianceWall">
   </app-post-form>

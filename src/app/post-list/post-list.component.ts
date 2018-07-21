@@ -26,6 +26,9 @@ export class PostListComponent implements OnInit {
   @Input()
   postList: DPostList;
 
+  @Input()
+  showForm: boolean = true;
+
   authenticated$: Observable<boolean>;
 
   constructor(
