@@ -7,8 +7,15 @@ import { HashtagComponent } from './hashtag/hashtag.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PostListComponent } from './profile/post-list/post-list.component';
 import { PostSingleComponent } from './profile/post-single/post-single.component';
+import { AboutComponent } from './about/about.component';
+import { LegalComponent } from './about/legal/legal.component';
+import { EvebookComponent } from './about/evebook/evebook.component';
+import { ApiComponent } from './about/api/api.component';
+import { OtherPartiesComponent } from './about/other-parties/other-parties.component';
+import { Routes } from '@angular/router';
+import { DonationsComponent } from './about/donations/donations.component';
 
-export const appRoutes = [
+export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'hashtag/:hashtag', component: HashtagComponent },
   {
@@ -36,5 +43,17 @@ export const appRoutes = [
     ],
   },
   { path: 'authentication/callback', component: AuthenticationComponent },
+  {
+    path: 'about',
+    component: AboutComponent,
+    children: [
+      { path: '', redirectTo: 'evebook', pathMatch: 'full' },
+      { path: 'evebook', component: EvebookComponent },
+      { path: 'api', component: ApiComponent },
+      { path: 'legal', component: LegalComponent },
+      { path: '3th-parties', component: OtherPartiesComponent },
+      { path: 'donations', component: DonationsComponent },
+    ],
+  },
   { path: '**', component: PageNotFoundComponent },
 ];

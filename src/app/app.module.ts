@@ -8,10 +8,7 @@ import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './navbar/navbar.module';
 import { HomeModule } from './home/home.module';
-import { CharacterModule } from './profile/character/character.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { CorporationModule } from './profile/corporation/corporation.module';
-import { AllianceModule } from './profile/alliance/alliance.module';
 import { HashtagModule } from './hashtag/hashtag.module';
 import { effects, metaReducers, reducers } from './app.store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -23,6 +20,7 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import {TransferHttpCacheModule} from '@nguniversal/common';
 import { ProfileModule } from './profile/profile.module';
+import { AboutModule } from './about/about.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +51,7 @@ import { ProfileModule } from './profile/profile.module';
     HashtagModule,
     MatSnackBarModule,
     PageNotFoundModule,
+    AboutModule,
   ],
   providers: [
     httpInterceptorProviders,

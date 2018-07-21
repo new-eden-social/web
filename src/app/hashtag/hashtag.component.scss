@@ -1,4 +1,5 @@
 @import "../../variables";
+@import "../../common";
 @import '~@angular/material/theming';
 
 .hashtags {
@@ -8,25 +9,7 @@
   margin-bottom: 4em;
 
   .header {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    background: $app-background-color;
-    padding: 1em 0;
-
-    h2 {
-      display: flex;
-      font-weight: 400;
-      letter-spacing: 0.075em;
-      padding: 1em 0;
-      margin: 0;
-      text-transform: uppercase;
-
-      strong {
-        margin-left: 0.25em;
-      }
-    }
+    @include header
   }
 
   .content {
