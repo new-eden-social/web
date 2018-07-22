@@ -1,7 +1,7 @@
 @import "../../variables";
 @import '~@angular/material/theming';
+@import "../../common";
 
-$emoji-size: 1.15em;
 
 mat-card.post-item {
   @include mat-elevation(0);
@@ -64,31 +64,7 @@ mat-card.post-item {
       }
 
       .card-text {
-        margin: 0;
-        margin-top: 0.25em;
-        white-space: pre-wrap;
-
-        a {
-          color: map-get($app-primary, 500);
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-
-
-        .emoji-mart-emoji {
-          font-size: $emoji-size;
-          display: inline-flex;
-          > span {
-            width: $emoji-size !important;
-            height: $emoji-size !important;
-            font-size: $emoji-size;
-            display: flex;
-            color: transparent;
-          }
-        }
+        @include post-content()
       }
     }
   }

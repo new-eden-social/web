@@ -20,17 +20,27 @@ export class RichContentEditableComponent {
   ) {
   }
 
-  @HostListener('keyup')
-  writing() {
-    const value = this.elRef.nativeElement.textContent;
+  public clear() {
+    this.contentHtml = '';
+    this.update.emit('');
+  }
+
+  public setValue(value: string) {
     this.update.emit(value);
 
     let html = value;
     // TODO: Sanitize html, as for now it should be just text
     html = this.richContentService.parseHashtags(html, true);
-    html = this.richContentService.parseEmojies(html);
+    // We don't parse emojis when editing, it complicates stuff by a shit ton (cursor positioning)..
+    // html = this.richContentService.parseEmojies(html);
     html = this.richContentService.parseText(html);
 
     this.contentHtml = html;
+  }
+
+  @HostListener('keyup')
+  writing() {
+    const value = this.elRef.nativeElement.textContent;
+    this.setValue(value);
   }
 }

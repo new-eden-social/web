@@ -36,12 +36,25 @@
 
     <div class="post-input-wrap">
       <app-rich-content-editable
+        #postForm
         class="post-input-field"
         (update)="writing($event)">
       </app-rich-content-editable>
     </div>
 
+
     <div class="button-wrap">
+      <div class="emoji-wrapper">
+        <emoji-mart *ngIf="showEmojiMart"
+                    id="emoji-mart-picker"
+                    (emojiClick)="insertEmoji($event)"
+                    title="Pick your emoji…"
+                    emoji="point_up"
+                    set="emojione"></emoji-mart>
+        <button id="open-emoji-mart-picker" mat-icon-button (click)="openEmojiMart()">
+          <ngx-emoji emoji=":slightly_smiling_face:" set="emojione"></ngx-emoji>
+        </button>
+      </div>
       <button mat-button (click)="submit()">Share</button>
     </div>
   </div>

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { DCharacterShort } from '../../services/character/character.dto';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import {
@@ -9,16 +8,21 @@ import {
   PostAsCorporation,
 } from '../../services/comment/comment.actions';
 import { SubscribeToPostComments } from '../../services/websocket/websocket.actions';
+import { RichContentEditableComponent } from '../../rich-content/rich-content-editable.component';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CommentFormComponent implements OnInit {
 
   @Input('postId')
   postId: string;
+
+  @ViewChild(RichContentEditableComponent)
+  private commentForm: RichContentEditableComponent;
 
   authenticated$: Observable<boolean>;
 
@@ -30,9 +34,6 @@ export class CommentFormComponent implements OnInit {
   postAs: 'character' | 'corporation' | 'alliance';
   postAsImage: string;
   postValue: string = '';
-  commentHtml: string = '';
-
-  private writingSubject = new BehaviorSubject<string>('');
 
   constructor(
     private store: Store<IAppState>,
@@ -46,20 +47,9 @@ export class CommentFormComponent implements OnInit {
       this.character = character;
       if (this.character) this.setCharacter();
     });
-
-    this.writingSubject.subscribe(value => {
-      this.postValue = value;
-
-      const hashtagHtml = value.replace(
-        /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
-        (hashtag) => `<a href="" class="input-field-link">${hashtag}</a>`);
-
-      this.commentHtml = hashtagHtml;
-    });
   }
 
   writing(value: string) {
-    console.log("change  comment form", value)
     this.postValue = value;
   }
 
@@ -98,6 +88,6 @@ export class CommentFormComponent implements OnInit {
         this.store.dispatch(new PostAsAlliance({ postId: this.postId, content: this.postValue }));
         break;
     }
-    this.writing('');
+    this.commentForm.clear();
   }
 }

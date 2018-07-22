@@ -1,15 +1,17 @@
 import {
-  Component, Input, OnInit,
+  Component, ContentChild, ContentChildren, ElementRef, HostListener, Input, OnInit, ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DCharacter, DCharacterShort } from '../services/character/character.dto';
 import { DCorporation } from '../services/corporation/corporation.dto';
 import { DAlliance } from '../services/alliance/alliance.dto';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../app.store';
 import { PostAsAlliance, PostAsCharacter, PostAsCorporation } from '../services/post/post.actions';
+import { RichContentEditableComponent } from '../rich-content/rich-content-editable.component';
+import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji/emoji.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-post-form',
@@ -28,6 +30,9 @@ export class PostFormComponent implements OnInit {
   @Input()
   allianceWall?: DAlliance;
 
+  @ViewChild(RichContentEditableComponent)
+  private postForm: RichContentEditableComponent;
+
   authenticated$: Observable<boolean>;
 
   character$: Observable<DCharacterShort>;
@@ -43,11 +48,12 @@ export class PostFormComponent implements OnInit {
   postAs: 'character' | 'corporation' | 'alliance';
   postAsImage: string;
   postValue = '';
-  postHtml = '';
-  private writingSubject = new BehaviorSubject<string>('');
+
+  showEmojiMart = false;
 
   constructor(
     private store: Store<IAppState>,
+    public element: ElementRef,
   ) {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
     this.character$ = this.store.pipe(select('authentication', 'character'));
@@ -58,20 +64,37 @@ export class PostFormComponent implements OnInit {
       this.character = character;
       if (this.character) this.setCharacter();
     });
+  }
 
-    this.writingSubject.subscribe(value => {
-      this.postValue = value;
+  openEmojiMart() {
+    this.showEmojiMart = true;
+  }
 
-      const hashtagHtml = value.replace(
-        /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
-        (hashtag) => `<a href="" class="input-field-link">${hashtag}</a>`);
+  @HostListener('document:click', ['$event.target'])
+  closeEmojiMart(target: Element) {
+    const emojiMartPicker = this.element.nativeElement.querySelector('#emoji-mart-picker');
+    const openEmojiMart = this.element.nativeElement.querySelector('#open-emoji-mart-picker');
 
-      this.postHtml = hashtagHtml;
-    });
+    // Ignore if clicked on a open emoji mart button
+    if (openEmojiMart && openEmojiMart.contains(target)) {
+      return;
+    }
+
+    if (emojiMartPicker && this.showEmojiMart) {
+      const contains = emojiMartPicker.contains(target);
+      if (!contains) {
+        this.showEmojiMart = false;
+      }
+    }
+  }
+
+  insertEmoji(emoji: EmojiEvent) {
+    this.showEmojiMart = false;
+    this.postForm.setValue(this.postValue + " " + emoji.emoji.colons);
   }
 
   writing(value: string) {
-    this.writingSubject.next(value);
+    this.postValue = value;
   }
 
   setCharacter() {
@@ -153,6 +176,6 @@ export class PostFormComponent implements OnInit {
         break;
     }
     // TODO: We could wait for feedback, if error do not reset
-    this.writing('');
+    this.postForm.clear();
   }
 }

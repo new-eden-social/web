@@ -108,8 +108,6 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy, OnInit {
 
     const mainElement = <Element>this.vcRef.element.nativeElement.parentElement.children[1];
 
-    console.log('saving', mainElement, mainElement.textContent);
-
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const preSelectionRange = range.cloneRange();

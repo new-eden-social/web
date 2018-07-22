@@ -21,7 +21,10 @@ export class RichContentService {
     return content.replace(
       /(:[a-zA-Z0-9-_+]+:(:skin-tone-[2-6]:)?)/g,
       emoji =>
-        `<ngx-emoji contenteditable="false" set="emojione" emoji="${emoji}" size="32">` +
+        `<ngx-emoji contenteditable="false"
+                    set="emojione"
+                    emoji="${emoji}"
+                    size="32">` +
         `${emoji}` +
         `</ngx-emoji>`);
   }

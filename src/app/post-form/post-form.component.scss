@@ -1,6 +1,22 @@
 @import "../../variables";
+@import "../../common";
 
-$emoji-size: 1.15em;
+.emoji-wrapper {
+  position: relative;
+
+  > emoji-mart {
+    position: absolute;
+    z-index: 5;
+  }
+
+  #open-emoji-mart-picker {
+    .emoji-mart-emoji {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
 
 .post-form-panel {
   .mat-expansion-panel-body {
@@ -17,8 +33,13 @@ $emoji-size: 1.15em;
 
     > .button-wrap {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      > * {
+        margin: 0 .2em;
+      }
     }
 
     .select-post-method {
@@ -66,6 +87,8 @@ $emoji-size: 1.15em;
     flex: 1 1;
 
     dynamic-html {
+      @include post-content();
+
       border-bottom: 1px solid #f3f3f3;
       display: flex;
       flex: 1 1;
@@ -75,21 +98,6 @@ $emoji-size: 1.15em;
 
       &:focus {
         border-bottom: 1px solid map-get($app-primary, 500);
-      }
-
-      .emoji-mart-emoji {
-        font-size: $emoji-size;
-        > span {
-          width: $emoji-size !important;
-          height: $emoji-size !important;
-          font-size: $emoji-size;
-          display: flex;
-          color: transparent;
-        }
-      }
-
-      .hashtag {
-        color: map-get($app-primary, 500);
       }
     }
   }

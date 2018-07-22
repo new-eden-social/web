@@ -1,8 +1,8 @@
 @import "../../../variables";
 @import '~@angular/material/theming';
+@import "../../../common";
 
 $image-size: 32px;
-$emoji-size: 1.25rem;
 
 .comment {
   display: flex;
@@ -59,32 +59,7 @@ $emoji-size: 1.25rem;
     }
 
     .comment-text {
-      margin: 0;
-      margin-top: 0.25em;
-      white-space: pre-wrap;
-      font-size: 0.8em;
-      letter-spacing: 0.08em;
-
-      a {
-        color: map-get($app-primary, 500);
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-
-
-      ngx-emoji {
-        display: inline-block;
-        .emoji-mart-emoji {
-          > span {
-            width: $emoji-size !important;
-            height: $emoji-size !important;
-            font-size: $emoji-size;
-          }
-        }
-      }
+      @include post-content(1.25rem)
     }
   }
 }

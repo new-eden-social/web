@@ -1,4 +1,5 @@
 @import "../../../variables";
+@import "../../../common";
 
 $image-size: 32px;
 
@@ -60,22 +61,22 @@ $image-size: 32px;
   margin: 0 1em 0 0;
 
   .comment-input-field {
-    border-bottom: 1px solid #f3f3f3;
-    display: block;
+    display: flex;
     flex: 1 1;
-    transition: border-bottom 280ms cubic-bezier(.4, 0, .2, 1);
-    font-size: 0.8em;
-    align-self: center;
-    min-height: 15px; // Firefox fix
 
-    &:focus {
-      border-bottom: 1px solid map-get($app-primary, 500);
-      outline: 0;
-    }
+    dynamic-html {
+      @include post-content(0.8em);
 
-    .input-field-link {
-      color: map-get($app-primary, 500);
-      text-decoration: none;
+      border-bottom: 1px solid #f3f3f3;
+      display: flex;
+      flex: 1 1;
+      outline: none;
+      // transition: border-bottom 280ms cubic-bezier(.4, 0, .2, 1);
+      min-height: 21px; // Firefox fix
+
+      &:focus {
+        border-bottom: 1px solid map-get($app-primary, 500);
+      }
     }
   }
 }
