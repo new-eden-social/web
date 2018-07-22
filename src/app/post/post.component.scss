@@ -80,10 +80,13 @@ mat-card.post-item {
 
         .emoji-mart-emoji {
           font-size: $emoji-size;
+          display: inline-flex;
           > span {
             width: $emoji-size !important;
             height: $emoji-size !important;
             font-size: $emoji-size;
+            display: flex;
+            color: transparent;
           }
         }
       }

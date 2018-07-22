@@ -42,8 +42,8 @@ export class PostFormComponent implements OnInit {
 
   postAs: 'character' | 'corporation' | 'alliance';
   postAsImage: string;
-  postValue: string = '';
-  postHtml: string = '';
+  postValue = '';
+  postHtml = '';
   private writingSubject = new BehaviorSubject<string>('');
 
   constructor(

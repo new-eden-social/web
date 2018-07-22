@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RichContentService } from './rich-content.service';
 
 @Component({
@@ -7,9 +7,10 @@ import { RichContentService } from './rich-content.service';
 })
 export class RichContentComponent implements OnInit {
 
-  @Input() content: string;
+  @Input()
+  content: string;
 
-  private contentHtml = '';
+  contentHtml = '';
 
   constructor(private richContentService: RichContentService) { }
 
@@ -17,6 +18,7 @@ export class RichContentComponent implements OnInit {
     this.contentHtml = this.content;
     this.contentHtml = this.richContentService.parseHashtags(this.contentHtml);
     this.contentHtml = this.richContentService.parseEmojies(this.contentHtml);
+    this.contentHtml = this.richContentService.parseText(this.contentHtml);
   }
 
 }

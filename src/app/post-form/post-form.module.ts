@@ -6,7 +6,7 @@ import {
   MatMenuModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContentEditableModule } from '../content-editable/content-editable.module';
+import { RichContentModule } from '../rich-content/rich-content.module';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { ContentEditableModule } from '../content-editable/content-editable.modu
     MatExpansionModule,
     MatMenuModule,
     MatIconModule,
-    ContentEditableModule,
+    RichContentModule,
   ],
   exports: [PostFormComponent],
   declarations: [PostFormComponent],
