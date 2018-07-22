@@ -55,11 +55,11 @@ export class ContentEditableDirective implements OnChanges {
   }
 
   private restoreSelection() {
-    let charIndex = 0;
     const range = document.createRange();
     range.setStart(this.elRef.nativeElement, 0);
     range.collapse(true);
     let nodeStack = [this.elRef.nativeElement];
+    let charIndex = 0;
     let node;
     let foundStart = false;
     let stop = false;
@@ -84,6 +84,7 @@ export class ContentEditableDirective implements OnChanges {
       }
     }
 
+    console.log(range, this.selection);
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);

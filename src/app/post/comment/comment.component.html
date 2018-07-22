@@ -9,7 +9,7 @@
       <a [routerLink]="link">{{ name }}</a>
       <small class="mat-caption">{{ comment.createdAt | amTimeAgo }}</small>
     </div>
-    <p class="comment-text" [innerHtml]="content"></p>
+    <app-rich-content class="comment-text" [content]="comment.content"></app-rich-content>
   </div>
 
 </section>

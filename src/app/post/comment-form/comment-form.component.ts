@@ -59,7 +59,8 @@ export class CommentFormComponent implements OnInit {
   }
 
   writing(value: string) {
-    this.writingSubject.next(value);
+    console.log("change  comment form", value)
+    this.postValue = value;
   }
 
   setCharacter() {

@@ -14,7 +14,7 @@
           <small class="mat-caption"> {{ post.createdAt | amTimeAgo }}</small>
         </a>
       </div>
-      <p class="card-text" [innerHtml]="content"></p>
+      <app-rich-content class="card-text" [content]="post.content"></app-rich-content>
     </div>
 
   </div>

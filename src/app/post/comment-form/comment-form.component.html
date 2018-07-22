@@ -25,14 +25,11 @@
   </button>
 
   <div class="comment-input-wrap">
-    <div class="comment-input-field"
-         contenteditable="true"
-         role="textbox"
-         aria-multiline="true"
-         appContentEditable
-         [contentValue]="commentHtml"
-         (contentValueUpdate)="writing($event)">
-    </div>
+    <app-rich-content-editable
+        contenteditable="true"
+        class="comment-input-field"
+        (update)="writing($event)">
+    </app-rich-content-editable>
   </div>
 
   <div class="button-wrap">

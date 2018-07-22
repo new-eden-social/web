@@ -6,6 +6,7 @@ import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material
 import { MomentModule } from 'angular2-moment';
 import { CommentModule } from './comment/comment.module';
 import { CommentFormModule } from './comment-form/comment-form.module';
+import { RichContentModule } from '../rich-content/rich-content.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { CommentFormModule } from './comment-form/comment-form.module';
 
     CommentModule,
     CommentFormModule,
+    RichContentModule,
   ],
   declarations: [PostComponent],
   exports: [PostComponent],

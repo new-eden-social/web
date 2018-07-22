@@ -4,6 +4,8 @@
 @import '~@angular/material/theming';
 // Import font
 @import "font";
+// Import emojies
+@import "~@ctrl/ngx-emoji-mart/picker";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
