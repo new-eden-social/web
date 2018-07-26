@@ -9,7 +9,7 @@
     <div class="nav-container">
       <a *ngIf="!(authenticated$ | async)"
          href="{{authenticationUrl}}authentication/sso"
-         mat-button>LOG IN</a>
+         mat-raised-button color="accent">LOG IN</a>
       <a *ngIf="authenticated$ | async"
          [routerLink]="['character', (character$|async).id]"
          mat-button>PROFILE</a>

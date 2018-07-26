@@ -1,5 +1,5 @@
 import {
-  Component, ContentChild, ContentChildren, ElementRef, HostListener, Input, OnInit, ViewChild,
+  Component, ElementRef, HostListener, Input, OnInit, ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,7 +11,6 @@ import { IAppState } from '../app.store';
 import { PostAsAlliance, PostAsCharacter, PostAsCorporation } from '../services/post/post.actions';
 import { RichContentEditableComponent } from '../rich-content/rich-content-editable.component';
 import { EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji/emoji.component';
-import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-post-form',
@@ -30,9 +29,6 @@ export class PostFormComponent implements OnInit {
   @Input()
   allianceWall?: DAlliance;
 
-  @ViewChild(RichContentEditableComponent)
-  private postForm: RichContentEditableComponent;
-
   authenticated$: Observable<boolean>;
 
   character$: Observable<DCharacterShort>;
@@ -50,6 +46,12 @@ export class PostFormComponent implements OnInit {
   postValue = '';
 
   showEmojiMart = false;
+
+  @ViewChild(RichContentEditableComponent)
+  private postForm: RichContentEditableComponent;
+
+  @ViewChild('openEmojiMartButton')
+  private openEmojiMartButton: ElementRef;
 
   constructor(
     private store: Store<IAppState>,
@@ -90,7 +92,7 @@ export class PostFormComponent implements OnInit {
 
   insertEmoji(emoji: EmojiEvent) {
     this.showEmojiMart = false;
-    this.postForm.setValue(this.postValue + " " + emoji.emoji.colons);
+    this.postForm.setValue(this.postValue + ' ' + emoji.emoji.colons);
   }
 
   writing(value: string) {

@@ -5,7 +5,6 @@ import {
   Input,
   ViewContainerRef,
   Compiler,
-  ComponentFactory,
   ModuleWithComponentFactories,
   ComponentRef,
   Injector,
@@ -62,9 +61,8 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy, OnInit {
       this.cmpRef.destroy();
     }
 
-    const template = `<span>${this.html}</span>`;
-
     // Create dynamic component with template
+    const template = `${this.html}`;
     @Component({
       selector: 'dynamic-html',
       template,
@@ -117,13 +115,6 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy, OnInit {
   }
 
   private restoreSelection() {
-    if (
-      window.getSelection().rangeCount === 0 ||
-      !this.vcRef.element.nativeElement.parentElement ||
-      this.vcRef.element.nativeElement.parentElement.children.length < 2
-    ) {
-    }
-
     const mainElement = <Element>this.vcRef.element.nativeElement.parentElement.children[1];
     const selection = window.getSelection();
     const pos = this.getTextNodeAtPosition(mainElement, this.selectionLength);

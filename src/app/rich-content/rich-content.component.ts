@@ -16,9 +16,9 @@ export class RichContentComponent implements OnInit {
 
   ngOnInit() {
     this.contentHtml = this.content;
+    this.contentHtml = this.richContentService.parseText(this.contentHtml);
     this.contentHtml = this.richContentService.parseHashtags(this.contentHtml);
     this.contentHtml = this.richContentService.parseEmojies(this.contentHtml);
-    this.contentHtml = this.richContentService.parseText(this.contentHtml);
   }
 
 }

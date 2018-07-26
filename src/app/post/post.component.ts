@@ -21,6 +21,9 @@ export class PostComponent implements OnInit {
   @Input()
   post: DPost;
 
+  @Input()
+  showCommentForm = true;
+
   comments$: Observable<DCommentList>;
   comments: DComment[] = [];
   moreComments = false;

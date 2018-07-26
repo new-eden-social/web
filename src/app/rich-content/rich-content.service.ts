@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RichContentService {
 
-  public parseHashtags(content: string, editable = false): string {
+  public parseHashtags(content: string, editing = false): string {
     return content.replace(
       /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/g,
       hashtag => {
-        if (editable) {
+        if (editing) {
           return `<span class="hashtag">${hashtag}</span>`
         }
         return `<a
@@ -30,6 +30,8 @@ export class RichContentService {
   }
 
   public parseText(content: string): string {
-    return content;
+    // Replacing spaces with encoded value, this fixes weird issue
+    // with cursor restoration
+    return content.replace(' ', '&nbsp;')
   }
 }

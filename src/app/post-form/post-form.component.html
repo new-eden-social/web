@@ -38,6 +38,7 @@
       <app-rich-content-editable
         #postForm
         class="post-input-field"
+        (submit)="submit()"
         (update)="writing($event)">
       </app-rich-content-editable>
     </div>
@@ -52,7 +53,7 @@
                     emoji="point_up"
                     set="emojione"></emoji-mart>
         <button id="open-emoji-mart-picker" mat-icon-button (click)="openEmojiMart()">
-          <ngx-emoji emoji=":slightly_smiling_face:" set="emojione"></ngx-emoji>
+          <mat-icon>mood</mat-icon>
         </button>
       </div>
       <button mat-button (click)="submit()">Share</button>

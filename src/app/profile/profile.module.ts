@@ -5,6 +5,7 @@ import { ProfilePostListModule } from './post-list/post-list.module';
 import { AllianceModule } from './alliance/alliance.module';
 import { CharacterModule } from './character/character.module';
 import { CorporationModule } from './corporation/corporation.module';
+import { DescriptionModule } from './description/description.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { CorporationModule } from './corporation/corporation.module';
     AllianceModule,
     CharacterModule,
     CorporationModule,
+    DescriptionModule,
   ],
   declarations: []
 })

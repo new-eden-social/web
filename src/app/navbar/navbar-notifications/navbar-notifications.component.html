@@ -3,7 +3,7 @@
 
     <a matBadge="{{ (newNotifications$ | async).length }}"
        matBadgeHidden="{{ (newNotifications$ | async).length === 0 }}"
-       matBadgeColor="accent"
+       matBadgeColor="primary"
        (focus)="toggleFocus()"
        (blur)="toggleBlur()"
        mat-button>NOTIFICATIONS</a>

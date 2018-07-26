@@ -14,6 +14,7 @@ import { ApiComponent } from './about/api/api.component';
 import { OtherPartiesComponent } from './about/other-parties/other-parties.component';
 import { Routes } from '@angular/router';
 import { DonationsComponent } from './about/donations/donations.component';
+import { DescriptionComponent } from './profile/description/description.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +25,7 @@ export const appRoutes: Routes = [
     children: [
       { path: '', component: PostListComponent, data: { entity: 'character' } },
       { path: 'post/:postId', component: PostSingleComponent, data: { entity: 'character' } },
+      { path: 'description', component: DescriptionComponent, data: { entity: 'character' } },
     ],
   },
   {
@@ -32,6 +34,7 @@ export const appRoutes: Routes = [
     children: [
       { path: '', component: PostListComponent, data: { entity: 'corporation' } },
       { path: 'post/:postId', component: PostSingleComponent, data: { entity: 'corporation' } },
+      { path: 'description', component: DescriptionComponent, data: { entity: 'corporation' } },
     ],
   },
   {

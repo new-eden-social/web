@@ -1,4 +1,5 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile-header',
@@ -6,7 +7,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   @Input('image')
   image?: string;
@@ -25,5 +26,18 @@ export class HeaderComponent {
     link: string,
     text: string,
   };
+
+  zkillboardUrl: string;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.route.url.subscribe(([entity, id]) => {
+      this.zkillboardUrl = `//zkillboard.com/${entity}/${id}/`;
+    });
+  }
 
 }

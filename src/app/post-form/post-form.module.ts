@@ -21,6 +21,7 @@ import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
     RichContentModule,
     PickerModule,
     EmojiModule,
+    MatIconModule,
   ],
   exports: [PostFormComponent],
   declarations: [PostFormComponent],

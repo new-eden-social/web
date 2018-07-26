@@ -3,15 +3,16 @@
 .home-welcome {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - #{$app-navbar-height} - #{$app-content-top-margin});
 
   .jumbotron {
+    margin-top: 10em;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    flex: 1 1 auto;
-    text-align: center;
+
+    &:last-child {
+      margin-bottom: 10em;
+    }
 
     h1 {
       text-transform: uppercase;
@@ -21,6 +22,13 @@
     }
 
     h3 {
+      margin-bottom: .5em;
+      font-size: 2em;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    h4 {
       font-weight: 300;
       font-size: 1.5em;
       margin: 0;
@@ -55,6 +63,42 @@
         font-weight: 300;
         text-transform: uppercase;
       }
+    }
+  }
+
+  .take-a-look-inside {
+    app-post-list {
+      width: 40%;
+    }
+  }
+
+  .built-by-community {
+
+    .contributors-list,
+    .project-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      a {
+        color: map-get($app-primary, 500);
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .contributors-list a {
+      margin: .5em;
+      font-size: 1em;
+      font-weight: 500;
+    }
+
+    .project-list a {
+      margin: 1em;
+      font-size: 1.5em;
+      font-weight: 500;
     }
   }
 }

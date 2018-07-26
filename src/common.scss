@@ -46,7 +46,10 @@
     padding: 1em;
     border-top: 1px solid map-get($app-primary, 500);
 
-    h2 {
+    h2,
+    h3,
+    h4,
+    h5 {
       text-transform: uppercase;
       margin-top: 0;
     }

@@ -4,10 +4,12 @@
                  [corporationWall]="corporationWall"
                  [allianceWall]="allianceWall">
   </app-post-form>
-  <app-post *ngFor="let post of postList.data" [post]="post"></app-post>
+  <app-post [showCommentForm]="showCommentForm"
+            *ngFor="let post of postList.data"
+            [post]="post"></app-post>
 </div>
 
-<mat-card class="start" *ngIf="postList.data.length !== 0">
+<mat-card class="start" *ngIf="postList.data.length !== 0 && showEnding">
   <mat-card-content>
     <p>Start of everything</p>
   </mat-card-content>

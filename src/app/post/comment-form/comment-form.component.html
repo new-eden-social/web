@@ -28,6 +28,7 @@
     <app-rich-content-editable
         #commentForm
         class="comment-input-field"
+        (submit)="submit()"
         (update)="writing($event)">
     </app-rich-content-editable>
   </div>

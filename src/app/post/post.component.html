@@ -24,6 +24,6 @@
       <button mat-button (click)="loadMoreComments()">Load older comments</button>
     </div>
     <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
-    <app-comment-form [postId]="post.id"></app-comment-form>
+    <app-comment-form *ngIf="showCommentForm" [postId]="post.id"></app-comment-form>
   </div>
 </mat-card>
