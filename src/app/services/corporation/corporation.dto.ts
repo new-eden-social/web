@@ -1,5 +1,6 @@
 import { DAllianceShort } from '../alliance/alliance.dto';
 import { DPagination } from '../paggination.dto';
+import {DFollow} from '../follow/follow.dto';
 
 export class DCorporationIcon {
   px64x64: string;
@@ -34,6 +35,7 @@ export class DCorporation {
   description: string;
   alliance?: DAllianceShort;
   icon: DCorporationIcon;
+  followers: DFollow[];
 
   /* LIVE Data*/
   iskDestroyed: number;

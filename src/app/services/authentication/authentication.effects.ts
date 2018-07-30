@@ -6,7 +6,7 @@ import {
   UnAuthenticate,
 } from './authentication.actions';
 import { catchError, map, mergeMap, tap } from 'rxjs/internal/operators';
-import { DCharacterShort } from '../character/character.dto';
+import {DCharacter, DCharacterShort} from '../character/character.dto';
 import { of } from 'rxjs/index';
 import { Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Rx';
@@ -36,7 +36,7 @@ export class AuthenticationEffects extends ApiService {
   checkAuthenticated$: Observable<AuthenticateSuccess | UnAuthenticate> = this.actions$.pipe(
     ofType<AuthenticateCheck>(AuthenticationActionTypes.AUTHENTICATE_CHECK),
     mergeMap(() => {
-      return this.request<DCharacterShort>('GET', `${this.uri}/verify`).pipe(
+      return this.request<DCharacter>('GET', `${this.uri}/verify`).pipe(
         map(response => new AuthenticateSuccess(response)),
         catchError(() => of(new UnAuthenticate())),
       );

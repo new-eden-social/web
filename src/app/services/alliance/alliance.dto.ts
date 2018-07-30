@@ -1,5 +1,6 @@
 import { DPagination } from '../paggination.dto';
 import { DCorporationShortWithoutAlliance } from '../corporation/corporation.dto';
+import {DFollow} from '../follow/follow.dto';
 
 export class DAllianceIcon {
   px64x64: string;
@@ -23,6 +24,7 @@ export class DAlliance {
   dateFounded: Date;
   executorCorporation: DCorporationShortWithoutAlliance;
   icon: DAllianceIcon;
+  followers: DFollow[];
 
   /* LIVE Data */
   hasSupers: boolean;

@@ -7,7 +7,9 @@
                       [handle]="alliance.handle"
                       [type]="'alliance'">
 
-    <button mat-raised-button color="primary">Follow</button>
+    <button mat-raised-button
+            (click)="follow()"
+            color="primary">Follow</button>
   </app-profile-header>
 
   <div class="content">
@@ -19,12 +21,8 @@
           <span class="number">113</span>
         </div>
         <div class="stats-item">
-          <span>Following</span>
-          <span class="number">20</span>
-        </div>
-        <div class="stats-item">
           <span>Followers</span>
-          <span class="number">13</span>
+          <span class="number">{{alliance.followers.length}}</span>
         </div>
       </div>
 

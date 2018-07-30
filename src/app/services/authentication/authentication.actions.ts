@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { DCharacterShort } from '../character/character.dto';
-import { IAuthenticationData, IRefreshResponse } from './authentication.interface';
+import { DCharacter } from '../character/character.dto';
+import { IAuthenticationData } from './authentication.interface';
 
 export enum AuthenticationActionTypes {
   AUTHENTICATE = '[Authentication] Authenticating User',
@@ -19,7 +19,7 @@ export class Authenticate implements Action {
 export class AuthenticateSuccess implements Action {
   readonly type = AuthenticationActionTypes.AUTHENTICATE_SUCCESS;
 
-  constructor(public payload: DCharacterShort) {
+  constructor(public payload: DCharacter) {
   }
 }
 

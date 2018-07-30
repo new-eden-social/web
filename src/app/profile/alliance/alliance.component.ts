@@ -5,6 +5,7 @@ import { DAlliance } from '../../services/alliance/alliance.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import { LoadAlliance } from '../../services/alliance/alliance.actions';
+import { FollowAlliance } from '../../services/follow/follow.actions';
 
 @Component({
   selector: 'app-alliance',
@@ -37,4 +38,7 @@ export class AllianceComponent implements OnInit {
     });
   }
 
+  follow() {
+    this.store.dispatch(new FollowAlliance({ allianceId: this.alliance.id }));
+  }
 }

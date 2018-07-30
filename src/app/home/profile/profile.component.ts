@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { DCharacterShort } from '../../services/character/character.dto';
+import {DCharacter} from '../../services/character/character.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 
@@ -11,7 +11,7 @@ import { IAppState } from '../../app.store';
 })
 export class HomeProfileComponent implements OnInit {
 
-  character$: Observable<DCharacterShort>;
+  character$: Observable<DCharacter>;
 
   constructor(
     private store: Store<IAppState>,

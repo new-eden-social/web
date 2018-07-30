@@ -5,6 +5,7 @@ import { DCorporation } from '../../services/corporation/corporation.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import { LoadCorporation } from '../../services/corporation/corporaiton.actions';
+import {FollowCharacter, FollowCorporation} from '../../services/follow/follow.actions';
 
 @Component({
   selector: 'app-corporation',
@@ -42,5 +43,9 @@ export class CorporationComponent implements OnInit {
 
       this.store.dispatch(new LoadCorporation(id));
     });
+  }
+
+  follow() {
+    this.store.dispatch(new FollowCorporation({ corporationId: this.corporation.id }));
   }
 }

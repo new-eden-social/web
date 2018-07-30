@@ -1,5 +1,6 @@
 import { DCorporationShort } from '../corporation/corporation.dto';
 import { DPagination } from '../paggination.dto';
+import {DFollow} from '../follow/follow.dto';
 
 
 export class DCharacterPortrait {
@@ -35,6 +36,8 @@ export class DCharacter {
   securityStatus: number;
   portrait: DCharacterPortrait;
   corporation: DCorporationShort;
+  followers: DFollow[];
+  following: DFollow[];
 
   /* LIVE Data*/
   iskDestroyed: number;
