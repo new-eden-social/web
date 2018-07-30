@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import { LoadCharacter } from '../../services/character/character.actions';
 import { GetCharacterWall, LoadPost } from '../../services/post/post.actions';
+import {FollowCharacter} from '../../services/follow/follow.actions';
 
 @Component({
   selector: 'app-character',
@@ -16,6 +17,8 @@ import { GetCharacterWall, LoadPost } from '../../services/post/post.actions';
 export class CharacterComponent implements OnInit {
 
   authenticated$: Observable<boolean>;
+  authenticatedCharacterId$: Observable<number>;
+
   character: DCharacter;
 
   constructor(
@@ -26,6 +29,7 @@ export class CharacterComponent implements OnInit {
 
   ngOnInit() {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.authenticatedCharacterId$ = this.store.pipe(select('authentication', 'character', 'id'));
 
     this.route.params.subscribe(() => {
       const id = this.route.snapshot.paramMap.get('id');
@@ -37,5 +41,9 @@ export class CharacterComponent implements OnInit {
 
       this.store.dispatch(new LoadCharacter(id));
     });
+  }
+
+  follow() {
+    this.store.dispatch(new FollowCharacter({ characterId: this.character.id }));
   }
 }

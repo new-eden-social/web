@@ -31,6 +31,7 @@ import { INotificationState } from './services/notification/notification.interfa
 import { IApiState } from './services/api.interface';
 import { apiReducer } from './services/api.reducer';
 import { ApiEffects } from './services/api.effects';
+import {FollowEffects} from './services/follow/follow.effects';
 
 export interface IAppState {
   authentication?: IAuthenticationState,
@@ -85,4 +86,5 @@ export const effects = [
   WebsocketEffects,
   NotificationEffects,
   ApiEffects,
+  FollowEffects,
 ];

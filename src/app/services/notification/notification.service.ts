@@ -32,6 +32,8 @@ export class NotificationService {
         return `<strong>${name}</strong> has commented on <strong>your post</strong>.`;
       case NOTIFICATION_TYPE.NEW_COMMENT_ON_A_POST_YOU_PARTICIPATE:
         return `<strong>${name}</strong> has commented on <strong>a post you participate</strong>.`;
+      case NOTIFICATION_TYPE.NEW_FOLLOWER:
+        return `<strong>${name}</strong> is now following you.`;
       default:
         return `Unknown notification type: ${notification.type}`;
     }
@@ -50,6 +52,8 @@ export class NotificationService {
         return `${name} has commented on your post.`;
       case NOTIFICATION_TYPE.NEW_COMMENT_ON_A_POST_YOU_PARTICIPATE:
         return `${name} has commented on a post you participate.`;
+      case NOTIFICATION_TYPE.NEW_FOLLOWER:
+        return `${name} is now following you.`;
       default:
         return `Unknown notification type: ${notification.type}`;
     }

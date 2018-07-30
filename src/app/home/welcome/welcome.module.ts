@@ -4,6 +4,7 @@ import { HomeWelcomeComponent } from './welcome.component';
 import { MatButtonModule, MatCardModule } from '@angular/material';
 import { PostListModule } from '../../post-list/post-list.module';
 import { LoadingModule } from '../../loading/loading.module';
+import {FooterModule} from '../../footer/footer.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { LoadingModule } from '../../loading/loading.module';
     MatButtonModule,
     PostListModule,
     LoadingModule,
+    FooterModule,
   ],
   exports: [HomeWelcomeComponent],
   declarations: [HomeWelcomeComponent],

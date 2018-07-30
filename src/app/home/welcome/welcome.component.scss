@@ -10,10 +10,6 @@
     flex-direction: column;
     align-items: center;
 
-    &:last-child {
-      margin-bottom: 10em;
-    }
-
     h1 {
       text-transform: uppercase;
       letter-spacing: .09em;
@@ -99,6 +95,15 @@
       margin: 1em;
       font-size: 1.5em;
       font-weight: 500;
+    }
+  }
+
+  .footer {
+    margin-bottom: 1em;
+    app-footer {
+      width: 100%;
+      justify-content: space-evenly;
+      flex-direction: row;
     }
   }
 }

@@ -62,8 +62,19 @@ export class NavbarNotificationsComponent implements OnInit {
   }
 
   openNotification(notification: DNotification) {
-    if (!notification.seenAt) this.store.dispatch(new SeenNotification(notification.id));
-    if (notification.post) this.router.navigate(this.postService.getPostLink(notification.post));
+    if (!notification.seenAt) {
+      this.store.dispatch(new SeenNotification(notification.id));
+    }
+
+    if (notification.post) {
+      this.router.navigate(this.postService.getPostLink(notification.post));
+    } else if (notification.senderCharacter) {
+      this.router.navigate(['character', notification.senderCharacter.id]);
+    } else if (notification.senderCorporation) {
+      this.router.navigate(['corporation', notification.senderCorporation.id])
+    } else if (notification.senderAlliance) {
+      this.router.navigate(['alliance', notification.senderAlliance.id])
+    }
   }
 
   leftNotifications() {
