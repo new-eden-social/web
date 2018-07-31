@@ -25,6 +25,7 @@ export class DAlliance {
   executorCorporation: DCorporationShortWithoutAlliance;
   icon: DAllianceIcon;
   followers: DFollow[];
+  numPosts: number;
 
   /* LIVE Data */
   hasSupers: boolean;

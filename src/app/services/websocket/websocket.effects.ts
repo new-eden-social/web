@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, Subscription } from 'rxjs/Rx';
 import {
@@ -50,7 +50,7 @@ import { DComment } from '../comment/comment.dto';
 import { NewComment } from '../comment/comment.actions';
 
 @Injectable()
-export class WebsocketEffects {
+export class WebsocketEffects implements OnInit {
 
   @Effect()
   connect$: Observable<ConnectSuccess | ConnectTimeout | ConnectError> = this.actions$.pipe(
@@ -442,6 +442,21 @@ export class WebsocketEffects {
     private store: Store<IAppState>,
     private snackBar: MatSnackBar,
   ) {
+  }
+
+  ngOnInit() {
+    this.store.pipe(
+      select('websocket', 'connected'),
+      filter(connected => connected),
+    ).subscribe(() => {
+      for ( const subscriptionName in this.subscriptions) {
+        if (!this.subscriptions.hasOwnProperty(subscriptionName)) {
+          continue;
+        }
+
+        this.subscriptions[subscriptionName].unsubscribe();
+      }
+    });
   }
 
   private showSnackBar(message: string) {

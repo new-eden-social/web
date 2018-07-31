@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from './app.store';
-import { filter } from 'rxjs/internal/operators';
+import {filter, take} from 'rxjs/internal/operators';
 import { Connect } from './services/websocket/websocket.actions';
 import { Load } from './services/notification/notification.actions';
 
@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
     this.store.pipe(
       select('authentication', 'authenticated'),
       filter(authenticated => authenticated),
+      take(1),
     ).subscribe(authenticated => {
       console.log('Trying to initially get notifications');
       this.store.dispatch(new Load({ limit: 100, page: 0 }));

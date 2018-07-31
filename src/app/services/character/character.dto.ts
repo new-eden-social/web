@@ -38,6 +38,7 @@ export class DCharacter {
   corporation: DCorporationShort;
   followers: DFollow[];
   following: DFollow[];
+  numPosts: number;
 
   /* LIVE Data*/
   iskDestroyed: number;

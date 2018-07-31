@@ -18,12 +18,12 @@
       <div class="stats">
         <div class="stats-item">
           <span>Posts</span>
-          <span class="number">113</span>
+          <span class="number">{{corporation.numPosts}}</span>
         </div>
-        <div class="stats-item">
+        <a routerLink="./followers" class="stats-item">
           <span>Followers</span>
           <span class="number">{{corporation.followers.length}}</span>
-        </div>
+        </a>
       </div>
 
       <div class="about">

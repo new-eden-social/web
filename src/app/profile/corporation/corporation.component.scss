@@ -1,4 +1,5 @@
 @import "../../../variables";
+@import "../../../common";
 
 app-loading {
   display: flex;
@@ -42,23 +43,7 @@ app-loading {
       }
 
       .stats {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        font-size: 1em;
-
-        .stats-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-transform: uppercase;
-
-          .number {
-            font-weight: 500;
-            font-size: 1.2em;
-            color: map-get($app-primary, 500);
-          }
-        }
+        @include profile-stats
       }
 
       .about {

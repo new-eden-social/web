@@ -6,6 +6,8 @@ import { AllianceModule } from './alliance/alliance.module';
 import { CharacterModule } from './character/character.module';
 import { CorporationModule } from './corporation/corporation.module';
 import { DescriptionModule } from './description/description.module';
+import {FollowersModule} from './followers/followers.module';
+import {FollowingModule} from './following/following.module';
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { DescriptionModule } from './description/description.module';
     CharacterModule,
     CorporationModule,
     DescriptionModule,
+    FollowersModule,
+    FollowingModule,
   ],
-  declarations: []
 })
 export class ProfileModule { }

@@ -36,6 +36,7 @@ export class DCorporation {
   alliance?: DAllianceShort;
   icon: DCorporationIcon;
   followers: DFollow[];
+  numPosts: number;
 
   /* LIVE Data*/
   iskDestroyed: number;
