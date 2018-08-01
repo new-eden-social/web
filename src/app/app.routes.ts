@@ -39,7 +39,7 @@ export const appRoutes: Routes = [
       { path: '', component: PostListComponent, data: { entity: 'corporation' } },
       { path: 'post/:postId', component: PostSingleComponent, data: { entity: 'corporation' } },
       { path: 'description', component: DescriptionComponent, data: { entity: 'corporation' } },
-      { path: 'followers', component: FollowersComponent, data: { entity: 'character' } },
+      { path: 'followers', component: FollowersComponent, data: { entity: 'corporation' } },
     ],
   },
   {
@@ -48,7 +48,7 @@ export const appRoutes: Routes = [
     children: [
       { path: '', component: PostListComponent, data: { entity: 'alliance' } },
       { path: 'post/:postId', component: PostSingleComponent, data: { entity: 'alliance' } },
-      { path: 'followers', component: FollowersComponent, data: { entity: 'character' } },
+      { path: 'followers', component: FollowersComponent, data: { entity: 'alliance' } },
     ],
   },
   { path: 'authentication/callback', component: AuthenticationComponent },
