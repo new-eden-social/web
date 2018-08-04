@@ -1,4 +1,4 @@
-<mat-card class="profile-card">
+<mat-card class="profile-card" *ngIf="character$ | async">
 
   <div class="profile-info">
     <img src="{{ (character$ | async).portrait.px128x128 }}" class="profile-image">
@@ -26,4 +26,8 @@
       <span class="number">{{ (character$ | async).followers.length }}</span>
     </a>
   </div>
+</mat-card>
+
+<mat-card class="profile-card" *ngIf="!(character$ | async)">
+  <app-loading></app-loading>
 </mat-card>

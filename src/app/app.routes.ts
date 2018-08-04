@@ -48,6 +48,7 @@ export const appRoutes: Routes = [
     children: [
       { path: '', component: PostListComponent, data: { entity: 'alliance' } },
       { path: 'post/:postId', component: PostSingleComponent, data: { entity: 'alliance' } },
+      { path: 'description', component: DescriptionComponent, data: { entity: 'alliance' } },
       { path: 'followers', component: FollowersComponent, data: { entity: 'alliance' } },
     ],
   },

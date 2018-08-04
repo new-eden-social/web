@@ -8,7 +8,7 @@ export enum CharacterActionTypes {
 
 export class LoadCharacter implements Action {
   readonly type = CharacterActionTypes.LOAD;
-  constructor(public payload: string) {
+  constructor(public payload: string|number) {
   }
 }
 

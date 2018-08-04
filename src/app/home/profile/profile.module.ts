@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeProfileComponent } from './profile.component';
 import { MatButtonModule, MatCardModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import {LoadingModule} from '../../loading/loading.module';
 
 @NgModule({
   imports: [
@@ -10,6 +11,7 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     MatCardModule,
     RouterModule,
+    LoadingModule,
   ],
   exports: [HomeProfileComponent],
   declarations: [HomeProfileComponent],

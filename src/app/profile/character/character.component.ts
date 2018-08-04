@@ -6,7 +6,6 @@ import { DPost, DPostList } from '../../services/post/post.dto';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../app.store';
 import { LoadCharacter } from '../../services/character/character.actions';
-import { GetCharacterWall, LoadPost } from '../../services/post/post.actions';
 import {FollowCharacter} from '../../services/follow/follow.actions';
 
 @Component({
@@ -18,6 +17,7 @@ export class CharacterComponent implements OnInit {
 
   authenticated$: Observable<boolean>;
   authenticatedCharacterId$: Observable<number>;
+  authenticatedCharacterId: number;
 
   character: DCharacter;
 
@@ -41,9 +41,17 @@ export class CharacterComponent implements OnInit {
 
       this.store.dispatch(new LoadCharacter(id));
     });
+
+    this.authenticatedCharacterId$
+    .subscribe(characterId => this.authenticatedCharacterId = characterId);
   }
 
   follow() {
     this.store.dispatch(new FollowCharacter({ characterId: this.character.id }));
+  }
+
+  follower(): boolean {
+    return !!this.character.followers
+      .filter(follow => follow.follower.id === this.authenticatedCharacterId).length
   }
 }

@@ -9,7 +9,10 @@
 
     <button mat-raised-button
             (click)="follow()"
-            color="primary">Follow</button>
+            [color]="follower() ? 'accent' : 'primary'"
+            mat-raised-button>
+      {{ follower() ? 'Un Follow' : 'Follow' }}
+    </button>
   </app-profile-header>
 
   <div class="content">

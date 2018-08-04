@@ -4,6 +4,7 @@ import { IAppState } from './app.store';
 import {filter, take} from 'rxjs/internal/operators';
 import { Connect } from './services/websocket/websocket.actions';
 import { Load } from './services/notification/notification.actions';
+import {LoadCharacter} from './services/character/character.actions';
 
 @Component({
   selector: 'app-root',
@@ -31,12 +32,13 @@ export class AppComponent implements OnInit {
 
     // Initially we check if we are authenticated, if we are, we try to establish connection
     this.store.pipe(
-      select('authentication', 'authenticated'),
-      filter(authenticated => authenticated),
-      take(1),
-    ).subscribe(authenticated => {
+      select('authentication'),
+      filter(authentication => authentication.authenticated),
+    ).subscribe(authentication => {
       console.log('Trying to initially get notifications');
       this.store.dispatch(new Load({ limit: 100, page: 0 }));
+      console.log('Trying to initially get character');
+      this.store.dispatch(new LoadCharacter(authentication.character.id));
     });
   }
 }

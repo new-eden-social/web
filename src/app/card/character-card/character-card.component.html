@@ -1,4 +1,6 @@
-<img class="image" [src]="character.portrait.px256x256"/>
+<a [routerLink]="['/character', character.id]">
+  <img class="image" [src]="character.portrait.px256x256"/>
+</a>
 <div class="info">
   <a class="name"
      [routerLink]="['/character', character.id]">

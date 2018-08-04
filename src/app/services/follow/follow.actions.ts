@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import {DFollowAction} from './follow.dto';
 
 export enum FollowActionTypes {
   FOLLOW_CHARACTER = '[Follow] Follow character',
@@ -31,6 +32,9 @@ export class FollowAlliance implements Action {
 
 export class FollowSuccess implements Action {
   readonly type = FollowActionTypes.FOLLOW_SUCCESS;
+
+  constructor(public payload: { follow: DFollowAction }) {
+  }
 }
 
 export type FollowActionsUnion =

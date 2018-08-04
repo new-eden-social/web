@@ -15,6 +15,9 @@ import {FollowCharacter, FollowCorporation} from '../../services/follow/follow.a
 export class CorporationComponent implements OnInit {
 
   authenticated$: Observable<boolean>;
+  authenticatedCharacterId$: Observable<number>;
+  authenticatedCharacterId: number;
+
   corporation: DCorporation;
 
   allianceName: string;
@@ -28,6 +31,7 @@ export class CorporationComponent implements OnInit {
 
   ngOnInit() {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.authenticatedCharacterId$ = this.store.pipe(select('authentication', 'character', 'id'));
 
     this.route.params.subscribe(() => {
       const id = this.route.snapshot.paramMap.get('id');
@@ -43,9 +47,17 @@ export class CorporationComponent implements OnInit {
 
       this.store.dispatch(new LoadCorporation(id));
     });
+
+    this.authenticatedCharacterId$
+      .subscribe(characterId => this.authenticatedCharacterId = characterId);
   }
 
   follow() {
     this.store.dispatch(new FollowCorporation({ corporationId: this.corporation.id }));
+  }
+
+  follower(): boolean {
+    return !!this.corporation.followers
+      .filter(follow => follow.follower.id === this.authenticatedCharacterId).length
   }
 }

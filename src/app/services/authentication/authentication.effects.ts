@@ -36,7 +36,7 @@ export class AuthenticationEffects extends ApiService {
   checkAuthenticated$: Observable<AuthenticateSuccess | UnAuthenticate> = this.actions$.pipe(
     ofType<AuthenticateCheck>(AuthenticationActionTypes.AUTHENTICATE_CHECK),
     mergeMap(() => {
-      return this.request<DCharacter>('GET', `${this.uri}/verify`).pipe(
+      return this.request<DCharacterShort>('GET', `${this.uri}/verify`).pipe(
         map(response => new AuthenticateSuccess(response)),
         catchError(() => of(new UnAuthenticate())),
       );

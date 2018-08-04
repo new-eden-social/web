@@ -15,6 +15,9 @@ import { FollowAlliance } from '../../services/follow/follow.actions';
 export class AllianceComponent implements OnInit {
 
   authenticated$: Observable<boolean>;
+  authenticatedCharacterId$: Observable<number>;
+  authenticatedCharacterId: number;
+
   alliance: DAlliance;
 
   constructor(
@@ -25,6 +28,7 @@ export class AllianceComponent implements OnInit {
 
   ngOnInit() {
     this.authenticated$ = this.store.pipe(select('authentication', 'authenticated'));
+    this.authenticatedCharacterId$ = this.store.pipe(select('authentication', 'character', 'id'));
 
     this.route.params.subscribe(() => {
       const id = this.route.snapshot.paramMap.get('id');
@@ -36,9 +40,17 @@ export class AllianceComponent implements OnInit {
 
       this.store.dispatch(new LoadAlliance(id));
     });
+
+    this.authenticatedCharacterId$
+      .subscribe(characterId => this.authenticatedCharacterId = characterId);
   }
 
   follow() {
     this.store.dispatch(new FollowAlliance({ allianceId: this.alliance.id }));
+  }
+
+  follower(): boolean {
+    return !!this.alliance.followers
+      .filter(follow => follow.follower.id === this.authenticatedCharacterId).length
   }
 }

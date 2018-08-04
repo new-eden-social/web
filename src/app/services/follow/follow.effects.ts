@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Rx';
 import { Exception } from '../api.actions';
 import { of } from 'rxjs/index';
 import {FollowActionTypes, FollowAlliance, FollowCharacter, FollowCorporation, FollowSuccess} from './follow.actions';
+import {DFollowAction} from './follow.dto';
 
 @Injectable()
 export class FollowEffects extends ApiService {
@@ -18,9 +19,9 @@ export class FollowEffects extends ApiService {
   followCharacter$: Observable<FollowSuccess | Exception> = this.actions$.pipe(
     ofType<FollowCharacter>(FollowActionTypes.FOLLOW_CHARACTER),
     concatMap(({ payload }) =>
-      this.request<void>('POST', `${this.uri}/character/${payload.characterId}`)
+      this.request<DFollowAction>('POST', `${this.uri}/character/${payload.characterId}`)
       .pipe(
-        map(follow => new FollowSuccess()),
+        map(follow => new FollowSuccess({ follow })),
         catchError(error => of(new Exception(error))),
       )
     ),
@@ -30,9 +31,9 @@ export class FollowEffects extends ApiService {
   followCorporation$: Observable<FollowSuccess | Exception> = this.actions$.pipe(
     ofType<FollowCorporation>(FollowActionTypes.FOLLOW_CORPORATION),
     concatMap(({ payload }) =>
-      this.request<void>('POST', `${this.uri}/corporation/${payload.corporationId}`)
+      this.request<DFollowAction>('POST', `${this.uri}/corporation/${payload.corporationId}`)
         .pipe(
-          map(follow => new FollowSuccess()),
+          map(follow => new FollowSuccess({ follow })),
           catchError(error => of(new Exception(error))),
         )
     ),
@@ -42,9 +43,9 @@ export class FollowEffects extends ApiService {
   followAlliance$: Observable<FollowSuccess | Exception> = this.actions$.pipe(
     ofType<FollowAlliance>(FollowActionTypes.FOLLOW_ALLIANCE),
     concatMap(({ payload }) =>
-      this.request<void>('POST', `${this.uri}/alliance/${payload.allianceId}`)
+      this.request<DFollowAction>('POST', `${this.uri}/alliance/${payload.allianceId}`)
         .pipe(
-          map(follow => new FollowSuccess()),
+          map(follow => new FollowSuccess({ follow })),
           catchError(error => of(new Exception(error))),
         )
     ),

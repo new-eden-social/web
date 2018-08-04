@@ -7,10 +7,12 @@
                       [subheader]="{ text: character.corporation.name, link: ['/corporation', character.corporation.id]  }"
                       [handle]="character.handle"
                       [type]="'character'">
-      <button *ngIf="character.id !== (authenticatedCharacterId$ | async)"
+      <button *ngIf="character.id !== authenticatedCharacterId"
               (click)="follow()"
-              mat-raised-button
-              color="primary">Follow</button>
+              [color]="follower() ? 'accent' : 'primary'"
+              mat-raised-button>
+        {{ follower() ? 'Un Follow' : 'Follow' }}
+      </button>
   </app-profile-header>
 
   <div class="content">
