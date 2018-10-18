@@ -227,9 +227,9 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
-"@nguniversal/common@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@nguniversal/common/-/common-6.0.0.tgz#50e4b80d08618064e3404306b24b97877db9007d"
+"@nguniversal/common@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@nguniversal/common/-/common-7.0.1.tgz#11508ecd89c952d8b95e64a8d34a7c0d4cedd0a5"
 
 "@nguniversal/express-engine@^6.0.0":
   version "6.0.0"
