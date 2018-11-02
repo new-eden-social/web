@@ -197,9 +197,9 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ctrl/ngx-emoji-mart@^0.4.0":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@ctrl/ngx-emoji-mart/-/ngx-emoji-mart-0.4.2.tgz#2a965d4dc610371e8bcae6ab5e01b69e59c72a34"
+"@ctrl/ngx-emoji-mart@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@ctrl/ngx-emoji-mart/-/ngx-emoji-mart-0.10.1.tgz#f0ed3aabee8318e7783210080a69718750bde1d0"
   dependencies:
     tslib "^1.9.0"
 
