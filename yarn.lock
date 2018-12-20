@@ -215,9 +215,10 @@
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-6.0.1.tgz#6049208d1ef8dc5f1f96ffc63373eab2d72f957c"
 
-"@ngrx/store@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-6.0.1.tgz#02c806ce20c698b997e81f5671e0edc07d32cf86"
+"@ngrx/store@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.0.0.tgz#5472000197c2a388b09afceb2d062cb37b03d334"
+  integrity sha512-fF4A4De/vtQawxGBc1jV5HiLrc/J3NS8A2UDRoD3kLdviDzAlAber6kuj5XmM+xxaI9f9qnUrwOVXr/oPfqoBg==
 
 "@ngtools/webpack@6.0.8":
   version "6.0.8"
