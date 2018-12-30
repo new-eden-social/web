@@ -4826,9 +4826,10 @@ ngrx-store-localstorage@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/ngrx-store-localstorage/-/ngrx-store-localstorage-5.0.1.tgz#83b1db02c7262dafd4866a3477fb7ac668aba3ba"
 
-ngx-infinite-scroll@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-6.0.1.tgz#571e54860ce32839451569bcf6e7a63cfae327bd"
+ngx-infinite-scroll@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-7.0.0.tgz#a59f8e1b9a69ef1f43adc745c96cb3a7672a4512"
+  integrity sha512-wUgQyT7ziY6Z52PNDbqSxG2NkreCL/fN6CgJf9EIwregEY+3idFeMIYZRfq4HoUWgxwhhbhx9F8yohhGwgmdTQ==
   dependencies:
     opencollective "^1.0.3"
 
