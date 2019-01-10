@@ -45,7 +45,7 @@
     "@types/socket.io": "^1.4.36",
     "@types/socket.io-client": "^1.4.32",
     "angular2-moment": "^1.9.0",
-    "core-js": "^2.5.7",
+    "core-js": "^2.6.2",
     "express": "^4.16.3",
     "flux-standard-action": "^2.0.3",
     "hammerjs": "^2.0.8",
