@@ -1,3 +1,7 @@
+# Archived! Moved to [new-eden-social/hub/web](https://github.com/new-eden-social/hub/tree/master/web)
+
+---
+
 <h1 align="center">
   EVE Book WEB
 </h1>
